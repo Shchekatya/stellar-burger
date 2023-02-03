@@ -1,45 +1,45 @@
 .left {
-    width: 50%; 
+  width: 50%;
 }
 
 
-.ingredients {  
-    max-height: 65vh;
-    overflow: auto;
-    margin-top: 40px;
+.ingredients {
+  max-height: 65vh;
+  overflow: auto;
+  margin-top: 40px;
 }
 
 .ingredients::-webkit-scrollbar {
-    width: 8px;    
-  }
-
-  .ingredients::-webkit-scrollbar-track {
-    background: #2F2F37;        /* цвет зоны отслеживания */
-  }
-
-  .ingredients::-webkit-scrollbar-thumb {
-    background-color: #8585AD;    /* цвет бегунка */   
-  }
-  .nav {
-    padding: 0;
-  }
-
-.nav a {   
-    text-decoration: none;
-    color: white;
-    text-align: center;    
-    box-sizing: border-box;
-    width: 100%;
-    border-bottom: 1px solid #2F2F37;
+  width: 8px;
 }
 
-.nav a:hover {  
-    border-bottom: 2px solid #4C4CFF;
+.ingredients::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.nav {
+  padding: 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid #2F2F37;
+}
+
+.nav a:hover {
+  border-bottom: 2px solid #4C4CFF;
 
 }
 
 .show {
-    display: flex;
-    flex-wrap: wrap;  
+  display: flex;
+  flex-wrap: wrap;
 }
-

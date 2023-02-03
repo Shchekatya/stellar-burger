@@ -1,12 +1,10 @@
-
-
 .show {
     display: flex;
     flex-wrap: wrap;
 }
 
 .card {
-    text-align: center;   
+    text-align: center;
     width: 272px;
     margin-bottom: 32px;
 }

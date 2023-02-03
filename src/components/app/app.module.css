@@ -2,9 +2,10 @@
   text-align: left;
 }
 
-main, header {
+main,
+header {
   width: 1240px;
-  margin:  0 auto; 
+  margin: 0 auto;
 }
 
 main {
@@ -14,9 +15,12 @@ main {
 }
 
 @media (max-width: 1240px) {
-  main, header {
-    width: 100%; 
+
+  main,
+  header {
+    width: 100%;
   }
+
   main {
     flex-direction: column;
   }
