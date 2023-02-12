@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/AppHeader";
 import { BurgerIngredients } from "../burger-ingredients/BurgerIngredients";
-//import items from "../../utils/data";
+import api from "../../utils/api";
 import { BurgerConstructor } from "../burger-constructor/BurgerConstructor";
 
 const App = () => {
@@ -11,9 +11,7 @@ const App = () => {
   const [state, setState] = React.useState({
     items: [],
     loading: true,
-  });
-
-  const api = "https://norma.nomoreparties.space/api/ingredients";
+  }); 
 
   const addToOrder = (item) => {
     setOrders([...orders, item]);
@@ -25,9 +23,11 @@ const App = () => {
       try {
         const res = await fetch(api);
         const data = await res.json();
+       // return res.ok ? res.json() : res.json().then((err) => Promise.reject(err)).
         setState({ items: data.data, loading: false });
       } catch (error) {
         console.log("АШИПКА!!", error);
+        
       }
     };
 

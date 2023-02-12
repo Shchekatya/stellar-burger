@@ -1,4 +1,5 @@
 import detailsStyle from "../ingredient-details/ingredient-details.module.css";
+import PropTypes from "prop-types";
 
 export const IngredientDetails = (props) => {
   const arr = props.items;
@@ -7,7 +8,7 @@ export const IngredientDetails = (props) => {
   return (
     <div className={detailsStyle.container}>
       <h1 className="text text_type_main-large">Детали ингредиента</h1>
-      <img src={arr[item].image} />
+      <img src={arr[item].image} alt={arr[item].name}/>
       <h2 className="text text_type_main-medium">{arr[item].name}</h2>
       <div className={detailsStyle.calories}>
         <p className="mr-5 text text_type_main-small">
@@ -29,4 +30,18 @@ export const IngredientDetails = (props) => {
       </div>
     </div>
   );
+};
+
+
+IngredientDetails.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,    
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    calories: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,   
+  })).isRequired,
 };

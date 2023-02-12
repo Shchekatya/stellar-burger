@@ -36,10 +36,12 @@ export const BurgerConstructor = (props) => {
                 thumbnail={order.image}
               />
             </div>
-
-            <Modal details={details} onClose={() => setDetails(false)}>
+{details &&
+<Modal onClose={() => setDetails(false)}>
               <IngredientDetails items={props.items} id={order._id} />
             </Modal>
+}
+            
           </>
         ))}
       </div>
@@ -54,15 +56,22 @@ export const BurgerConstructor = (props) => {
         >
           Оформить заказ
         </Button>
-
-        <Modal open={open} onClose={() => setOpen(false)}>
+{open &&
+  <Modal onClose={() => setOpen(false)}>
           <OrderDetails />
         </Modal>
+}
+        
       </div>
     </div>
   );
 };
 
 BurgerConstructor.propTypes = {
-  orders: PropTypes.array,
-};
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,    
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
+}; 

@@ -36,5 +36,10 @@ export const BurgerIngredients = (props) => {
 };
 
 BurgerIngredients.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,    
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
 }; 

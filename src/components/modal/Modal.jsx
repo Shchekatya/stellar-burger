@@ -1,11 +1,17 @@
 import  { createPortal } from "react-dom";
 import { ModalOverlay } from "../modal-overlay/ModalOverlay";
 import ModalStyle from "../modal/modal.module.css";
+import PropTypes from "prop-types";
 
 const modalElement = document.querySelector("#modal");
 
 export const Modal = (props) => {
-  if (props.open || props.details) {
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      props.onClose()   
+    }
+    });  
+ 
     return createPortal(
       <>
         <ModalOverlay onClick={props.onClose} />
@@ -27,5 +33,7 @@ export const Modal = (props) => {
       modalElement
     );
   }
-  return null;
-};
+
+  Modal.propTypes = {
+    onClose: PropTypes.func.isRequired,   
+  };

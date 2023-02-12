@@ -13,7 +13,7 @@ export const Ingredients = (props) => {
             onClick={() => props.onAdd(item)}
             className={Ing.card}
           >
-            <img src={item.image} />
+            <img src={item.image} alt={item.name}/>
             <p className="text text_type_digits-default">
               {item.price}
               <CurrencyIcon type="primary" />
@@ -26,8 +26,13 @@ export const Ingredients = (props) => {
 };
 
 Ingredients.propTypes = {
-  type: PropTypes.string,
-  items: PropTypes.array,
+  type: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,    
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default Ingredients;
