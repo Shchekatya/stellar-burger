@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 export const ModalOverlay = (props) => {
   return (
-    <div className={ModalOverStyle.background} onClick={props.onClose}></div>
+    <div className={ModalOverStyle.background} onClick={props.onClick}></div>
   );
 };
 
