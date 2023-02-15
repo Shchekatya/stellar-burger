@@ -1,0 +1,38 @@
+.right {
+  position: relative;
+  min-height: 75vh;
+  width: 45%;
+  margin-top: 80px;
+}
+
+.list {
+  max-height: 55vh;
+  overflow: auto;
+  margin: 16px;
+  padding: 8px;
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 40px;
+}
+
+.bottom button {
+  margin-left: 40px;
+}

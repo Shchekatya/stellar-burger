@@ -1,0 +1,41 @@
+.background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    }
+
+.modal {
+    background: rgba(28, 28, 33, 1);
+    width: 600px;
+    height: 600px;
+    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+
+
+
+.svg {
+    display: block;
+    width: 18px;
+    position: absolute;
+    right: 40px;
+    top: 60px;
+}
+
+.svg line {
+    stroke: #ffffff;
+    stroke-width: 10;
+}
+
+.svg:hover line {
+    stroke: #4C4CFF;
+}

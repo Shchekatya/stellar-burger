@@ -1,0 +1,14 @@
+.show {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    text-align: center;
+    width: 272px;
+    margin-bottom: 32px;
+}
+
+.card p {
+    margin: 4px 0;
+}
