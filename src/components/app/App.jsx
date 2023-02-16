@@ -8,8 +8,11 @@ import { IngredientContext } from "../../utils/ingredient-context";
 
 
 const App = () => {
-  const [orders, setOrders] = React.useState([]);
- // const { state, setState } = useContext(IngredientContext);
+  const [orders, setOrders] = React.useState({
+    bun: null,
+    main: [],
+  });
+ 
 
 const [state, setState] = React.useState({
    items: [],
@@ -20,7 +23,14 @@ const [state, setState] = React.useState({
 
 
   const addToOrder = (item) => {
-    setOrders([...orders, item]);
+    if (item.type==="bun") {
+      setOrders({...orders, bun:item});
+    } else {
+      setOrders({
+        ...orders,
+        main: [...orders.main, item],
+      });
+    }    
   };
 
   React.useEffect(() => {
@@ -32,8 +42,7 @@ const [state, setState] = React.useState({
        // return res.ok ? res.json() : res.json().then((err) => Promise.reject(err)).
         setState({ items: data.data, loading: false });
       } catch (error) {
-        console.log("АШИПКА!!", error);
-        
+        console.log("АШИПКА!!", error);        
       }
     };
 

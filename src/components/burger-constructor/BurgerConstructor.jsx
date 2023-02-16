@@ -18,39 +18,40 @@ export const BurgerConstructor = (props) => {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
   const sum = useMemo(
-    () => props.orders.reduce((acc, cur) => acc + cur.price, 0),
+    () => (props.orders.main.reduce((acc, cur) => acc + cur.price, 0) + (props.orders.bun && props.orders.bun.price*2)),
     [props.orders]
   );
 
+  const sendOrder=async (url = 'https://norma.nomoreparties.space/api/orders', data = {"ingredients": ["60d3b41abdacab0026a733c6","60d3b41abdacab0026a733ca"]}) => {   
+    let response = await fetch(url, {
+      method: 'POST',      
+      body: JSON.stringify(data),
+    });
+    let result = await response.json();
+alert(result.message);
+  };
+
   const state= useContext(IngredientContext); 
   const items=state.state.items;
-
+console.log(props.orders.main)
+console.log(props.orders.bun)
   return (
     <div className={bConst.right}>
       <div
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
         className={bConst.list}
       >
-        {props.orders.filter(e => e.type==='bun').map((order) => (
-          <>
-            <div key={order._id} onClick={() => setDetails(true)}>
+         {props.orders.bun && <div onClick={() => setDetails(true)}>
               <ConstructorElement
-                type={order.type}
+                type={props.orders.bun.type}
                 isLocked={true}
-                text={order.name}
-                price={order.price}
-                thumbnail={order.image}
+                text={props.orders.bun.name}
+                price={props.orders.bun.price}
+                thumbnail={props.orders.bun.image}
               />
-            </div>
-{details &&
-<Modal onClose={() => setDetails(false)}>
-              <IngredientDetails items={items} id={order._id} />
-            </Modal>
-}
-            
-          </>
-        ))}
-        {props.orders.filter(e => e.type!='bun').map((order) => (
+            </div>}
+       
+        {props.orders.main.map((order) => (
           <>
             <div key={order._id} onClick={() => setDetails(true)}>
               <ConstructorElement
@@ -69,7 +70,15 @@ export const BurgerConstructor = (props) => {
             
           </>
         ))}
-
+{props.orders.bun && <div onClick={() => setDetails(true)}>
+              <ConstructorElement
+                type={props.orders.bun.type}
+                isLocked={true}
+                text={props.orders.bun.name}
+                price={props.orders.bun.price}
+                thumbnail={props.orders.bun.image}
+              />
+            </div>}
 
 
       </div>
@@ -80,7 +89,7 @@ export const BurgerConstructor = (props) => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => setOpen(true)}
+          onClick={() => {setOpen(true); sendOrder()}}
         >
           Оформить заказ
         </Button>
@@ -101,5 +110,5 @@ BurgerConstructor.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-  })).isRequired,
+  })),
 }; 
