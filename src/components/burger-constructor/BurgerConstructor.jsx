@@ -11,30 +11,46 @@ import { OrderDetails } from "../order-details/OrderDetails";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
 import { IngredientContext } from "../../utils/ingredient-context";
 import { useContext } from "react";
+import { PostContext } from "../../utils/post-context";
+
 
 
 
 export const BurgerConstructor = (props) => {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
+  const [post, setPost] = useState({});   
+ const idArr = props.orders.main.map(item => item._id.toString());
+ (props.orders.bun &&
+  idArr.push(props.orders.bun._id))
+
   const sum = useMemo(
     () => (props.orders.main.reduce((acc, cur) => acc + cur.price, 0) + (props.orders.bun && props.orders.bun.price*2)),
     [props.orders]
   );
-
-  const sendOrder=async (url = 'https://norma.nomoreparties.space/api/orders', data = {"ingredients": ["60d3b41abdacab0026a733c6","60d3b41abdacab0026a733ca"]}) => {   
+  let result;
+  const sendOrder = async (url = 'https://norma.nomoreparties.space/api/orders', 
+  data = {"ingredients": idArr}) => {  
+    try {
     let response = await fetch(url, {
-      method: 'POST',      
+      method: 'POST',   
+      headers: {
+        'Content-Type': 'application/json'
+      },   
       body: JSON.stringify(data),
     });
-    let result = await response.json();
-alert(result.message);
-  };
+    if (response.ok) {
+    result = await response.json();      
+     setPost({result});     
+    } else {
+      console.log("Ошибка HTTP: " + response.status);  }
+  } catch (error) {
+    console.log("АШИПКА!!", error);   
+  }};
 
   const state= useContext(IngredientContext); 
   const items=state.state.items;
-console.log(props.orders.main)
-console.log(props.orders.bun)
+
   return (
     <div className={bConst.right}>
       <div
@@ -43,18 +59,20 @@ console.log(props.orders.bun)
       >
          {props.orders.bun && <div onClick={() => setDetails(true)}>
               <ConstructorElement
-                type={props.orders.bun.type}
+              type="top"                
                 isLocked={true}
-                text={props.orders.bun.name}
+                text={`${props.orders.bun.name} (верх)`}
                 price={props.orders.bun.price}
                 thumbnail={props.orders.bun.image}
               />
             </div>}
        
-        {props.orders.main.map((order) => (
+        {props.orders.main.map((order) => {
+          return (
           <>
-            <div key={order._id} onClick={() => setDetails(true)}>
+            <div className={bConst.main}  onClick={() => setDetails(true)}>                
               <ConstructorElement
+              key={order._id}
                 type={order.type}
                 isLocked={false}
                 text={order.name}
@@ -62,19 +80,19 @@ console.log(props.orders.bun)
                 thumbnail={order.image}
               />
             </div>
-{details &&
+{details && 
 <Modal onClose={() => setDetails(false)}>
               <IngredientDetails items={items} id={order._id} />
             </Modal>
 }
             
           </>
-        ))}
+       ) })}
 {props.orders.bun && <div onClick={() => setDetails(true)}>
               <ConstructorElement
-                type={props.orders.bun.type}
+                type="bottom"
                 isLocked={true}
-                text={props.orders.bun.name}
+                text={`${props.orders.bun.name} (низ)`}
                 price={props.orders.bun.price}
                 thumbnail={props.orders.bun.image}
               />
@@ -93,10 +111,14 @@ console.log(props.orders.bun)
         >
           Оформить заказ
         </Button>
-{open &&
-  <Modal onClose={() => setOpen(false)}>
+{open && post.result &&
+
+  <Modal onClose={() => setOpen(false)}> {}
+    <PostContext.Provider value={{post}}>
           <OrderDetails />
+          </PostContext.Provider>
         </Modal>
+       
 }
         
       </div>
@@ -105,10 +127,8 @@ console.log(props.orders.bun)
 };
 
 BurgerConstructor.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,    
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-  })),
+  orders: PropTypes.objectOf(PropTypes.shape({
+    bun: PropTypes.object,
+    main: PropTypes.array,
+  })).isRequired
 }; 

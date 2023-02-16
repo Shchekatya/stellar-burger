@@ -24,6 +24,20 @@
   background-color: #8585AD;
 }
 
+.list div {
+  padding-left: 20px;
+}
+.main {
+position: relative;
+}
+
+.main::before {
+content: url('../../images/vector.svg');
+position: absolute;
+top: 44%;
+left: 0;
+}
+
 .bottom {
   display: flex;
   align-items: center;
