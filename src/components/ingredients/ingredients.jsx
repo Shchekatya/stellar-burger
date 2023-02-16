@@ -1,6 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+//import { IngredientContext } from "../../utils/ingredient-context";
 import Ing from "../ingredients/ingredients.module.css";
+//import { useContext } from "react";
+
 
 export const Ingredients = (props) => {
   return (

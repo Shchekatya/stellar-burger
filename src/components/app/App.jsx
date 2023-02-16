@@ -4,14 +4,20 @@ import { AppHeader } from "../app-header/AppHeader";
 import { BurgerIngredients } from "../burger-ingredients/BurgerIngredients";
 import api from "../../utils/api";
 import { BurgerConstructor } from "../burger-constructor/BurgerConstructor";
+import { IngredientContext } from "../../utils/ingredient-context";
+
 
 const App = () => {
   const [orders, setOrders] = React.useState([]);
+ // const { state, setState } = useContext(IngredientContext);
 
-  const [state, setState] = React.useState({
-    items: [],
-    loading: true,
-  }); 
+const [state, setState] = React.useState({
+   items: [],
+  loading: true,
+ }); 
+
+
+
 
   const addToOrder = (item) => {
     setOrders([...orders, item]);
@@ -34,14 +40,18 @@ const App = () => {
     getProductData();
   }, []);
 
+
+
   return (
     <div className={styles.app}>
       <header>
         <AppHeader />
       </header>
       <main>
-        <BurgerIngredients items={state.items} onAdd={addToOrder} />
-        <BurgerConstructor orders={orders} items={state.items}/>
+        <IngredientContext.Provider value={{state}}>
+        <BurgerIngredients onAdd={addToOrder} />
+        <BurgerConstructor orders={orders} />
+        </IngredientContext.Provider>
       </main>
     </div>
   );
