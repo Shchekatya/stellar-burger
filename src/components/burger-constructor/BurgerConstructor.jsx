@@ -127,8 +127,5 @@ export const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-  orders: PropTypes.objectOf(PropTypes.shape({
-    bun: PropTypes.object,
-    main: PropTypes.array,
-  })).isRequired
+  orders: PropTypes.shape({ bun: PropTypes.object, main: PropTypes.array, }).isRequired
 }; 
