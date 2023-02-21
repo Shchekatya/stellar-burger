@@ -1,25 +1,22 @@
 import { combineReducers } from "redux"
-import { LOAD,LOAD_SUCCESS,LOAD_FAILED, ADD_CONSTRUCTOR, DELETE_CONSTRUCTOR, DELETE_ORDER, ADD_ORDER, SHOW_ITEM } from "../actions/actions"
+import { LOAD_SUCCESS,ADD_CONSTRUCTOR, DELETE_CONSTRUCTOR, DELETE_ORDER, ADD_ORDER, SHOW_ITEM, ADD_BUN } from "../actions/actions"
 
-const initialIngredients = [
+const initialIngredients = 
     {
         items: [],
-  loading: true,
     }
-]
 
-const initialConstructor = [
-    {
-        bun: null,
-        main: [],
-    }
-]
 
-const initialItem = [
+const initialConstructor = {
+  main:[],
+  bun:null
+}
+
+const initialItem = 
     {
         item: null,
     }
-]
+
 
 const initialOrder = [
     {
@@ -29,17 +26,12 @@ const initialOrder = [
 
 // Редьюсер
 const loadIngredients = (state = initialIngredients, action) => {
-  switch (action.type) {
-        // Добавление новой задачи в список дел
-    case LOAD:
-      return [
-       
-      ]
-    
-    case LOAD_SUCCESS:
-      return 
-    case LOAD_FAILED:
-      return 
+  switch (action.type) {        
+    case LOAD_SUCCESS:     
+      return {
+        ...state,
+        items: action.payload
+    }   
     default:
       return state
   }
@@ -47,18 +39,23 @@ const loadIngredients = (state = initialIngredients, action) => {
 
 
 const changeConstructor = (state = initialConstructor, action) => {
-    switch (action.type) {
-          // Добавление новой задачи в список дел
-      case ADD_CONSTRUCTOR:
-        return [
-        ]
-       
-      case DELETE_CONSTRUCTOR:
-        return 
+    switch (action.type) {       
+      case ADD_CONSTRUCTOR:      
+        return {
+          ...state,       
+          main: [...state.main, action.payload.item]
+        }
+          
+      case ADD_BUN:
+        return {
+          ...state, 
+          bun: action.payload.item
+        }
       default:
         return state
     }
   } 
+
 
 
 const showItem = (state = initialItem, action) => {
@@ -75,15 +72,22 @@ const showItem = (state = initialItem, action) => {
   } 
 
   const changeOrder = (state = initialOrder, action) => {
-    switch (action.type) {
-          // Добавление новой задачи в список дел
-      case ADD_ORDER:
-        return [
-        ]
-          // Изменение статуса задачи в списке дел
+    
+    switch (action.type) {         
+      case ADD_ORDER:        
+          return {
+            ...state,       
+            main: [...state.main, action.payload],
+            bun: action.payload,
+        }
+       
+     
+      
       case DELETE_ORDER:
-        return 
-          // Реакция на прочие типы экшенов
+        return {
+          ...state,
+          main: state.tasks.filter(item => item.id !== action.payload)
+      } 
       default:
         return state
     }
@@ -93,7 +97,7 @@ const showItem = (state = initialItem, action) => {
     loadIngredients,
     changeConstructor,
     showItem,
-    changeOrder
+    changeOrder,  
 }) 
 
 export default rootReducer

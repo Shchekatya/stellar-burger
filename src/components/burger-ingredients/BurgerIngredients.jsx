@@ -1,13 +1,13 @@
 import bIng from "../burger-ingredients/burger-ingredients.module.css";
 import Ingredients from "../ingredients/ingredients";
 import PropTypes from 'prop-types';
-import { IngredientContext } from "../../utils/ingredient-context";
-import { useContext } from "react";
+import {  useSelector } from "react-redux";
+
 
 
 export const BurgerIngredients = (props) => {
-  const state= useContext(IngredientContext); 
-  const items=state.state.items;
+  const items = useSelector((state) => state.loadIngredients.items);
+
   
   return (
     <div className={bIng.left}>
@@ -24,6 +24,7 @@ export const BurgerIngredients = (props) => {
         </a>
       </nav>
       <div className={bIng.ingredients}>
+      
         <h2 className="text text_type_main-medium mt-10 mb-6" id="buns">
           Булки
         </h2>
@@ -36,16 +37,10 @@ export const BurgerIngredients = (props) => {
           Начинки
         </h2>
         <Ingredients type="main" items={items} onAdd={props.onAdd} />
-      </div>
+        
+      </div>      
     </div>
   );
 };
 
-BurgerIngredients.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,    
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-  })),
-}; 
+

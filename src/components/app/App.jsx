@@ -5,6 +5,11 @@ import { BurgerIngredients } from "../burger-ingredients/BurgerIngredients";
 import api from "../../utils/api";
 import { BurgerConstructor } from "../burger-constructor/BurgerConstructor";
 import { IngredientContext } from "../../utils/ingredient-context";
+import { useDispatch } from "react-redux";
+import { LOAD_SUCCESS } from "../../services/actions/actions";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 
 
 const App = () => {
@@ -14,12 +19,15 @@ const App = () => {
   });
  
 
-const [state, setState] = React.useState({
-   items: [],
-  loading: true,
- }); 
 
 
+ const dispatch = useDispatch();
+ const loadItems = (items) => {
+   dispatch({
+     type: LOAD_SUCCESS,
+     payload: items,
+   });
+ };
 
 
   const addToOrder = (item) => {
@@ -34,18 +42,18 @@ const [state, setState] = React.useState({
   };
 
   React.useEffect(() => {
-    const getProductData = async () => {
-      setState({ ...state, loading: true });
-      try {
-        const res = await fetch(api);
-        const data = await res.json();
-       // return res.ok ? res.json() : res.json().then((err) => Promise.reject(err)).
-        setState({ items: data.data, loading: false });
-      } catch (error) {
-        console.log("АШИПКА!!", error);        
-      }
-    };
-
+    const getProductData = async () => {       
+        try {
+          const res = await fetch(api);
+          const data = await res.json();
+          if (res.ok) {
+            loadItems(data.data)           
+        } else {
+            console.log("Ошибка HTTP: " + res.status);  }        
+        } catch (error) {
+          console.log("АШИПКА!!", error);        
+        }
+      };
     getProductData();
   }, []);
 
@@ -57,10 +65,12 @@ const [state, setState] = React.useState({
         <AppHeader />
       </header>
       <main>
-        <IngredientContext.Provider value={{state}}>
+        
+        <DndProvider backend={HTML5Backend}>
         <BurgerIngredients onAdd={addToOrder} />
-        <BurgerConstructor orders={orders} />
-        </IngredientContext.Provider>
+        <BurgerConstructor orders={orders} onAdd={addToOrder} />
+        </DndProvider>
+      
       </main>
     </div>
   );

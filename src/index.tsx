@@ -3,12 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './services/reducers/reducers';
+import { compose, createStore } from 'redux';
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
-const store = createStore(rootReducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    const enhancer = composeEnhancers();
+const store = createStore(rootReducer, enhancer);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -24,3 +32,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

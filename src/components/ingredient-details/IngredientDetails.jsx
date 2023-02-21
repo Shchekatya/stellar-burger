@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
 
 export const IngredientDetails = () => {
-  const item = useSelector(state => state.showItem.item    )
+  const item = useSelector(state => state.showItem.item)
  
-console.log(item)
+
   return (
     <div className={detailsStyle.container}>
       <h1 className="text text_type_main-large">Детали ингредиента</h1>

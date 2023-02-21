@@ -8,25 +8,62 @@ import PropTypes from "prop-types";
 import bConst from "../burger-constructor/burger-constructor.module.css";
 import { Modal } from "../modal/Modal";
 import { OrderDetails } from "../order-details/OrderDetails";
-import { IngredientDetails } from "../ingredient-details/IngredientDetails";
-import { IngredientContext } from "../../utils/ingredient-context";
-import { useContext } from "react";
 import { PostContext } from "../../utils/post-context";
+import { useDrop } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_CONSTRUCTOR, ADD_BUN } from "../../services/actions/actions";
+import { BurgerConstructorSinge } from "./burger-constructor-single";
 
 
 
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = (props) => { 
+  const orders=useSelector((state) => state.changeConstructor)
+
+
+  const dispatch = useDispatch();
+  const addConstructor = (item) => {
+
+if (item.item.type=="bun") {
+  dispatch({
+    type: ADD_BUN,
+    payload: item,
+  });
+}   else {
+  dispatch({
+    type: ADD_CONSTRUCTOR,
+    payload: item,
+  });
+}
+  };
+ 
+
+  const [, dropTarget] = useDrop({
+    accept: 'items',   
+    drop(item) {     
+        addConstructor(item);      
+  },
+});
+
+const [, dropMain] = useDrop({
+  accept: 'main',   
+  drop(item) {     
+      console.log(item.order);      
+},
+});
+
   const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState(false);
+ 
   const [post, setPost] = useState({});   
- const idArr = props.orders.main.map(item => item._id.toString());
- (props.orders.bun &&
-  idArr.push(props.orders.bun._id))
+ const idArr = orders.main.map(item => item._id.toString());
+ (orders.bun &&
+  idArr.push(orders.bun._id))
+
+ 
 
   const sum = useMemo(
-    () => (props.orders.main.reduce((acc, cur) => acc + cur.price, 0) + (props.orders.bun && props.orders.bun.price*2)),
-    [props.orders]
+    () => (orders.main.reduce((acc, cur) => acc + cur.price, 0) + (orders.bun && orders.bun.price*2)),
+    [orders]
   );
   let result;
   const sendOrder = async (url = 'https://norma.nomoreparties.space/api/orders', 
@@ -48,53 +85,37 @@ export const BurgerConstructor = (props) => {
     console.log("АШИПКА!!", error);   
   }};
 
-  const state= useContext(IngredientContext); 
-  const items=state.state.items;
+
 
   return (
-    <div className={bConst.right}>
+    <div className={bConst.right}  ref={dropTarget}>
       <div
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
         className={bConst.list}
+       
       >
-         {props.orders.bun && <div onClick={() => setDetails(true)}>
+         {orders.bun && <div >
               <ConstructorElement
               type="top"                
                 isLocked={true}
-                text={`${props.orders.bun.name} (верх)`}
-                price={props.orders.bun.price}
-                thumbnail={props.orders.bun.image}
+                text={`${orders.bun.name} (верх)`}
+                price={orders.bun.price}
+                thumbnail={orders.bun.image}
               />
             </div>}
-       
-        {props.orders.main.map((order) => {
+       <div className={bConst.mainlist} ref={dropMain}>
+        {orders.main.map((order) => {
           return (
-          <>
-            <div className={bConst.main}  onClick={() => setDetails(true)}>                
-              <ConstructorElement
-              key={order._id}
-                type={order.type}
-                isLocked={false}
-                text={order.name}
-                price={order.price}
-                thumbnail={order.image}
-              />
-            </div>
-{details && 
-<Modal onClose={() => setDetails(false)}>
-              <IngredientDetails items={items} id={order._id} />
-            </Modal>
-}
-            
-          </>
+        <BurgerConstructorSinge order={order}/>
        ) })}
-{props.orders.bun && <div onClick={() => setDetails(true)}>
+       </div>
+{orders.bun && <div >
               <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={`${props.orders.bun.name} (низ)`}
-                price={props.orders.bun.price}
-                thumbnail={props.orders.bun.image}
+                text={`${orders.bun.name} (низ)`}
+                price={orders.bun.price}
+                thumbnail={orders.bun.image}
               />
             </div>}
 
