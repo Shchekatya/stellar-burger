@@ -13,11 +13,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 const App = () => {
-  const [orders, setOrders] = React.useState({
-    bun: null,
-    main: [],
-  });
- 
+
 
 
 
@@ -30,16 +26,6 @@ const App = () => {
  };
 
 
-  const addToOrder = (item) => {
-    if (item.type==="bun") {
-      setOrders({...orders, bun:item});
-    } else {
-      setOrders({
-        ...orders,
-        main: [...orders.main, item],
-      });
-    }    
-  };
 
   React.useEffect(() => {
     const getProductData = async () => {       
@@ -67,8 +53,8 @@ const App = () => {
       <main>
         
         <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients onAdd={addToOrder} />
-        <BurgerConstructor orders={orders} onAdd={addToOrder} />
+        <BurgerIngredients />
+        <BurgerConstructor  />
         </DndProvider>
       
       </main>

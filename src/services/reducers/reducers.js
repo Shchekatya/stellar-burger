@@ -1,5 +1,5 @@
 import { combineReducers } from "redux"
-import { LOAD_SUCCESS,ADD_CONSTRUCTOR, DELETE_CONSTRUCTOR, DELETE_ORDER, ADD_ORDER, SHOW_ITEM, ADD_BUN } from "../actions/actions"
+import { LOAD_SUCCESS,ADD_CONSTRUCTOR, UPDATE_CONSTRUCTOR, DELETE_CONSTRUCTOR,HIDE_ITEM, DELETE_ORDER, ADD_ORDER, SHOW_ITEM, ADD_BUN } from "../actions/actions"
 
 const initialIngredients = 
     {
@@ -46,11 +46,17 @@ const changeConstructor = (state = initialConstructor, action) => {
           main: [...state.main, action.payload.item]
         }
           
-      case ADD_BUN:
+      case UPDATE_CONSTRUCTOR:
         return {
           ...state, 
-          bun: action.payload.item
+          main: [action.payload]
         }
+
+        case ADD_BUN:
+          return {
+            ...state, 
+            bun: action.payload.item
+          }
       default:
         return state
     }
@@ -66,8 +72,13 @@ const showItem = (state = initialItem, action) => {
             ...state,
             item: action.payload
         }
+        case HIDE_ITEM:
+        return {
+            ...state,
+            item: null
+        }
       default:
-        return state
+        return state 
     }
   } 
 

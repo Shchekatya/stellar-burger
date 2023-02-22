@@ -6,23 +6,26 @@ import { useSelector } from "react-redux";
 export const BurgerIngredients = (props) => {
   const items = useSelector((state) => state.loadIngredients.items);
 
- const links = document.querySelectorAll(".nav-link");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        links.forEach((link) => {
-          link.classList.toggle(
-            "active",
-            link.getAttribute("href").replace('#','') === entry.target.id
-          );
-        });
-      }
-      // console.log(entry.target.id)
-    });
-  }, {
-    root: document.querySelector( '#viewport' ),
-    threshold: [ 0, 0.5 ]
-  });
+  const links = document.querySelectorAll(".nav-link");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href").replace("#", "") === entry.target.id
+            );
+          });
+        }
+        // console.log(entry.target.id)
+      });
+    },
+    {
+      root: document.querySelector("#viewport"),
+      threshold: [0, 0.5],
+    }
+  );
   document
     .querySelectorAll(".section")
     .forEach((section) => observer.observe(section));
@@ -50,7 +53,7 @@ export const BurgerIngredients = (props) => {
           Начинки
         </a>
       </nav>
-      <div className={bIng.ingredients} id='viewport'>
+      <div className={bIng.ingredients} id="viewport">
         <section id="section-bun" className="section">
           <h2 className="text text_type_main-medium mt-10 mb-6" id="buns">
             Булки
