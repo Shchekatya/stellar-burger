@@ -2,6 +2,7 @@ import bConst from "../burger-constructor/burger-constructor.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
+import PropTypes from 'prop-types';
 
 export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
 
@@ -22,8 +23,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
       
       const dragIndex = order.index;
       const hoverIndex = index;
-      console.log(order.index)
-
+   
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -81,3 +81,10 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
     </div>
   );
 };
+
+
+BurgerConstructorSinge.propTypes = {
+  order: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  moveCard: PropTypes.func.isRequired,
+}; 

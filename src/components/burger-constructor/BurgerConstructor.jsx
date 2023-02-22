@@ -15,13 +15,22 @@ import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
   UPDATE_CONSTRUCTOR,
+  ADD_ORDER
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
+  const orderToSend=useSelector((state) => state.changeOrder);
+  console.log(orderToSend)
 
   const dispatch = useDispatch();
+  const addOrder = (item) => {
+    dispatch({
+      type: ADD_ORDER,
+      payload: item,
+    });
+  }
   const addConstructor = (item) => {
     if (item.item.type == "bun") {
       dispatch({
@@ -40,6 +49,7 @@ export const BurgerConstructor = (props) => {
     accept: "items",
     drop(item) {
       addConstructor(item);
+      addOrder(item)
     },
   });
 
@@ -82,10 +92,10 @@ export const BurgerConstructor = (props) => {
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = orders.main[dragIndex];
-      const newCards = [...orders.main];
+      const newCards = [...orders.main];     
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-//console.log(newCards)
+
       dispatch({
         type: UPDATE_CONSTRUCTOR,
         payload: newCards,
@@ -113,8 +123,7 @@ export const BurgerConstructor = (props) => {
         )}
         <div
           className={bConst.mainlist}
-          // ref={dropMain}
-        >
+         >
           {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge

@@ -18,11 +18,7 @@ const initialItem =
     }
 
 
-const initialOrder = [
-    {
-        order: [],
-    }
-]
+const initialOrder = []
 
 // Редьюсер
 const loadIngredients = (state = initialIngredients, action) => {
@@ -86,11 +82,10 @@ const showItem = (state = initialItem, action) => {
     
     switch (action.type) {         
       case ADD_ORDER:        
-          return {
-            ...state,       
-            main: [...state.main, action.payload],
-            bun: action.payload,
-        }
+          return [
+            ...state, 
+            action.payload.item          
+          ]
        
      
       

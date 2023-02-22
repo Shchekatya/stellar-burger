@@ -3,11 +3,11 @@ import { SHOW_ITEM,HIDE_ITEM } from "../../services/actions/actions";
 import { useDrag } from "react-dnd";
 import Ing from "../ingredients/ingredients.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Modal } from "../modal/Modal";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
+import PropTypes from 'prop-types';
 
-export const IngredientSingle = ({ item, onAdd }) => {
+export const IngredientSingle = ({ item }) => {
 
 
   const ItemActive = useSelector((state) => state.showItem.item);
@@ -56,3 +56,7 @@ export const IngredientSingle = ({ item, onAdd }) => {
     </>
   );
 };
+
+IngredientSingle.propTypes = {
+  item: PropTypes.object.isRequired,
+}; 
