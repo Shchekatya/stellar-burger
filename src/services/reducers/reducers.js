@@ -6,10 +6,7 @@ import {
   ADD_CONSTRUCTOR,
   UPDATE_CONSTRUCTOR,
   DELETE_CONSTRUCTOR,
-  ADD_OREDER_BUN,
   HIDE_ITEM,
-  DELETE_ORDER,
-  ADD_ORDER,
   SHOW_ITEM,
   ADD_BUN
 } from "../actions/actions"
@@ -26,12 +23,6 @@ const initialConstructor = {
 
 const initialItem = {
   item: null,
-}
-
-
-const initialOrder = {
-  main: [],
-  bun: null
 }
 
 
@@ -59,7 +50,7 @@ const changeConstructor = (state = initialConstructor, action) => {
       case DELETE_CONSTRUCTOR:
       return {
         ...state,
-        main: state.main.filter(item => item !== action.payload)
+        main: action.payload
       }
       
 

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/AppHeader";
 import { BurgerIngredients } from "../burger-ingredients/BurgerIngredients";
-import api from "../../utils/api";
+import {api} from "../../utils/api";
 import { BurgerConstructor } from "../burger-constructor/BurgerConstructor";
 import { IngredientContext } from "../../utils/ingredient-context";
 import { useDispatch } from "react-redux";

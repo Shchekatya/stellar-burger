@@ -4,7 +4,6 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
 import bConst from "../burger-constructor/burger-constructor.module.css";
 import { Modal } from "../modal/Modal";
 import { OrderDetails } from "../order-details/OrderDetails";
@@ -15,17 +14,16 @@ import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
   UPDATE_CONSTRUCTOR,
-  ADD_ORDER
+  DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
+import {postOrder} from '../../utils/api'
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
-  const orderToSend=useSelector((state) => state.changeOrder);
-//console.log(orderToSend)
 
   const dispatch = useDispatch();
- 
+
   const addConstructor = (item) => {
     if (item.item.type === "bun") {
       dispatch({
@@ -40,11 +38,10 @@ export const BurgerConstructor = () => {
     }
   };
 
-
   const [, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
-      addConstructor(item);      
+      addConstructor(item);
     },
   });
 
@@ -62,7 +59,7 @@ export const BurgerConstructor = () => {
   );
   let result;
   const sendOrder = async (
-    url = "https://norma.nomoreparties.space/api/orders",
+    url = postOrder,
     data = { ingredients: idArr }
   ) => {
     try {
@@ -83,14 +80,25 @@ export const BurgerConstructor = () => {
       console.log("АШИПКА!!", error);
     }
   };
+  const delCard = useCallback(
+    (dragIndex) => {
+      const newCards = [...orders.main];
+      newCards.splice(dragIndex, 1);
+      dispatch({
+        type: DELETE_CONSTRUCTOR,
+        payload: newCards,
+      });
+    },
+    [orders.main, dispatch]
+  );
 
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = orders.main[dragIndex];
-      const newCards = [...orders.main];        
+      const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-      
+
       dispatch({
         type: UPDATE_CONSTRUCTOR,
         payload: newCards,
@@ -116,17 +124,16 @@ export const BurgerConstructor = () => {
             />
           </div>
         )}
-        <div
-          className={bConst.mainlist}
-         >
+        <div className={bConst.mainlist}>
           {orders.main.map((order, index) => {
-
+            const id = order._id + index;
             return (
               <BurgerConstructorSinge
                 order={order}
                 moveCard={moveCard}
+                delCard={delCard}
                 index={index}
-                key={order.dragId}
+                key={id}
               />
             );
           })}
@@ -158,7 +165,7 @@ export const BurgerConstructor = () => {
           Оформить заказ
         </Button>
         {open && post.result && (
-          <Modal onClose={() => setOpen(false)}>        
+          <Modal onClose={() => setOpen(false)}>
             <PostContext.Provider value={{ post }}>
               <OrderDetails />
             </PostContext.Provider>

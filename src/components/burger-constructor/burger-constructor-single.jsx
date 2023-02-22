@@ -2,56 +2,47 @@ import bConst from "../burger-constructor/burger-constructor.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
-import PropTypes from 'prop-types';
-import { useDispatch } from "react-redux";
-import { DELETE_CONSTRUCTOR } from "../../services/actions/actions";
+import PropTypes from "prop-types";
 
-export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
 
-  const dispatch = useDispatch(); 
-  const handleClose = (order) => {  
+export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
 
-    dispatch({
-      type: DELETE_CONSTRUCTOR,
-      payload: order,
-    });
-  };
-
-  const onClick = () => handleClose(order);
+  const onClick = () => delCard(index);
   const ref = useRef(null);
 
-  const [{ handlerId }, drop] = useDrop({ 
+  const [{ handlerId }, drop] = useDrop({
     accept: "main",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-        hover(order, monitor) {
+    hover(order, monitor) {
       if (!ref.current) {
         return;
       }
-      
+
       const dragIndex = order.index;
-      const hoverIndex = index;  
+      const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
       }
-     
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();      
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;     
-      const clientOffset = monitor.getClientOffset();      
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;      
+
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-   
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-     
+
       moveCard(dragIndex, hoverIndex);
-      
+
       order.index = hoverIndex;
     },
   });
@@ -63,10 +54,10 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
       isDragging: monitor.isDragging(),
     }),
   });
-   const opacity = isDragging ? 0 : 1;
-  
+  const opacity = isDragging ? 0 : 1;
+
   drag(drop(ref));
-  
+
   const preventDefault = (e) => e.preventDefault();
   return (
     <div
@@ -89,9 +80,9 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
   );
 };
 
-
 BurgerConstructorSinge.propTypes = {
   order: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   moveCard: PropTypes.func.isRequired,
-}; 
+  delCard: PropTypes.func.isRequired,
+};

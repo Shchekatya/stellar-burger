@@ -1,17 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { SHOW_ITEM,HIDE_ITEM } from "../../services/actions/actions";
+import { SHOW_ITEM, HIDE_ITEM } from "../../services/actions/actions";
 import { useDrag } from "react-dnd";
 import Ing from "../ingredients/ingredients.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/Modal";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const IngredientSingle = ({ item }) => {
-
-
   const ItemActive = useSelector((state) => state.showItem.item);
-
 
   const [, dragRef] = useDrag({
     type: "items",
@@ -19,15 +16,15 @@ export const IngredientSingle = ({ item }) => {
   });
 
   const dispatch = useDispatch();
-  const showItem = (item) => {  
+  const showItem = (item) => {
     dispatch({
       type: SHOW_ITEM,
       payload: item,
     });
   };
-  const hideItem = () => {  
+  const hideItem = () => {
     dispatch({
-      type: HIDE_ITEM,    
+      type: HIDE_ITEM,
     });
   };
 
@@ -35,8 +32,7 @@ export const IngredientSingle = ({ item }) => {
     <>
       <div
         ref={dragRef}
-        key={item._id}
-        onClick={() => {    
+        onClick={() => {
           showItem(item);
         }}
         className={Ing.card}
@@ -59,4 +55,4 @@ export const IngredientSingle = ({ item }) => {
 
 IngredientSingle.propTypes = {
   item: PropTypes.object.isRequired,
-}; 
+};
