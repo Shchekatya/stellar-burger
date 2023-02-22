@@ -23,7 +23,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
       
       const dragIndex = order.index;
       const hoverIndex = index;
-   
+  
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -52,7 +52,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
 
   const [{ isDragging }, drag] = useDrag({
     type: "main",
-    item: { order },
+    item: () => ({ id: order.id, index }),
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

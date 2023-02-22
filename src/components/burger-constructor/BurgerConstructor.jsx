@@ -22,7 +22,7 @@ import { BurgerConstructorSinge } from "./burger-constructor-single";
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
   const orderToSend=useSelector((state) => state.changeOrder);
-  console.log(orderToSend)
+ // console.log(orderToSend)
 
   const dispatch = useDispatch();
   const addOrder = (item) => {
