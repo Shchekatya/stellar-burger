@@ -43,17 +43,10 @@ export const BurgerConstructor = (props) => {
     },
   });
 
-  const [, dropMain] = useDrop({
-    accept: "main",
-    drop(item) {
-      console.log(item.order);
-    },
-  });
-
   const [open, setOpen] = useState(false);
 
   const [post, setPost] = useState({});
-  const idArr = orders.main.map((item) => item._id.toString());
+  const idArr = [1]//orders.main.map((item) => item._id.toString());
   orders.bun && idArr.push(orders.bun._id);
 
   const sum = useMemo(
@@ -86,27 +79,20 @@ export const BurgerConstructor = (props) => {
     }
   };
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
-    // Получаем перетаскиваемый ингредиент
-    const dragCard = orders.main[dragIndex];
-    const newCards = [...orders.main];
-    // Удаляем перетаскиваемый элемент из массива
-    newCards.splice(dragIndex, 1);
-    // Вставляем элемент на место того элемента,
-    // над которым мы навели мышку с "перетаскиванием"
-    // Тут просто создается новый массив, в котором изменен порядок наших элементов
-    newCards.splice(hoverIndex, 0, dragCard);
-    // В примере react-dnd используется библиотека immutability-helper
-    // Которая позволяет описывать такую имутабельную логику более декларативно
-    // Но для лучше понимания обновления массива,
-    // Советую использовать стандартный splice
-
-    dispatch({
-      type: UPDATE_CONSTRUCTOR,
-      payload: newCards,
-    });
-    console.log(111);
-  }, [orders.main, dispatch]);
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = orders.main[dragIndex];
+      const newCards = [...orders.main];
+      newCards.splice(dragIndex, 1);
+      newCards.splice(hoverIndex, 0, dragCard);
+//console.log(newCards)
+      dispatch({
+        type: UPDATE_CONSTRUCTOR,
+        payload: newCards,
+      });
+    },
+    [orders.main, dispatch]
+  );
 
   return (
     <div className={bConst.right} ref={dropTarget}>
@@ -125,13 +111,17 @@ export const BurgerConstructor = (props) => {
             />
           </div>
         )}
-        <div className={bConst.mainlist} ref={dropMain}>
+        <div
+          className={bConst.mainlist}
+          // ref={dropMain}
+        >
           {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge
                 order={order}
                 moveCard={moveCard}
                 index={index}
+                key={order.dragId}
               />
             );
           })}
@@ -175,4 +165,3 @@ export const BurgerConstructor = (props) => {
     </div>
   );
 };
-
