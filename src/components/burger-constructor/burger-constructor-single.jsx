@@ -3,13 +3,24 @@ import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
 import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
+import { DELETE_CONSTRUCTOR } from "../../services/actions/actions";
 
 export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
 
+  const dispatch = useDispatch(); 
+  const handleClose = (order) => {  
+
+    dispatch({
+      type: DELETE_CONSTRUCTOR,
+      payload: order,
+    });
+  };
+
+  const onClick = () => handleClose(order);
   const ref = useRef(null);
 
-  const [{ handlerId }, drop] = useDrop({
- 
+  const [{ handlerId }, drop] = useDrop({ 
     accept: "main",
     collect(monitor) {
       return {
@@ -22,20 +33,15 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
       }
       
       const dragIndex = order.index;
-      const hoverIndex = index;
-  
+      const hoverIndex = index;  
       if (dragIndex === hoverIndex) {
         return;
       }
      
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-     
-      const clientOffset = monitor.getClientOffset();
-      
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();      
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;     
+      const clientOffset = monitor.getClientOffset();      
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;      
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -77,6 +83,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard }) => {
         text={order.name}
         price={order.price}
         thumbnail={order.image}
+        handleClose={onClick}
       />
     </div>
   );

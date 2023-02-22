@@ -22,17 +22,12 @@ import { BurgerConstructorSinge } from "./burger-constructor-single";
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
   const orderToSend=useSelector((state) => state.changeOrder);
- // console.log(orderToSend)
+//console.log(orderToSend)
 
   const dispatch = useDispatch();
-  const addOrder = (item) => {
-    dispatch({
-      type: ADD_ORDER,
-      payload: item,
-    });
-  }
+ 
   const addConstructor = (item) => {
-    if (item.item.type == "bun") {
+    if (item.item.type === "bun") {
       dispatch({
         type: ADD_BUN,
         payload: item,
@@ -45,18 +40,18 @@ export const BurgerConstructor = () => {
     }
   };
 
+
   const [, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
-      addConstructor(item);
-      addOrder(item)
+      addConstructor(item);      
     },
   });
 
   const [open, setOpen] = useState(false);
 
   const [post, setPost] = useState({});
-  const idArr = [1]//orders.main.map((item) => item._id.toString());
+  const idArr = orders.main.map((item) => item._id.toString());
   orders.bun && idArr.push(orders.bun._id);
 
   const sum = useMemo(
@@ -92,10 +87,10 @@ export const BurgerConstructor = () => {
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = orders.main[dragIndex];
-      const newCards = [...orders.main];     
+      const newCards = [...orders.main];        
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-
+      
       dispatch({
         type: UPDATE_CONSTRUCTOR,
         payload: newCards,
@@ -125,6 +120,7 @@ export const BurgerConstructor = () => {
           className={bConst.mainlist}
          >
           {orders.main.map((order, index) => {
+
             return (
               <BurgerConstructorSinge
                 order={order}
@@ -162,9 +158,7 @@ export const BurgerConstructor = () => {
           Оформить заказ
         </Button>
         {open && post.result && (
-          <Modal onClose={() => setOpen(false)}>
-            {" "}
-            {}
+          <Modal onClose={() => setOpen(false)}>        
             <PostContext.Provider value={{ post }}>
               <OrderDetails />
             </PostContext.Provider>
