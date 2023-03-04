@@ -23,6 +23,7 @@
 
 .nav {
   padding: 0;
+  border-bottom: 1px solid #2F2F37;
 }
 
 
@@ -33,13 +34,8 @@
   text-align: center;
   box-sizing: border-box;
   width: 100%;
-  border-bottom: 1px solid #2F2F37;
 }
 
-.nav a:hover {
-  border-bottom: 2px solid #4C4CFF;
-
-}
 
 .show {
   display: flex;

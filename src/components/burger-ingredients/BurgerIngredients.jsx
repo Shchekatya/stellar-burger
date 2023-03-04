@@ -13,7 +13,7 @@ export const BurgerIngredients = (props) => {
         if (entry.isIntersecting) {
           links.forEach((link) => {
             link.classList.toggle(
-              "bIng.activeNav",
+              "activeNav",
               link.getAttribute("href").replace("#", "") === entry.target.id
             );
           });

@@ -13,10 +13,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 const App = () => {
-
-
-
-
  const dispatch = useDispatch();
  const loadItems = (items) => {
    dispatch({
