@@ -3,47 +3,152 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useMemo } from "react";
-import PropTypes from "prop-types";
+import { useState, useMemo, useCallback } from "react";
 import bConst from "../burger-constructor/burger-constructor.module.css";
 import { Modal } from "../modal/Modal";
 import { OrderDetails } from "../order-details/OrderDetails";
-import { IngredientDetails } from "../ingredient-details/IngredientDetails";
+import { PostContext } from "../../utils/post-context";
+import { useDrop } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ADD_CONSTRUCTOR,
+  ADD_BUN,
+  UPDATE_CONSTRUCTOR,
+  DELETE_CONSTRUCTOR,
+} from "../../services/actions/actions";
+import { BurgerConstructorSinge } from "./burger-constructor-single";
+import {postOrder} from '../../utils/api'
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = () => {
+  const orders = useSelector((state) => state.changeConstructor);
+
+  const dispatch = useDispatch();
+
+  const addConstructor = (item) => {
+    if (item.item.type === "bun") {
+      dispatch({
+        type: ADD_BUN,
+        payload: item,
+      });
+    } else {
+      dispatch({
+        type: ADD_CONSTRUCTOR,
+        payload: item,
+      });
+    }
+  };
+
+  const [, dropTarget] = useDrop({
+    accept: "items",
+    drop(item) {
+      addConstructor(item);
+    },
+  });
+
   const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState(false);
+
+  const [post, setPost] = useState({});
+  const idArr = orders.main.map((item) => item._id.toString());
+  orders.bun && idArr.push(orders.bun._id);
+
   const sum = useMemo(
-    () => props.orders.reduce((acc, cur) => acc + cur.price, 0),
-    [props.orders]
+    () =>
+      orders.main.reduce((acc, cur) => acc + cur.price, 0) +
+      (orders.bun && orders.bun.price * 2),
+    [orders]
+  );
+  let result;
+  const sendOrder = async (
+    url = postOrder,
+    data = { ingredients: idArr }
+  ) => {
+    try {
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        result = await response.json();
+        setPost({ result });
+      } else {
+        console.log("Ошибка HTTP: " + response.status);
+      }
+    } catch (error) {
+      console.log("АШИПКА!!", error);
+    }
+  };
+  const delCard = useCallback(
+    (dragIndex) => {
+      const newCards = [...orders.main];
+      newCards.splice(dragIndex, 1);
+      dispatch({
+        type: DELETE_CONSTRUCTOR,
+        payload: newCards,
+      });
+    },
+    [orders.main, dispatch]
   );
 
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = orders.main[dragIndex];
+      const newCards = [...orders.main];
+      newCards.splice(dragIndex, 1);
+      newCards.splice(hoverIndex, 0, dragCard);
+
+      dispatch({
+        type: UPDATE_CONSTRUCTOR,
+        payload: newCards,
+      });
+    },
+    [orders.main, dispatch]
+  );
 
   return (
-    <div className={bConst.right}>
+    <div className={bConst.right} ref={dropTarget}>
       <div
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
         className={bConst.list}
       >
-        {props.orders.map((order) => (
-          <>
-            <div key={order._id} onClick={() => setDetails(true)}>
-              <ConstructorElement
-                type={order.type}
-                isLocked={true}
-                text={order.name}
-                price={order.price}
-                thumbnail={order.image}
+        {orders.bun && (
+          <div>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${orders.bun.name} (верх)`}
+              price={orders.bun.price}
+              thumbnail={orders.bun.image}
+            />
+          </div>
+        )}
+        <div className={bConst.mainlist}>
+          {orders.main.map((order, index) => {
+            const id = order._id + index;
+            return (
+              <BurgerConstructorSinge
+                order={order}
+                moveCard={moveCard}
+                delCard={delCard}
+                index={index}
+                key={id}
               />
-            </div>
-{details &&
-<Modal onClose={() => setDetails(false)}>
-              <IngredientDetails items={props.items} id={order._id} />
-            </Modal>
-}
-            
-          </>
-        ))}
+            );
+          })}
+        </div>
+        {orders.bun && (
+          <div>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${orders.bun.name} (низ)`}
+              price={orders.bun.price}
+              thumbnail={orders.bun.image}
+            />
+          </div>
+        )}
       </div>
       <div className={bConst.bottom}>
         <p className="text text_type_digits-medium">{sum}</p>
@@ -52,26 +157,21 @@ export const BurgerConstructor = (props) => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setOpen(true);
+            sendOrder();
+          }}
         >
           Оформить заказ
         </Button>
-{open &&
-  <Modal onClose={() => setOpen(false)}>
-          <OrderDetails />
-        </Modal>
-}
-        
+        {open && post.result && (
+          <Modal onClose={() => setOpen(false)}>
+            <PostContext.Provider value={{ post }}>
+              <OrderDetails />
+            </PostContext.Provider>
+          </Modal>
+        )}
       </div>
     </div>
   );
 };
-
-BurgerConstructor.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,    
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-  })).isRequired,
-}; 

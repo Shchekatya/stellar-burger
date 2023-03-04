@@ -12,16 +12,39 @@
   padding: 8px;
 }
 
-.list::-webkit-scrollbar {
+.mainlist {
+  max-height: 55vh;
+  overflow: auto;
+}
+
+.mainlist::-webkit-scrollbar {
   width: 8px;
 }
 
-.list::-webkit-scrollbar-track {
+.mainlist::-webkit-scrollbar-track {
   background: #2F2F37;
 }
 
-.list::-webkit-scrollbar-thumb {
+.mainlist::-webkit-scrollbar-thumb {
   background-color: #8585AD;
+}
+
+.list > div {
+ padding-left: 20px;
+ padding-right: 10px;
+}
+
+.main {
+position: relative;
+margin-top: 10px;
+
+}
+
+.main::before {
+content: url('../../images/vector.svg');
+position: absolute;
+top: 44%;
+left: -20px;
 }
 
 .bottom {
