@@ -9,6 +9,8 @@ import { Reset } from "../pages/reset-password";
 import { Login } from "../pages/login";
 import { Page404 } from "../pages/404";
 import { MainBurgers } from "../pages/main-burgers";
+import { Profile } from "../pages/profile";
+import { Forgot } from "../pages/forgot-password";
 
 
 
@@ -33,6 +35,8 @@ const App = () => {
         <Route path="/register" element={<Register />}/>
         <Route path="*" element={<Page404 />}/>
         <Route path="/reset-password" element={<Reset />}/>
+        <Route path="/profile" element={<Profile />}/>
+        <Route path="/forgot-password" element={<Forgot />}/>
         </Routes>
         </BrowserRouter>
       
