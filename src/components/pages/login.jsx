@@ -1,6 +1,7 @@
 import React from "react";
 import {EmailInput,PasswordInput, Button  } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
+import styles from "../pages/login.module.css";
 
 
 export function Login() {
@@ -14,16 +15,17 @@ export function Login() {
             setPass(e.target.value)
           }
     return (
-      <div>
+      <div className={styles.wrapper}>
         <form>
           <h1>Вход</h1>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
       
-      <EmailInput
+      <EmailInput 
         onChange={onChange}
         value={value}
         name={'email'}
         isIcon={false}
+        extraClass="mb-6"
       />
       <PasswordInput
         onChange={onChangePass}
