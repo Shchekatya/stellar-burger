@@ -1,6 +1,4 @@
-import {
-  combineReducers
-} from "redux"
+
 import {
   LOAD_SUCCESS,
   ADD_CONSTRUCTOR,
@@ -26,7 +24,7 @@ const initialItem = {
 }
 
 
-const loadIngredients = (state = initialIngredients, action) => {
+export const loadIngredients = (state = initialIngredients, action) => {
   switch (action.type) {
     case LOAD_SUCCESS:
       return {
@@ -39,7 +37,7 @@ const loadIngredients = (state = initialIngredients, action) => {
 }
 
 
-const changeConstructor = (state = initialConstructor, action) => {
+export const changeConstructor = (state = initialConstructor, action) => {
   switch (action.type) {
     case ADD_CONSTRUCTOR:
       return {
@@ -72,9 +70,8 @@ const changeConstructor = (state = initialConstructor, action) => {
 
 
 
-const showItem = (state = initialItem, action) => {
-  switch (action.type) {
-    // Добавление новой задачи в список дел
+export const showItem = (state = initialItem, action) => {
+  switch (action.type) { 
     case SHOW_ITEM:
       return {
         ...state,
@@ -92,11 +89,3 @@ const showItem = (state = initialItem, action) => {
 
 
 
-const rootReducer = combineReducers({
-  loadIngredients,
-  changeConstructor,
-  showItem,
-  
-})
-
-export default rootReducer

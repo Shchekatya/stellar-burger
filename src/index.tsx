@@ -4,8 +4,10 @@ import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import rootReducer from './services/reducers/reducers';
 import { compose, createStore } from 'redux';
+import rootReducer from './services/reducers/root-reducer';
+
+
 
 declare global {
   interface Window {
