@@ -3,13 +3,14 @@ import {EmailInput,Input,PasswordInput, Button } from "@ya.praktikum/react-devel
 import styles from "../pages/profile.module.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_USER } from "../../services/actions/profile-actions";
+import { GET_USER,UPDATE_USER } from "../../services/actions/profile-actions";
+import { getCookie,setCookie } from "../../utils/cookie";
 
 export function Profile() {
   const user = useSelector((state) => state.getUser);
-  // console.log(user)
-  let cookie=document.cookie.split('token=')[1]
-  // console.log(cookie)
+  console.log(user)
+  let cookie=getCookie('authToken')
+  console.log(cookie)
   const dispatch = useDispatch();
   const getUser = (user) => {
     dispatch({
@@ -17,7 +18,38 @@ export function Profile() {
       payload: user,
     });
   };
- 
+ let result;
+  const sendUpdate = async (
+    url = "https://norma.nomoreparties.space/api/auth/user",
+    data = user
+  ) => {
+    try {
+      let response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer "+cookie
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        result = await response.json();
+        getUser(user)
+
+      } else {
+        console.log("Ошибка HTTP: " + response.status + data);
+      }
+    } catch (error) {
+      console.log("АШИПКА!!", error);
+    }
+  };
+
+  const updateUser = (user) => {
+    dispatch({
+      type: UPDATE_USER,
+      payload: user,
+    });
+  };
  
  
    React.useEffect(() => {
@@ -55,6 +87,11 @@ export function Profile() {
       setLogin(e.target.value)
       user.email=e.target.value
     }
+    const [pass, setPass] = React.useState('')
+    const onChangePass = e => {
+      setPass(e.target.value)
+      user.password=e.target.value
+    }
 return (
   <div className={styles.wrapper}>
     <div className={styles.left}>
@@ -68,31 +105,31 @@ return (
       <Input
       type={'text'}
       placeholder={'Имя'}
-      onChange={e => setValue(e.target.value)}
+      onChange={onChange}
       icon={'EditIcon'}      
-      value={value}
+      value={user.name}
       name={'name'}
       error={false}          
       errorText={'Ошибка'}
       size={'default'}
-      extraClass="mb-6"
+      extraClass="mb-6"    
     />
    <EmailInput
     onChange={onChangeLogin}
-    value={login}
+    value={user.email}
     name={'email'}
     placeholder="Логин"
     isIcon={true}
     extraClass="mb-6"
   />
     <PasswordInput
-        onChange={onChange}
-        value={value}
+        onChange={onChangePass}
+        value={pass}
         name={'password'}
         icon="EditIcon"
         extraClass="mb-6"
       />
-<Button htmlType="button" type="primary" size="small" onClick={()=>{}}>
+<Button htmlType="button" type="primary" size="small" onClick={()=>{updateUser(user);sendUpdate()}}>
  Сохранить измнения
 </Button>
  

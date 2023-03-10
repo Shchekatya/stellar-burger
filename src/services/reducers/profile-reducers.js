@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER,GET_USER} from "../actions/profile-actions";
+import { LOGIN, REGISTER,GET_USER,UPDATE_USER} from "../actions/profile-actions";
 
 const initialUser= {
     email: null,
@@ -10,8 +10,8 @@ const initialLogin= {
     password: null, 
 }
 const userGet= {
-    email: null,  
-    name: null,
+    email: "email",  
+    name: "name",
 }
 
 export const login = (state = initialLogin, action) => {
@@ -39,6 +39,18 @@ export const login = (state = initialLogin, action) => {
   export const getUser = (state = userGet, action) => {
     switch (action.type) {
       case GET_USER:
+        return (      
+         action.payload
+        )
+        default:
+          return state
+    }
+  }
+
+  
+  export const updateUser = (state = initialUser, action) => {
+    switch (action.type) {
+      case UPDATE_USER:
         return (      
          action.payload
         )

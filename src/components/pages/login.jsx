@@ -34,7 +34,8 @@ export function Login() {
   setCookie('authToken', authToken);
   setCookie('refreshToken', refreshToken);
 
-  console.log( document.cookie.authToken );
+  console.log( document.cookie.split('refreshToken=')[1]);
+  console.log( document.cookie);
 }
       } else {
         console.log("Ошибка HTTP: " + response.status + data);
