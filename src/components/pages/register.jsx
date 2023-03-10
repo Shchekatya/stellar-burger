@@ -6,7 +6,7 @@ import { REGISTER } from "../../services/actions/profile-actions";
 export function Register() {
    
   const user = useSelector((state) => state.login);
-  console.log(user)
+  // console.log(user)
   let result;
   const sendRegister = async (
     url = "https://norma.nomoreparties.space/api/auth/register",
@@ -22,7 +22,7 @@ export function Register() {
       });
       if (response.ok) {
         result = await response.json();
-        console.log({ result });
+        // console.log({ result });
       } else {
         console.log("Ошибка HTTP: " + response.status + data);
       }

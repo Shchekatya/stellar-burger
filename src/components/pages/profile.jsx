@@ -7,11 +7,11 @@ import { GET_USER } from "../../services/actions/profile-actions";
 
 export function Profile() {
   const user = useSelector((state) => state.getUser);
-  console.log(user)
+  // console.log(user)
   let cookie=document.cookie.split('token=')[1]
-  console.log(cookie)
+  // console.log(cookie)
   const dispatch = useDispatch();
-  const update = (user) => {
+  const getUser = (user) => {
     dispatch({
       type: GET_USER,
       payload: user,
@@ -33,8 +33,8 @@ export function Profile() {
           });
            const data = await res.json();
            if (res.ok) {
-            console.log(data.user)
-            update(data.user)    
+            // console.log(data.user)
+            getUser(data.user)    
                    
          } else {
              console.log("Ошибка HTTP: " + res.status);  }        
@@ -48,6 +48,12 @@ export function Profile() {
     const [value, setValue] = React.useState(user.name)
     const onChange = e => {
       setValue(e.target.value)
+      user.name=e.target.value
+    }
+    const [login, setLogin] = React.useState(user.email)
+    const onChangeLogin = e => {
+      setLogin(e.target.value)
+      user.email=e.target.value
     }
 return (
   <div className={styles.wrapper}>
@@ -72,8 +78,8 @@ return (
       extraClass="mb-6"
     />
    <EmailInput
-    onChange={onChange}
-    value={user.email}
+    onChange={onChangeLogin}
+    value={login}
     name={'email'}
     placeholder="Логин"
     isIcon={true}

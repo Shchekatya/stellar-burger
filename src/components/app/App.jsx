@@ -11,7 +11,7 @@ import { Forgot } from "../pages/forgot-password";
 import { ProtectedRouteElement } from "../../utils/protected-route";
 
 const App = () => {
-  console.log(document.cookie);
+  // console.log(document.cookie);
   return (
     <div className={styles.app}>
       <BrowserRouter>

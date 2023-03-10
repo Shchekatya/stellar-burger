@@ -10,7 +10,6 @@ import {setCookie} from '../../utils/cookie'
 export function Login() {
 
   const user = useSelector((state) => state.login);
-  console.log(user)
   let result;
   const sendLogin = async (
     url = "https://norma.nomoreparties.space/api/auth/login",
@@ -29,9 +28,13 @@ export function Login() {
        
 
         let authToken=result.accessToken.split('Bearer ')[1];
-        console.log( authToken );
+        let refreshToken=result.refreshToken;
+       
         if (authToken) {         
-  setCookie('token', authToken);
+  setCookie('authToken', authToken);
+  setCookie('refreshToken', refreshToken);
+
+  console.log( document.cookie.authToken );
 }
       } else {
         console.log("Ошибка HTTP: " + response.status + data);
