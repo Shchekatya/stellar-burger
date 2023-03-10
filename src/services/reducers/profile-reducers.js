@@ -51,7 +51,7 @@ export const login = (state = initialLogin, action) => {
   export const updateUser = (state = initialUser, action) => {
     switch (action.type) {
       case UPDATE_USER:
-        return (      
+        return (                 
          action.payload
         )
         default:

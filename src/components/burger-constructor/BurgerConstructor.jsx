@@ -18,6 +18,7 @@ import {
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
 import {postOrder} from '../../utils/api'
+import { getCookie } from "../../utils/cookie";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
@@ -58,6 +59,7 @@ export const BurgerConstructor = () => {
     [orders]
   );
   let result;
+  let cookie=getCookie('authToken')
   const sendOrder = async (
     url = postOrder,
     data = { ingredients: idArr }
@@ -67,6 +69,7 @@ export const BurgerConstructor = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer "+cookie
         },
         body: JSON.stringify(data),
       });
@@ -156,7 +159,7 @@ export const BurgerConstructor = () => {
         <Button
           htmlType="button"
           type="primary"
-          size="medium"
+          size="medium"          
           onClick={() => {
             setOpen(true);
             sendOrder();

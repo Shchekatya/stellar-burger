@@ -34,10 +34,11 @@ export function Profile() {
       });
       if (response.ok) {
         result = await response.json();
-        getUser(user)
+        console.log(data)
+        getUser(data.user) 
 
       } else {
-        console.log("Ошибка HTTP: " + response.status + data);
+        console.log("Ошибка HTTP: " + response.status + response.message);
       }
     } catch (error) {
       console.log("АШИПКА!!", error);
