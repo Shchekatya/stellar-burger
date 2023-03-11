@@ -33,6 +33,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
             </Route>           
             <Route path="/forgot-password" element={<Forgot />} />
+            <Route path='*' element={<Page404 />} />
           </Routes>
           <ModalSwitch/>
         </main>

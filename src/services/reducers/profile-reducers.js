@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER,GET_USER,UPDATE_USER} from "../actions/profile-actions";
+import { LOGIN, REGISTER,GET_USER,UPDATE_USER,LOGOUT_USER} from "../actions/profile-actions";
 
 const initialUser= {
     email: null,
@@ -58,4 +58,18 @@ export const login = (state = initialLogin, action) => {
           return state
     }
   }
+
+  export const logOut = (state = initialUser, action) => {
+    switch (action.type) {
+      case LOGOUT_USER:
+        return {
+          email: null,
+          password: null,
+          name: null,
+      }
+        default:
+          return state
+    }
+  }
+  
   

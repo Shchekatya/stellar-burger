@@ -3,7 +3,7 @@ import {EmailInput,Input,PasswordInput, Button } from "@ya.praktikum/react-devel
 import styles from "../pages/profile.module.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_USER,UPDATE_USER } from "../../services/actions/profile-actions";
+import { GET_USER,UPDATE_USER,LOGOUT_USER } from "../../services/actions/profile-actions";
 import { getCookie,setCookie } from "../../utils/cookie";
 
 export function Profile() {
@@ -16,6 +16,11 @@ export function Profile() {
     dispatch({
       type: GET_USER,
       payload: user,
+    });
+  };
+  const logOutUser = () => {
+    dispatch({
+      type: LOGOUT_USER,     
     });
   };
  let result;
@@ -39,6 +44,64 @@ export function Profile() {
 
       } else {
         console.log("Ошибка HTTP: " + response.status + response.message);
+      }
+    } catch (error) {
+      console.log("АШИПКА!!", error);
+    }
+  };
+
+  const refreshTokenRequest = async (
+    url = "https://norma.nomoreparties.space/api/auth/token",
+    data = {
+      token: getCookie("refreshToken")
+  } 
+  ) => {
+    try {
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",       
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        result = await response.json();      
+        let authToken=result.accessToken.split('Bearer ')[1];
+        let refreshToken=result.refreshToken;
+       
+        if (authToken) {         
+  setCookie('authToken', authToken);
+  setCookie('refreshToken', refreshToken);}
+
+      } else {
+        console.log("Ошибка HTTP: " + response.status + response.message);
+      }
+    } catch (error) {
+      console.log("АШИПКА!!", error);
+    }
+  };
+
+  const logOut = async (
+    url = "https://norma.nomoreparties.space/api/auth/logout",
+    data = {
+      token: getCookie("refreshToken")
+  } 
+  ) => {
+    try {
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",       
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        result = await response.json();      
+        logOutUser()
+        setCookie('authToken', null, { expires: -1 });
+        setCookie('refreshToken', null, { expires: -1 });
+      } else {
+        console.log("Ошибка HTTP: " + response.status);
       }
     } catch (error) {
       console.log("АШИПКА!!", error);
@@ -70,8 +133,11 @@ export function Profile() {
             getUser(data.user)    
                    
          } else {
+        
              console.log("Ошибка HTTP: " + res.status);  }        
          } catch (error) {
+          if (error.message === 'jwt expired') {
+            await refreshTokenRequest();}
            console.log("АШИПКА!!", error);        
          }
        };
@@ -98,7 +164,7 @@ return (
     <div className={styles.left}>
     <NavLink to={'/profile'} className="text text_type_main-medium p-4 current">Профиль</NavLink>
     <NavLink to={'/profile/order'} className="text text_type_main-medium p-4">История заказов</NavLink>
-    <NavLink to={'/profile'} className="text text_type_main-medium p-4">Выход</NavLink>
+    <NavLink to={'/login'} className="text text_type_main-medium p-4" onClick={()=>logOut()}>Выход</NavLink>
     <p className="text text_type_main-default mt-20">В этом разделе вы можете изменить свои персональные данные</p>
     </div>
     <form className={styles.form}>       

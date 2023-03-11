@@ -8,7 +8,7 @@ import {setCookie} from '../../utils/cookie'
 
 
 export function Login() {
-
+  console.log( document.cookie);
   const user = useSelector((state) => state.login);
   let result;
   const sendLogin = async (
@@ -24,9 +24,7 @@ export function Login() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        result = await response.json();
-       
-
+        result = await response.json();   
         let authToken=result.accessToken.split('Bearer ')[1];
         let refreshToken=result.refreshToken;
        

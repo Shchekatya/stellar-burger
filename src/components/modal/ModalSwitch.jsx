@@ -24,7 +24,7 @@ export const ModalSwitch = () => {
          <Routes location={background || location}>
            <Route path='/' element={<MainBurgers />} />           
            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
-           <Route path='*' element={<Page404 />} />
+           
          </Routes>
      
          {background && (
