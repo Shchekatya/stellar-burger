@@ -57,7 +57,7 @@ export function Register() {
     return (
       <div >
         <form >
-          <h1>Вход</h1>
+          <h1>Регистрация</h1>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
           <Input
       type={'text'}
@@ -88,7 +88,7 @@ export function Register() {
     <Button htmlType="button" type="primary" size="small" 
     onClick={()=>{registerUser(user); sendRegister()}}
     >
-  Войти
+  Зарегистрироваться
 </Button>
         </form>
         

@@ -6,9 +6,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Modal } from "../modal/Modal";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
 import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 export const IngredientSingle = ({ item }) => {
   const ItemActive = useSelector((state) => state.showItem.item);
+  const location = useLocation();
+  const ingredientId = item['_id'];
+ 
 
   const [, dragRef] = useDrag({
     type: "items",
@@ -30,6 +34,16 @@ export const IngredientSingle = ({ item }) => {
 
   return (
     <>
+    
+     <Link
+    key={ingredientId}
+    to={{
+      
+      pathname: `/ingredients/${ingredientId}`,
+      state: { background: location },
+    }}
+   className={Ing.link}
+  >
       <div
         ref={dragRef}
         onClick={() => {
@@ -49,6 +63,7 @@ export const IngredientSingle = ({ item }) => {
           <IngredientDetails item={item} />
         </Modal>
       )}
+      </Link>
     </>
   );
 };

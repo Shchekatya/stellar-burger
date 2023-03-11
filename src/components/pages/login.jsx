@@ -85,7 +85,7 @@ export function Login() {
       />
     </div>
     <Button htmlType="button" type="primary" size="small" onClick={()=>{loginUser(user);sendLogin()}}>
-  Зарегистироваться
+  Войти
 </Button>
         </form>
         <p className="text text_type_main-small">Вы — новый пользователь? <NavLink to={'/register'}>Зарегистрироваться</NavLink></p>
