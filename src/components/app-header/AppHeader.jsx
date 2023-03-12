@@ -4,9 +4,11 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import {NavLink } from "react-router-dom";
 import appHeader from "../app-header/app-header.module.css";
 
 export const AppHeader = () => {
+  
   return (
     <nav>
       <div className={appHeader.left}>
@@ -20,10 +22,10 @@ export const AppHeader = () => {
         </a>
       </div>
       <Logo />
-      <a href="/" className={appHeader.icon}>
-        <ProfileIcon type="primary" />
-        <p className="text text_type_main-default, ml-2">Личный кабинет</p>
-      </a>
+      <NavLink to={'/profile'} className={appHeader.icon}>      
+        <ProfileIcon type="primary" />       
+        <p className="text text_type_main-default, ml-2"> Личный кабинет</p>    
+      </NavLink>
     </nav>
   );
 };
