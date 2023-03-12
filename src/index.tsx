@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { compose, createStore } from 'redux';
 import rootReducer from './services/reducers/root-reducer';
+import { BrowserRouter } from 'react-router-dom';
 
 
 
@@ -25,10 +26,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+    <BrowserRouter>
+          <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -12,20 +12,55 @@ import { Profile } from "../pages/profile";
 import { Forgot } from "../pages/forgot-password";
 import { ProtectedRouteElement } from "../../utils/protected-route";
 import { useDispatch } from "react-redux";
-import { SHOW_ITEM } from "../../services/actions/actions";
+import { HIDE_ITEM } from "../../services/actions/actions";
 import { ModalSwitch } from "../modal/ModalSwitch";
 
 const App = () => {
 
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  let background = location.state && location.state.background;
+ 
+  const handleModalClose = () => {
+    dispatch({
+     type: HIDE_ITEM,
+    });
+    navigate(-1);
+  };
   return (
     <div className={styles.app}>
-      <BrowserRouter>
+      
         <header>
           <AppHeader />
         </header>
         <main>
-          <Routes >                     
+        <Routes location={background || location}>
+           <Route path='/' element={<MainBurgers />} />           
+           <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+           <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />           
+            <Route path="/reset-password" element={<Reset />} />
+            <Route element={<ProtectedRouteElement />}>
+              <Route path="/profile" element={<Profile />} />
+            </Route>           
+            <Route path="/forgot-password" element={<Forgot />} />
+            <Route path='*' element={<Page404 />} />
+         </Routes>
+     
+         {background && (
+          <Routes>
+           <Route
+             path='/ingredients/:ingredientId'
+             element={
+               <Modal onClose={handleModalClose}>
+                 <IngredientDetails />
+               </Modal>               
+             }
+           />
+           </Routes>
+         )}
+          {/* <Routes >                     
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />           
             <Route path="/reset-password" element={<Reset />} />
@@ -35,9 +70,10 @@ const App = () => {
             <Route path="/forgot-password" element={<Forgot />} />
             <Route path='*' element={<Page404 />} />
           </Routes>
-          <ModalSwitch/>
+          
+          <ModalSwitch/> */}
         </main>
-      </BrowserRouter>
+     
     </div>
   );
 };
