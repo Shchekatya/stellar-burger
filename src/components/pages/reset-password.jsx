@@ -1,20 +1,30 @@
 import React from "react";
 import {
-   Input,
-   Button,
+  Input,
+  PasswordInput,
+  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
-export function Reset() {
-  const [email, setEmail] = React.useState('введите email');
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);    
+export function Reset() { 
+  const user = useSelector((state) => state.login);
+  const [code, setCode] = React.useState('');
+  const onChangeCode = (e) => {
+    setCode(e.target.value);    
+  };
+  const [pass, setPass] = React.useState("");
+  const onChangePass = (e) => {
+    setPass(e.target.value);
+    user.password = e.target.value;
   };
 
   let result;
   const reset = async (
-    url = "https://norma.nomoreparties.space/api/password-reset",
-    data = {
-      email: email
+    url = "https://norma.nomoreparties.space/api/password-reset/reset",
+    data =  {
+        password: pass,
+        token: code   
   } 
   ) => {
     try {
@@ -27,7 +37,7 @@ export function Reset() {
       });
       if (response.ok) {
         result = await response.json();
-       console.log(result)
+        setCode(result.message);
       } else {
         console.log("Ошибка HTTP: " + response.status + data);
       }
@@ -35,16 +45,25 @@ export function Reset() {
       console.log("АШИПКА!!", error);
     }
   };
+  if (code==='Password successfully reset') {
+    return ( <Navigate to='/login'/>)
+  }
   return (
     <div>
       <form>
         <h1>Сбросить пароль</h1>
-        <Input
+        <PasswordInput
+            onChange={onChangePass}
+            placeholder={"Введите новый пароль"}
+            value={pass}
+            name={"password"}
+            extraClass="mb-2"
+          />
+          <Input
             type={"text"}
-            placeholder={"Имя"}
-            onChange={onChangeEmail}
-            icon={"EditIcon"}
-            value={email}
+            placeholder={"Введите код из письма"}
+            onChange={onChangeCode}           
+            value={code}
             name={"name"}
             error={false}
             errorText={"Ошибка"}

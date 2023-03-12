@@ -19,36 +19,18 @@ export const IngredientSingle = ({ item }) => {
     item: { item },
   });
 
-  const dispatch = useDispatch();
-  const showItem = (item) => {
-    dispatch({
-      type: SHOW_ITEM,
-      payload: item,
-    });
-  };
-  const hideItem = () => {
-    dispatch({
-      type: HIDE_ITEM,
-    });
-  };
 
   return (
     <>
     
-     <Link
-    key={ingredientId}
-    to={{
-      
-      pathname: `/ingredients/${ingredientId}`,
-      state: { background: location },
-    }}
-   className={Ing.link}
-  >
+    <Link
+      key={ingredientId}
+      to={`/ingredients/${ingredientId}`}
+      state={{ background: location }}
+      className={Ing.link}
+    >
       <div
-        ref={dragRef}
-        onClick={() => {
-          showItem(item);
-        }}
+        ref={dragRef}       
         className={Ing.card}
       >
         <img src={item.image} alt={item.name} />
@@ -59,7 +41,7 @@ export const IngredientSingle = ({ item }) => {
         <p className="text text_type_main-small">{item.name}</p>
       </div>
       {ItemActive && (
-        <Modal onClose={() => hideItem()}>
+        <Modal>
           <IngredientDetails item={item} />
         </Modal>
       )}

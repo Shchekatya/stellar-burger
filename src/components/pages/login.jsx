@@ -64,6 +64,10 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
+  if (document.cookie) {
+    console.log('вы красавчик')
+    return (<Navigate to='/'/>)
+  }
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>

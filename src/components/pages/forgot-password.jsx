@@ -3,6 +3,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Navigate } from "react-router-dom";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");
@@ -27,7 +28,7 @@ export function Forgot() {
       });
       if (response.ok) {
         result = await response.json();
-        setEmail(result.message);
+        setEmail(result.message);   
       } else {
         console.log("Ошибка HTTP: " + response.status);
       }
@@ -36,7 +37,12 @@ export function Forgot() {
     }
   };
 
+  if (email==='Reset email sent') {
+   return <Navigate to='/reset-password'/>
+   }
+
   return (
+  
     <div>
       <form>
         <h1>Восстановить пароль</h1>

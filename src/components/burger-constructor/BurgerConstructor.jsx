@@ -19,7 +19,7 @@ import {
 import { BurgerConstructorSinge } from "./burger-constructor-single";
 import { postOrder } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
-import { Navigate, NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink } from "react-router-dom";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
@@ -61,16 +61,9 @@ export const BurgerConstructor = () => {
   );
   let result;
   let cookie = getCookie("authToken");
-  const CheckLogin = () => {
-    if (!cookie) {
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA')
-      return (<Navigate to="/login"/>);
-    } else {
-      sendOrder();
-    }
-  };
+
   const sendOrder = async (url = postOrder, data = { ingredients: idArr }) => {
-    // if (!cookie) {return <Navigate to='/login'/> } else {
+ 
     try {
       let response = await fetch(url, {
         method: "POST",
@@ -169,10 +162,11 @@ export const BurgerConstructor = () => {
           size="medium"
           onClick={() => {
             setOpen(true);
-            CheckLogin();
+            sendOrder();
           }}
         >
-          Оформить заказ
+          {!cookie ? <Link to="/login"> Оформить заказ</Link> : 'Оформить заказ'}          
+          
         </Button>
 
         {open && post.result && (
