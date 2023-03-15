@@ -63,12 +63,16 @@ const App = () => {
           <Routes location={background || location}>
             <Route path='/' element={<MainBurgers />} />           
             <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+            
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />           
             <Route path="/reset-password" element={<Reset />} />
-            <Route element={<ProtectedRouteElement />}>
-              <Route path="/profile" element={<Profile />} />
-            </Route>           
+            <Route path="/profile" element={
+            <ProtectedRouteElement>
+              <Profile />
+            </ProtectedRouteElement>
+            }/>
+                      
             <Route path="/forgot-password" element={<Forgot />} />
             <Route path='*' element={<Page404 />} />
           </Routes>

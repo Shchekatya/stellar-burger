@@ -6,14 +6,7 @@ const initialUser= {
     name: null,
     isLoggedIn: false
 }
-const initialLogin= {
-    email: null,
-    password: null, 
-}
-const userGet= {
-    email: "email",  
-    name: "name",
-}
+
 
 export const login = (state = initialUser, action) => {
     switch (action.type) {
@@ -28,7 +21,8 @@ export const login = (state = initialUser, action) => {
         return {
           ...state,
           email: action.payload.email,   
-          name: action.payload.name,        
+          name: action.payload.name,   
+          isLoggedIn: true        
         }
         case UPDATE_USER:
           return {
@@ -37,6 +31,13 @@ export const login = (state = initialUser, action) => {
             name: action.payload.name,   
             password: action.payload.password,       
           }
+          case REGISTER:
+        return {
+          email: action.payload.email,   
+          name: action.payload.name,   
+          password: action.payload.password,  
+          isLoggedIn: true
+      }
         default:
           return state
     }
@@ -45,38 +46,17 @@ export const login = (state = initialUser, action) => {
   export const register = (state = initialUser, action) => {
     switch (action.type) {
       case REGISTER:
-        return (      
-         action.payload
-        )
+        return {
+          email: action.payload.email,   
+          name: action.payload.name,   
+          password: action.payload.password,  
+          isLoggedIn: true
+      }
         default:
           return state
     }
   }
 
-  // export const getUser = (state = initialUser, action) => {
-  //   switch (action.type) {
-  //     case GET_USER:
-  //       return {
-  //         ...state,
-  //         email: action.payload.email,   
-  //         name: action.payload.name,        
-  //       }
-  //       default:
-  //         return state
-  //   }
-  // }
-
-  
-  // export const updateUser = (state = initialUser, action) => {
-  //   switch (action.type) {
-  //     case UPDATE_USER:
-  //       return (                 
-  //        action.payload
-  //       )
-  //       default:
-  //         return state
-  //   }
-  // }
 
   export const logOut = (state = initialUser, action) => {
     switch (action.type) {
@@ -85,6 +65,7 @@ export const login = (state = initialUser, action) => {
           email: null,
           password: null,
           name: null,
+          isLoggedIn: false
       }
         default:
           return state

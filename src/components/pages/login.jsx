@@ -4,7 +4,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "../pages/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../services/actions/profile-actions";
@@ -12,7 +12,10 @@ import { setCookie } from "../../utils/cookie";
 
 
 export function Login() {
-  console.log(document.cookie);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const fromPage=location.state?.from?.pathname || '/';
+  console.log(fromPage);
   const user = useSelector((state) => state.login);
   let result;
   const sendLogin = async (
@@ -48,7 +51,7 @@ export function Login() {
   };
 
   const dispatch = useDispatch();
-  const loginUser = (user) => {
+  const loginUser = (user) => {  
     dispatch({
       type: LOGIN,
       payload: user,
@@ -96,6 +99,7 @@ export function Login() {
           onClick={() => {
             loginUser(user);
             sendLogin();
+            navigate(fromPage, {replace:true})
           }}
         >
           Войти
