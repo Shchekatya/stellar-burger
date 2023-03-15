@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../services/actions/profile-actions";
 import { setCookie } from "../../utils/cookie";
 
+
 export function Login() {
   console.log(document.cookie);
   const user = useSelector((state) => state.login);
@@ -64,10 +65,11 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  if (document.cookie) {
-    console.log('вы красавчик')
-    return (<Navigate to='/'/>)
-  }
+  console.log(user)
+  // if (document.cookie) {
+  //   console.log('вы красавчик')
+  //   return (<Navigate to='/'/>)
+  // }
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
@@ -112,3 +114,4 @@ export function Login() {
     </div>
   );
 }
+

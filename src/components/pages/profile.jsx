@@ -16,7 +16,7 @@ import {
 import { getCookie, setCookie } from "../../utils/cookie";
 
 export function Profile() {
-  const user = useSelector((state) => state.getUser);
+  const user = useSelector((state) => state.login);
   console.log(user);
   let cookie = getCookie("authToken");
   console.log(cookie);
@@ -138,7 +138,7 @@ export function Profile() {
         );
         const data = await res.json();
         if (res.ok) {
-          // console.log(data.user)
+          console.log(data.user)
           getUser(data.user);
         } else {
           console.log("Ошибка HTTP: " + res.status);
@@ -218,7 +218,7 @@ export function Profile() {
           />
           <PasswordInput
             onChange={onChangePass}
-            value={pass}
+            value={user.password}
             name={"password"}
             icon="EditIcon"
             extraClass="mb-6"

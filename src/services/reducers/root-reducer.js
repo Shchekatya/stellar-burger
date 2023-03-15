@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     showItem,
     login,
     register,
-    getUser
+    // getUser
   })
   
   export default rootReducer
