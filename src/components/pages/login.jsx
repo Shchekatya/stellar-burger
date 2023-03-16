@@ -68,11 +68,7 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  console.log(user)
-  // if (document.cookie) {
-  //   console.log('вы красавчик')
-  //   return (<Navigate to='/'/>)
-  // }
+  console.log(user) 
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
