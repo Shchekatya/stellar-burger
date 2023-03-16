@@ -19,11 +19,11 @@ import {
 import { BurgerConstructorSinge } from "./burger-constructor-single";
 import { postOrder } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
-import { Link, Navigate, NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
-
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const dispatch = useDispatch();
 
   const addConstructor = (item) => {
@@ -61,27 +61,30 @@ export const BurgerConstructor = () => {
   );
   let result;
   let cookie = getCookie("authToken");
-
+const navigate=useNavigate()
   const sendOrder = async (url = postOrder, data = { ingredients: idArr }) => {
- 
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + cookie,
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        result = await response.json();
-        setPost({ result });
-      } else {
-        console.log("Ошибка HTTP: " + response.status);
-      }
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
+    if (!isLoggedIn) {  
+      navigate('/login')
+        } else {
+          try {
+            let response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + cookie,
+              },
+              body: JSON.stringify(data),
+            });
+            if (response.ok) {
+              result = await response.json();
+              setPost({ result });
+            } else {
+              console.log("Ошибка HTTP: " + response.status);
+            }
+          } catch (error) {
+            console.log("АШИПКА!!", error);
+          }
+        }  
   };
   const delCard = useCallback(
     (dragIndex) => {
@@ -109,6 +112,12 @@ export const BurgerConstructor = () => {
     },
     [orders.main, dispatch]
   );
+
+  const checkLogin=()=> {
+    if (!isLoggedIn) {  
+      navigate('/login')
+        };
+  }
 
   return (
     <div className={bConst.right} ref={dropTarget}>
@@ -162,10 +171,12 @@ export const BurgerConstructor = () => {
           size="medium"
           onClick={() => {
             setOpen(true);
+            // checkLogin();
             sendOrder();
+            
           }}
         >
-          {!cookie ? <Link to="/login"> Оформить заказ</Link> : 'Оформить заказ'}          
+        Оформить заказ
           
         </Button>
 
