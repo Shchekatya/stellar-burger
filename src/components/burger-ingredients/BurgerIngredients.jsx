@@ -17,7 +17,7 @@ export const BurgerIngredients = (props) => {
         if (entry.isIntersecting) {
           links.forEach((link) => {
             link.classList.toggle(
-              "activeNav",
+              "tab_type_current",
               link.getAttribute("href").replace("#", "") === entry.target.id
             );
           });
@@ -27,7 +27,7 @@ export const BurgerIngredients = (props) => {
     },
     {
       root: document.querySelector("#viewport"),
-      threshold: [0, 0.5],
+      threshold:0.5,
     }
   );
   document
@@ -41,14 +41,29 @@ console.log(current)
     <div className={bIng.left}>
       <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
       <nav className={bIng.nav}>
-      <Tab value="section-bun" active={current === 'section-bun'} onClick={setCurrent} className="nav-link">
-        Булки
+      <Tab value="section-bun" active={current === 'section-bun'} onClick={setCurrent} >
+      <a
+          href="#section-bun"
+          className="text text_type_main-small pb-4 pt-4 nav-link"
+        >
+          Булки
+        </a>
       </Tab>
-      <Tab value="section-sauces" active={current === 'section-sauces'} onClick={setCurrent} className="nav-link">
-        Соусы
+      <Tab value="section-sauces" active={current === 'section-sauces'} onClick={setCurrent}>
+      <a
+          href="#section-sauces"
+          className="text text_type_main-small pb-4 pt-4 nav-link"
+        >
+          Соусы
+        </a>
       </Tab>
       <Tab value="section-mains" active={current === 'section-mains'} onClick={setCurrent} className="nav-link">
-        Начинки
+      <a
+          href="#section-mains"
+          className="text text_type_main-small pb-4 pt-4 nav-link"
+        >
+          Начинки
+        </a>
       </Tab>
     </nav>
       {/* <nav className={bIng.nav}>
