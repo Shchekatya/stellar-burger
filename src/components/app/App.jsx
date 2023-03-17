@@ -11,10 +11,10 @@ import { MainBurgers } from "../pages/main-burgers";
 import { Profile } from "../pages/profile";
 import { Forgot } from "../pages/forgot-password";
 import { ProtectedRouteElement } from "../protected-route/protected-route";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
-import { api } from "../../utils/api";
+import { getFeed } from "../../services/actions/get-feed";
 
 const App = () => {
   const location = useLocation();
@@ -22,73 +22,66 @@ const App = () => {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  const loadItems = (items) => {
-    dispatch({
-      type: LOAD_SUCCESS,
-      payload: items,
-    });
-  };
-
+  const { items, feedRequest, feedFailed } = useSelector(
+    (state) => state.loadIngredients
+  );
   useEffect(() => {
-    const getProductData = async () => {
-        try {
-          const res = await fetch(api);
-          // debugger
-          const data = await res.json();
-          if (res.ok) {
-            loadItems(data.data)
-          } else {
-            console.log("Ошибка HTTP: " + res.status);
-          }
-        } catch (error) {
-          console.log("АШИПКА!!", error);
-        }
-      };
-    getProductData();
+    dispatch(getFeed());
+    getFeed();
   }, []);
- 
+
   const handleModalClose = () => {
     dispatch({
-     type: HIDE_ITEM,
+      type: HIDE_ITEM,
     });
     navigate(-1);
   };
-
+  if (feedFailed) {
+    return <p>Произошла ошибка при получении данных</p>;
+  } else if (feedRequest) {
+    return <p>Загрузка...</p>;
+  }
   return (
     <div className={styles.app}>
-        <header>
-          <AppHeader />
-        </header>
-        <main>
-          <Routes location={background || location}>
-            <Route path='/' element={<MainBurgers />} />           
-            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />            
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />           
-            <Route path="/reset-password" element={<Reset />} />
-            <Route path="/profile" element={
-            <ProtectedRouteElement>
-              <Profile />
-            </ProtectedRouteElement>
-            }/>
-                      
-            <Route path="/forgot-password" element={<Forgot />} />
-            <Route path='*' element={<Page404 />} />
+      <header>
+        <AppHeader />
+      </header>
+      <main>
+        <Routes location={background || location}>
+          <Route path="/" element={<MainBurgers />} />
+          <Route
+            path="/ingredients/:ingredientId"
+            element={<IngredientDetails />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<Reset />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRouteElement>
+                <Profile />
+              </ProtectedRouteElement>
+            }
+          />
+
+          <Route path="/forgot-password" element={<Forgot />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+
+        {background && (
+          <Routes>
+            <Route
+              path="/ingredients/:ingredientId"
+              element={
+                <Modal onClose={handleModalClose}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
           </Routes>
-    
-          {background && (
-            <Routes>
-              <Route
-                path='/ingredients/:ingredientId'
-                element={
-                  <Modal onClose={handleModalClose}>
-                    <IngredientDetails />
-                  </Modal>
-                }
-              />
-            </Routes>
-          )}
-        </main>
+        )}
+      </main>
     </div>
   );
 };

@@ -8,5 +8,8 @@ export const DELETE_ORDER = 'DELETE_ORDER';
 export const SHOW_ITEM = 'SHOW_ITEM';
 export const HIDE_ITEM = 'HIDE_ITEM';
 export const ADD_OREDER_BUN = 'HIDE_ITEM';
+export const GET_FEED = 'GET_FEED';
+export const GET_FEED_FAILED = 'GET_FEED_FAILED';
+export const GET_FEED_SUCCESS = 'GET_FEED_SUCCESS';
 
 

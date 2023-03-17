@@ -15,7 +15,7 @@ import styles from "../pages/register.module.css";
 export function Register() {
   const user = useSelector((state) => state.login);
 
-   const sendRegister = async (
+  const sendRegister = async (
     url = `${BASE_URL}/auth/register`,
     data = user
   ) => {
@@ -27,15 +27,13 @@ export function Register() {
         },
         body: JSON.stringify(data),
       });
-   
+
       checkResponse(response);
-  
     } catch (error) {
       console.log("АШИПКА!!", error);
     }
   };
 
- 
   const dispatch = useDispatch();
   const registerUser = (user) => {
     dispatch({
@@ -60,9 +58,9 @@ export function Register() {
     user.name = e.target.value;
   };
   // console.log(user.isLoggedIn)
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   if (user.isLoggedIn) {
-    return navigate('/login')
+    return navigate("/login");
   }
   return (
     <div className={styles.wrapper}>

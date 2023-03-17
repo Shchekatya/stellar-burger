@@ -16,7 +16,7 @@ export function Forgot() {
   let result;
   const location = useLocation();
   const reset = async (
-    url = `${ BASE_URL }/password-reset`,
+    url = `${BASE_URL}/password-reset`,
     data = {
       email: email,
     }
@@ -31,7 +31,7 @@ export function Forgot() {
       });
       if (response.ok) {
         result = await response.json();
-        setEmail(result.message);   
+        setEmail(result.message);
       } else {
         console.log("Ошибка HTTP: " + response.status);
       }
@@ -40,12 +40,11 @@ export function Forgot() {
     }
   };
 
-  if (email==='Reset email sent') {
-   return <Navigate to='/reset-password' state={{ from: location }}/>
-   }
+  if (email === "Reset email sent") {
+    return <Navigate to="/reset-password" state={{ from: location }} />;
+  }
 
   return (
-  
     <div className={styles.wrapper}>
       <form>
         <h1>Восстановить пароль</h1>

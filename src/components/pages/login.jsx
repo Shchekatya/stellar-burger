@@ -11,18 +11,14 @@ import { LOGIN } from "../../services/actions/profile-actions";
 import { setCookie } from "../../utils/cookie";
 import { BASE_URL } from "../../utils/api";
 
-
 export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const fromPage=location.state?.from?.pathname || '/';
+  const fromPage = location.state?.from?.pathname || "/";
   console.log(fromPage);
   const user = useSelector((state) => state.login);
   let result;
-  const sendLogin = async (
-    url = `${BASE_URL}/auth/login`,
-    data = user
-  ) => {
+  const sendLogin = async (url = `${BASE_URL}/auth/login`, data = user) => {
     try {
       let response = await fetch(url, {
         method: "POST",
@@ -52,7 +48,7 @@ export function Login() {
   };
 
   const dispatch = useDispatch();
-  const loginUser = (user) => {  
+  const loginUser = (user) => {
     dispatch({
       type: LOGIN,
       payload: user,
@@ -69,7 +65,7 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  console.log(user) 
+  console.log(user);
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
@@ -96,7 +92,7 @@ export function Login() {
           onClick={() => {
             loginUser(user);
             sendLogin();
-            navigate(fromPage, {replace:true})
+            navigate(fromPage, { replace: true });
           }}
         >
           Войти
@@ -115,4 +111,3 @@ export function Login() {
     </div>
   );
 }
-

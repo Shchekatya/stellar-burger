@@ -4,9 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useRef } from "react";
 import PropTypes from "prop-types";
 
-
 export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
-
   const onClick = () => delCard(index);
   const ref = useRef(null);
 

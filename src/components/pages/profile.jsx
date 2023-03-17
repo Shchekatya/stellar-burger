@@ -94,9 +94,9 @@ export function Profile() {
         body: JSON.stringify(data),
       });
       checkResponse(response);
-        logOutUser();
-        setCookie("authToken", null, { expires: -1 });
-        setCookie("refreshToken", null, { expires: -1 });   
+      logOutUser();
+      setCookie("authToken", null, { expires: -1 });
+      setCookie("refreshToken", null, { expires: -1 });
     } catch (error) {
       console.log("АШИПКА!!", error);
     }
@@ -119,10 +119,10 @@ export function Profile() {
             Authorization: "Bearer " + cookie,
           },
         });
-        const data = await res.json();        
-   
+        const data = await res.json();
+
         if (res.ok) {
-          console.log(data.user); 
+          console.log(data.user);
           getUser(data.user);
         } else {
           console.log("Ошибка HTTP: " + res.status);

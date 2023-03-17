@@ -38,8 +38,7 @@ export const BurgerIngredients = (props) => {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-
-   return (
+  return (
     <div className={bIng.left}>
       <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
       <nav className={bIng.nav}>
@@ -59,22 +58,16 @@ export const BurgerIngredients = (props) => {
       </nav>
 
       <div className={bIng.ingredients} id="viewport">
-        <section id="buns" className="section"  ref={bunsRef} >
-          <h2 className="text text_type_main-medium mt-10 mb-6" >
-            Булки
-          </h2>
+        <section id="buns" className="section" ref={bunsRef}>
+          <h2 className="text text_type_main-medium mt-10 mb-6">Булки</h2>
           <Ingredients type="bun" items={items} onAdd={props.onAdd} />
         </section>
-        <section id="sauces" className="section" ref={saucesRef} >
-          <h2 className="text text_type_main-medium mt-10 mb-6" >
-            Соусы
-          </h2>
+        <section id="sauces" className="section" ref={saucesRef}>
+          <h2 className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
           <Ingredients type="sauce" items={items} onAdd={props.onAdd} />
         </section>
-        <section id="mains" className="section" ref={mainsRef} >
-          <h2 className="text text_type_main-medium mt-10 mb-6" >
-            Начинки
-          </h2>
+        <section id="mains" className="section" ref={mainsRef}>
+          <h2 className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
           <Ingredients type="main" items={items} onAdd={props.onAdd} />
         </section>
       </div>

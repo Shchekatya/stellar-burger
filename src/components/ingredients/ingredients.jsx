@@ -9,7 +9,9 @@ export const Ingredients = (props) => {
       {items ? (
         items
           .filter((e) => e.type === props.type)
-          .map((item) => <IngredientSingle item={item} onAdd={props.onAdd} key={item._id}/>)
+          .map((item) => (
+            <IngredientSingle item={item} onAdd={props.onAdd} key={item._id} />
+          ))
       ) : (
         <div>Нет в наличии</div>
       )}

@@ -6,10 +6,15 @@ import {
   DELETE_CONSTRUCTOR,
   HIDE_ITEM,
   SHOW_ITEM,
-  ADD_BUN
+  ADD_BUN,
+  GET_FEED,
+  GET_FEED_FAILED,
+  GET_FEED_SUCCESS
 } from "../actions/actions"
 
 const initialIngredients = {
+  feedRequest: false,
+  feedFailed: false,
   items: [],
 }
 
@@ -26,14 +31,32 @@ const initialItem = {
 
 export const loadIngredients = (state = initialIngredients, action) => {
   switch (action.type) {
-    case LOAD_SUCCESS:
+    case GET_FEED: {
       return {
-        ...state,
-        items: action.payload
-      }
-      default:
-        return state
-  }
+        ...state,          
+        feedRequest: true,           
+                feedFailed: false,
+      };
+    }
+    case GET_FEED_SUCCESS: {
+      return { 
+                ...state, 
+                items: action.items, 
+                feedRequest: false 
+            };
+    }
+    case GET_FEED_FAILED: {
+      return { 
+                ...state,    
+                feedFailed: true,    
+                feedRequest: false 
+            };
+    }
+        default: {
+            return state
+        }
+    }
+
 }
 
 

@@ -17,12 +17,13 @@ import {
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
-import { postOrder } from "../../utils/api";
+import { BASE_URL } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
+
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -52,7 +53,6 @@ export const BurgerConstructor = () => {
   const [post, setPost] = useState({});
   const idArr = orders.main.map((item) => item._id.toString());
   orders.bun && idArr.push(orders.bun._id);
-
   const sum = useMemo(
     () =>
       orders.main.reduce((acc, cur) => acc + cur.price, 0) +
@@ -61,30 +61,33 @@ export const BurgerConstructor = () => {
   );
   let result;
   let cookie = getCookie("authToken");
-const navigate=useNavigate()
-  const sendOrder = async (url = postOrder, data = { ingredients: idArr }) => {
-    if (!isLoggedIn) {  
-      navigate('/login')
+  const navigate = useNavigate();
+  const sendOrder = async (
+    url = `${BASE_URL}/orders`,
+    data = { ingredients: idArr }
+  ) => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      try {
+        let response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookie,
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          result = await response.json();
+          setPost({ result });
         } else {
-          try {
-            let response = await fetch(url, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + cookie,
-              },
-              body: JSON.stringify(data),
-            });
-            if (response.ok) {
-              result = await response.json();
-              setPost({ result });
-            } else {
-              console.log("Ошибка HTTP: " + response.status);
-            }
-          } catch (error) {
-            console.log("АШИПКА!!", error);
-          }
-        }  
+          console.log("Ошибка HTTP: " + response.status);
+        }
+      } catch (error) {
+        console.log("АШИПКА!!", error);
+      }
+    }
   };
   const delCard = useCallback(
     (dragIndex) => {
@@ -113,11 +116,11 @@ const navigate=useNavigate()
     [orders.main, dispatch]
   );
 
-  const checkLogin=()=> {
-    if (!isLoggedIn) {  
-      navigate('/login')
-        };
-  }
+  const checkLogin = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className={bConst.right} ref={dropTarget}>
@@ -173,11 +176,9 @@ const navigate=useNavigate()
             setOpen(true);
             // checkLogin();
             sendOrder();
-            
           }}
         >
-        Оформить заказ
-          
+          Оформить заказ
         </Button>
 
         {open && post.result && (
