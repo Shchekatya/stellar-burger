@@ -7,13 +7,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { REGISTER } from "../../services/actions/profile-actions";
+import { BASE_URL } from "../../utils/api";
+import { checkResponse } from "../../utils/check-response";
+import { useNavigate } from "react-router-dom";
+import styles from "../pages/register.module.css";
 
 export function Register() {
   const user = useSelector((state) => state.login);
-  // console.log(user)
-  let result;
-  const sendRegister = async (
-    url = "https://norma.nomoreparties.space/api/auth/register",
+
+   const sendRegister = async (
+    url = `${BASE_URL}/auth/register`,
     data = user
   ) => {
     try {
@@ -24,17 +27,15 @@ export function Register() {
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) {
-        result = await response.json();
-        // console.log({ result });
-      } else {
-        console.log("Ошибка HTTP: " + response.status + data);
-      }
+   
+      checkResponse(response);
+  
     } catch (error) {
       console.log("АШИПКА!!", error);
     }
   };
 
+ 
   const dispatch = useDispatch();
   const registerUser = (user) => {
     dispatch({
@@ -58,8 +59,13 @@ export function Register() {
     setName(e.target.value);
     user.name = e.target.value;
   };
+  // console.log(user.isLoggedIn)
+  const navigate=useNavigate();
+  if (user.isLoggedIn) {
+    return navigate('/login')
+  }
   return (
-    <div>
+    <div className={styles.wrapper}>
       <form>
         <h1>Регистрация</h1>
         <div style={{ display: "flex", flexDirection: "column" }}>

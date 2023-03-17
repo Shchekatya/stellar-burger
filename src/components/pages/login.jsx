@@ -9,6 +9,7 @@ import styles from "../pages/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../services/actions/profile-actions";
 import { setCookie } from "../../utils/cookie";
+import { BASE_URL } from "../../utils/api";
 
 
 export function Login() {
@@ -19,7 +20,7 @@ export function Login() {
   const user = useSelector((state) => state.login);
   let result;
   const sendLogin = async (
-    url = "https://norma.nomoreparties.space/api/auth/login",
+    url = `${BASE_URL}/auth/login`,
     data = user
   ) => {
     try {

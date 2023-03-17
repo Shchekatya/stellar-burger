@@ -3,7 +3,9 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import { BASE_URL } from "../../utils/api";
+import styles from "../pages/register.module.css";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");
@@ -12,8 +14,9 @@ export function Forgot() {
   };
 
   let result;
+  const location = useLocation();
   const reset = async (
-    url = "https://norma.nomoreparties.space/api/password-reset",
+    url = `${ BASE_URL }/password-reset`,
     data = {
       email: email,
     }
@@ -38,12 +41,12 @@ export function Forgot() {
   };
 
   if (email==='Reset email sent') {
-   return <Navigate to='/reset-password'/>
+   return <Navigate to='/reset-password' state={{ from: location }}/>
    }
 
   return (
   
-    <div>
+    <div className={styles.wrapper}>
       <form>
         <h1>Восстановить пароль</h1>
         <Input

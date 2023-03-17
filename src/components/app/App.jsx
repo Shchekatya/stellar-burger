@@ -10,7 +10,7 @@ import { Page404 } from "../pages/404";
 import { MainBurgers } from "../pages/main-burgers";
 import { Profile } from "../pages/profile";
 import { Forgot } from "../pages/forgot-password";
-import { ProtectedRouteElement } from "../../utils/protected-route";
+import { ProtectedRouteElement } from "../protected-route/protected-route";
 import { useDispatch } from "react-redux";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
@@ -20,7 +20,7 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
 
   const loadItems = (items) => {
     dispatch({
@@ -62,8 +62,7 @@ const App = () => {
         <main>
           <Routes location={background || location}>
             <Route path='/' element={<MainBurgers />} />           
-            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
-            
+            <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />            
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />           
             <Route path="/reset-password" element={<Reset />} />

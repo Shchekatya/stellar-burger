@@ -14,6 +14,8 @@ import {
   LOGOUT_USER,
 } from "../../services/actions/profile-actions";
 import { getCookie, setCookie } from "../../utils/cookie";
+import { BASE_URL } from "../../utils/api";
+import { checkResponse } from "../../utils/check-response";
 
 export function Profile() {
   const user = useSelector((state) => state.login);
@@ -33,10 +35,7 @@ export function Profile() {
     });
   };
   let result;
-  const sendUpdate = async (
-    url = "https://norma.nomoreparties.space/api/auth/user",
-    data = user
-  ) => {
+  const sendUpdate = async (url = `${BASE_URL}/auth/user`, data = user) => {
     try {
       let response = await fetch(url, {
         method: "PATCH",
@@ -46,20 +45,15 @@ export function Profile() {
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) {
-        result = await response.json();
-        console.log(data);
-        getUser(data.user);
-      } else {
-        console.log("Ошибка HTTP: " + response.status + response.message);
-      }
+      checkResponse(response);
+      getUser(data.user);
     } catch (error) {
       console.log("АШИПКА!!", error);
     }
   };
 
   const refreshTokenRequest = async (
-    url = "https://norma.nomoreparties.space/api/auth/token",
+    url = `${BASE_URL}/auth/token`,
     data = {
       token: getCookie("refreshToken"),
     }
@@ -72,17 +66,13 @@ export function Profile() {
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) {
-        result = await response.json();
-        let authToken = result.accessToken.split("Bearer ")[1];
-        let refreshToken = result.refreshToken;
-
-        if (authToken) {
-          setCookie("authToken", authToken);
-          setCookie("refreshToken", refreshToken);
-        }
-      } else {
-        console.log("Ошибка HTTP: " + response.status + response.message);
+      checkResponse(response);
+      result = await response.json();
+      let authToken = result.accessToken.split("Bearer ")[1];
+      let refreshToken = result.refreshToken;
+      if (authToken) {
+        setCookie("authToken", authToken);
+        setCookie("refreshToken", refreshToken);
       }
     } catch (error) {
       console.log("АШИПКА!!", error);
@@ -90,7 +80,7 @@ export function Profile() {
   };
 
   const logOut = async (
-    url = "https://norma.nomoreparties.space/api/auth/logout",
+    url = `${BASE_URL}/auth/logout`,
     data = {
       token: getCookie("refreshToken"),
     }
@@ -103,14 +93,10 @@ export function Profile() {
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) {
-        result = await response.json();
+      checkResponse(response);
         logOutUser();
         setCookie("authToken", null, { expires: -1 });
-        setCookie("refreshToken", null, { expires: -1 });
-      } else {
-        console.log("Ошибка HTTP: " + response.status);
-      }
+        setCookie("refreshToken", null, { expires: -1 });   
     } catch (error) {
       console.log("АШИПКА!!", error);
     }
@@ -126,19 +112,17 @@ export function Profile() {
   React.useEffect(() => {
     const getUserData = async () => {
       try {
-        const res = await fetch(
-          "https://norma.nomoreparties.space/api/auth/user",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + cookie,
-            },
-          }
-        );
-        const data = await res.json();
+        const res = await fetch(`${BASE_URL}/auth/user`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + cookie,
+          },
+        });
+        const data = await res.json();        
+   
         if (res.ok) {
-          console.log(data.user)
+          console.log(data.user); 
           getUser(data.user);
         } else {
           console.log("Ошибка HTTP: " + res.status);
@@ -195,7 +179,7 @@ export function Profile() {
         </p>
       </div>
       <form className={styles.form}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className={styles.formwrap}>
           <Input
             type={"text"}
             placeholder={"Имя"}

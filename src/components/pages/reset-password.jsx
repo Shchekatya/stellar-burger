@@ -5,9 +5,13 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import { BASE_URL } from "../../utils/api";
 
 export function Reset() { 
+  const location = useLocation();
+  const fromPage=location.state?.from?.pathname || '/';
+  console.log(fromPage);
   const user = useSelector((state) => state.login);
   const [code, setCode] = React.useState('');
   const onChangeCode = (e) => {
@@ -21,7 +25,7 @@ export function Reset() {
 
   let result;
   const reset = async (
-    url = "https://norma.nomoreparties.space/api/password-reset/reset",
+    url = `${ BASE_URL }/password-reset/reset`,
     data =  {
         password: pass,
         token: code   
@@ -47,6 +51,9 @@ export function Reset() {
   };
   if (code==='Password successfully reset') {
     return ( <Navigate to='/login'/>)
+  }
+  if (fromPage!="/forgot-password") {
+    return <Navigate to='/' />
   }
   return (
     <div>
