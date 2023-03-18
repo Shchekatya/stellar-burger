@@ -7,11 +7,19 @@ import { useEffect } from "react";
 const modalElement = document.querySelector("#modal");
 
 export const Modal = (props) => {
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      props.onClose();
+  useEffect(() => {
+    function closeByEscape(e) {
+      if(e.key === 'Escape') {
+        props.onClose();
+      }
     }
-  });
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+
+  }, []) 
+
 
   return createPortal(
     <>
