@@ -64,9 +64,15 @@ export function Register() {
   }
   return (
     <div className={styles.wrapper}>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          registerUser(user);
+          sendRegister();
+        }}
+      >
         <h1>Регистрация</h1>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className={styles.inputs}>
           <Input
             type={"text"}
             placeholder={"Имя"}
@@ -92,15 +98,7 @@ export function Register() {
             extraClass="mb-2"
           />
         </div>
-        <Button
-          htmlType="button"
-          type="primary"
-          size="small"
-          onClick={() => {
-            registerUser(user);
-            sendRegister();
-          }}
-        >
+        <Button htmlType="submit" type="primary" size="small">
           Зарегистрироваться
         </Button>
       </form>

@@ -10,6 +10,9 @@
   overflow: auto;
   margin: 16px;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .mainlist {
@@ -37,7 +40,6 @@
 .main {
 position: relative;
 margin-top: 10px;
-
 }
 
 .main::before {

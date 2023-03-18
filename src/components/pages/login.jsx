@@ -4,57 +4,15 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, } from "react-router-dom";
 import styles from "../pages/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGIN } from "../../services/actions/profile-actions";
-import { setCookie } from "../../utils/cookie";
-import { BASE_URL } from "../../utils/api";
+import { useLoginUser } from "../../services/actions/login";
 
 export function Login() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const fromPage = location.state?.from?.pathname || "/";
-  console.log(fromPage);
   const user = useSelector((state) => state.login);
-  let result;
-  const sendLogin = async (url = `${BASE_URL}/auth/login`, data = user) => {
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        result = await response.json();
-        let authToken = result.accessToken.split("Bearer ")[1];
-        let refreshToken = result.refreshToken;
-
-        if (authToken) {
-          setCookie("authToken", authToken);
-          setCookie("refreshToken", refreshToken);
-
-          console.log(document.cookie.split("refreshToken=")[1]);
-          console.log(document.cookie);
-        }
-      } else {
-        console.log("Ошибка HTTP: " + response.status + data);
-      }
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
-  };
-
+  const loginUser = useLoginUser();
   const dispatch = useDispatch();
-  const loginUser = (user) => {
-    dispatch({
-      type: LOGIN,
-      payload: user,
-    });
-  };
-
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
   const onChange = (e) => {
@@ -68,33 +26,30 @@ export function Login() {
   console.log(user);
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(loginUser);
+        }}
+      >
         <h1>Вход</h1>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className={styles.inputs}>
           <EmailInput
             onChange={onChange}
-            value={value}
+            value={user.email}
             name={"email"}
             isIcon={false}
             extraClass="mb-6"
           />
           <PasswordInput
             onChange={onChangePass}
-            value={pass}
+            value={user.password}
             name={"password"}
             extraClass="mb-2"
           />
         </div>
-        <Button
-          htmlType="button"
-          type="primary"
-          size="small"
-          onClick={() => {
-            loginUser(user);
-            sendLogin();
-            navigate(fromPage, { replace: true });
-          }}
-        >
+        <Button htmlType="submit" type="primary" size="small">
           Войти
         </Button>
       </form>
@@ -107,7 +62,6 @@ export function Login() {
         Забыли пароль?{" "}
         <NavLink to={"/forgot-password"}>Восстановить пароль</NavLink>
       </p>
-      {/* { document.cookie && <Navigate to='/'/>} */}
     </div>
   );
 }

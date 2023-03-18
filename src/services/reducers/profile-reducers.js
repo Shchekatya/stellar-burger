@@ -1,75 +1,80 @@
-import { LOGIN, REGISTER,GET_USER,UPDATE_USER,LOGOUT_USER} from "../actions/profile-actions";
+import {
+  SENDING,
+  LOGIN,
+  SENDING_FAILED,
+  REGISTER,
+  GET_USER,
+  UPDATE_USER,
+  LOGOUT_USER
+} from "../actions/profile-actions";
 
-const initialUser= {
-    email: null,
-    password: null,
-    name: null,
-    isLoggedIn: false
+const initialUser = {
+  email: '',
+  password: '',
+  name: '',
+  isLoggedIn: false,
+  sendRequest: false,
+  sendFailed: false,
 }
 
 
 export const login = (state = initialUser, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case SENDING:
+      return {
+        ...state,
+        sendRequest: true,
+        sendFailed: false,
+      }
+      case SENDING_FAILED: {
+        return {
+          ...state,
+          sendFailed: true,
+          sendRequest: false
+        };
+      }     
       case LOGIN:
         return {
           ...state,
           email: action.payload.email,
-          password: action.payload.password,
-          isLoggedIn: true
+            password: action.payload.password,
+            isLoggedIn: true,
+            sendRequest: false
         }
         case GET_USER:
-        return {
-          ...state,
-          email: action.payload.email,   
-          name: action.payload.name,   
-          isLoggedIn: true        
-        }
-        case UPDATE_USER:
           return {
             ...state,
-            email: action.payload.email,   
-            name: action.payload.name,   
-            password: action.payload.password,       
+            email: action.payload.email,
+              name: action.payload.name,           
+              sendRequest: false
           }
-          case REGISTER:
-        return {
-          email: action.payload.email,   
-          name: action.payload.name,   
-          password: action.payload.password,  
-          isLoggedIn: true
-      }
-        default:
-          return state
-    }
+          case UPDATE_USER:
+            return {
+              ...state,
+              email: action.payload.email,
+                name: action.payload.name,
+                password: action.payload.password,
+                sendRequest: false
+            }
+            case LOGOUT_USER:
+              return {
+                ...state,
+                email: '',
+                  password: '',
+                  name: '',
+                  isLoggedIn: false,
+                  sendRequest: false
+              }
+            case REGISTER:
+              return {
+                email: action.payload.email,
+                  name: action.payload.name,
+                  password: action.payload.password,
+                  isLoggedIn: true,
+                  sendRequest: false
+              }
+              default:
+                return state
   }
+}
 
-  export const register = (state = initialUser, action) => {
-    switch (action.type) {
-      case REGISTER:
-        return {
-          email: action.payload.email,   
-          name: action.payload.name,   
-          password: action.payload.password,  
-          isLoggedIn: true
-      }
-        default:
-          return state
-    }
-  }
-
-
-  export const logOut = (state = initialUser, action) => {
-    switch (action.type) {
-      case LOGOUT_USER:
-        return {
-          email: null,
-          password: null,
-          name: null,
-          isLoggedIn: false
-      }
-        default:
-          return state
-    }
-  }
-  
-  

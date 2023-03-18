@@ -8,8 +8,6 @@ import {
 } from "./reducers"
 import {
   login,
-  register,
-
 } from "./profile-reducers"
 
 const rootReducer = combineReducers({
@@ -17,7 +15,6 @@ const rootReducer = combineReducers({
   changeConstructor,
   showItem,
   login,
-  register,
 })
 
 export default rootReducer

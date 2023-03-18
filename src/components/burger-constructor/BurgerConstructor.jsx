@@ -124,10 +124,7 @@ export const BurgerConstructor = () => {
 
   return (
     <div className={bConst.right} ref={dropTarget}>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-        className={bConst.list}
-      >
+      <div className={bConst.list}>
         {orders.bun && (
           <div>
             <ConstructorElement

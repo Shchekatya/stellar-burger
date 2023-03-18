@@ -3,50 +3,29 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, useLocation } from "react-router-dom";
-import { BASE_URL } from "../../utils/api";
 import styles from "../pages/register.module.css";
+import { useForgot } from "../../services/actions/forgot";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");
+  const user = useSelector((state) => state.login);
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
+    user.email = e.target.value;
   };
 
-  let result;
-  const location = useLocation();
-  const reset = async (
-    url = `${BASE_URL}/password-reset`,
-    data = {
-      email: email,
-    }
-  ) => {
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        result = await response.json();
-        setEmail(result.message);
-      } else {
-        console.log("Ошибка HTTP: " + response.status);
-      }
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
-  };
-
-  if (email === "Reset email sent") {
-    return <Navigate to="/reset-password" state={{ from: location }} />;
-  }
+  const forgot = useForgot();
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.wrapper}>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(forgot);
+        }}
+      >
         <h1>Восстановить пароль</h1>
         <Input
           type={"text"}
@@ -60,12 +39,7 @@ export function Forgot() {
           size={"default"}
           extraClass="mb-6"
         />
-        <Button
-          htmlType="button"
-          type="primary"
-          size="small"
-          onClick={() => reset()}
-        >
+        <Button htmlType="submit" type="primary" size="small">
           Восстановить
         </Button>
       </form>

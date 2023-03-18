@@ -63,7 +63,6 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
       ref={ref}
       onDrop={preventDefault}
       data-handler-id={handlerId}
-      style={{ opacity }}
     >
       <ConstructorElement
         key={order._id}

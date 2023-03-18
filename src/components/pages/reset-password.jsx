@@ -4,60 +4,37 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { BASE_URL } from "../../utils/api";
+import { useReset } from "../../services/actions/reset";
 
 export function Reset() {
   const location = useLocation();
-  const fromPage = location.state?.from?.pathname || "/";
-  console.log(fromPage);
+  const fromPage = location.state.pathname || "/";
   const user = useSelector((state) => state.login);
   const [code, setCode] = React.useState("");
   const onChangeCode = (e) => {
     setCode(e.target.value);
+    user.name = e.target.value;
   };
   const [pass, setPass] = React.useState("");
   const onChangePass = (e) => {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-
-  let result;
-  const reset = async (
-    url = `${BASE_URL}/password-reset/reset`,
-    data = {
-      password: pass,
-      token: code,
-    }
-  ) => {
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        result = await response.json();
-        setCode(result.message);
-      } else {
-        console.log("Ошибка HTTP: " + response.status + data);
-      }
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
-  };
-  if (code === "Password successfully reset") {
-    return <Navigate to="/login" />;
-  }
+  const reset = useReset();
+  const dispatch = useDispatch();
   if (fromPage !== "/forgot-password") {
     return <Navigate to="/" />;
   }
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(reset);
+        }}
+      >
         <h1>Сбросить пароль</h1>
         <PasswordInput
           onChange={onChangePass}
@@ -77,12 +54,7 @@ export function Reset() {
           size={"default"}
           extraClass="mb-6"
         />
-        <Button
-          htmlType="button"
-          type="primary"
-          size="small"
-          onClick={() => reset()}
-        >
+        <Button htmlType="submit" type="primary" size="small">
           Изменить пароль
         </Button>
       </form>
