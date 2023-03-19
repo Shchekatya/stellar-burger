@@ -61,13 +61,13 @@ export const loadIngredients = (state = initialIngredients, action) => {
 
 
 export const changeConstructor = (state = initialConstructor, action) => {
-  switch (action.type) {
-    case ADD_CONSTRUCTOR:
+  switch (action.type) {    
+    case ADD_CONSTRUCTOR:     
       return {
-        ...state,
-        main: [...state.main, action.payload.item]
+        ...state,             
+        main: [...state.main, {...action.payload.item, key: action.key}],  
       }
-
+     
       case DELETE_CONSTRUCTOR:
       return {
         ...state,

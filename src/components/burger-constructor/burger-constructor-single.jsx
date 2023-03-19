@@ -52,10 +52,8 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = isDragging ? 0 : 1;
 
   drag(drop(ref));
-
   const preventDefault = (e) => e.preventDefault();
   return (
     <div

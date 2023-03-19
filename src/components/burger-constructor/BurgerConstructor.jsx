@@ -20,10 +20,11 @@ import { BurgerConstructorSinge } from "./burger-constructor-single";
 import { BASE_URL } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
-
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ export const BurgerConstructor = () => {
       dispatch({
         type: ADD_CONSTRUCTOR,
         payload: item,
+        key: uuidv4(),
       });
     }
   };
@@ -51,6 +53,7 @@ export const BurgerConstructor = () => {
   const [open, setOpen] = useState(false);
 
   const [post, setPost] = useState({});
+
   const idArr = orders.main.map((item) => item._id.toString());
   orders.bun && idArr.push(orders.bun._id);
   const sum = useMemo(
@@ -137,15 +140,15 @@ export const BurgerConstructor = () => {
           </div>
         )}
         <div className={bConst.mainlist}>
-          {orders.main.map((order, index) => {
-            const id = order._id + index;
+          {orders.main.map((order, index) => {          
+            const id = order._id + index;         
             return (
               <BurgerConstructorSinge
                 order={order}
                 moveCard={moveCard}
                 delCard={delCard}
                 index={index}
-                key={id}
+                key={order.key}       
               />
             );
           })}
