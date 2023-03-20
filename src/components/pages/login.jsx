@@ -23,7 +23,6 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  console.log(user);
   return (
     <div className={styles.wrapper}>
       <form

@@ -14,7 +14,7 @@ import {
 } from "./profile-actions";
 
 
-export function useRefreshToken() {
+export function refreshToken() {
     const data = {
         token: getCookie("refreshToken"),
     }

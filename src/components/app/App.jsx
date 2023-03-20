@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
-import { AppHeader } from "../app-header/AppHeader";
-import { IngredientDetails } from "../ingredient-details/IngredientDetails";
-import { Modal } from "../modal/Modal";
+import { AppHeader } from "../app-header/app-header";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { Modal } from "../modal-ingredient/modal";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../pages/register";
 import { Reset } from "../pages/reset-password";

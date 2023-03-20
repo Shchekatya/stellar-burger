@@ -6,12 +6,11 @@ import {
     GET_USER,
     SENDING_FAILED
 } from "./profile-actions";
-import { useRefreshToken } from "./refresh-token";
+import { refreshToken } from "./refresh-token";
 
 
 export function getUser() {
     let cookie = getCookie("authToken");  
-    const refreshToken=useRefreshToken
     return function (dispatch) {
         dispatch({
             type: SENDING
@@ -30,7 +29,7 @@ export function getUser() {
                 });
           }).catch(err => {
             if (err.message === "jwt expired") {
-                      dispatch(refreshToken);
+                      dispatch(refreshToken());
                     }
                 dispatch({
                     type: SENDING_FAILED

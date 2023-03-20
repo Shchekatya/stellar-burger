@@ -5,8 +5,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useMemo, useCallback } from "react";
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { Modal } from "../modal/Modal";
-import { OrderDetails } from "../order-details/OrderDetails";
+import { Modal } from "../modal-ingredient/modal";
+import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,12 +20,13 @@ import { BurgerConstructorSinge } from "./burger-constructor-single";
 import { BASE_URL } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
+import { useSendOrder } from "../../services/actions/send-order";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const result = useSelector((state) => state.changeConstructor.result);
   const dispatch = useDispatch();
 
   const addConstructor = (item) => {
@@ -33,16 +34,18 @@ export const BurgerConstructor = () => {
       dispatch({
         type: ADD_BUN,
         payload: item,
+        order: orderArr,
       });
     } else {
       dispatch({
         type: ADD_CONSTRUCTOR,
         payload: item,
         key: uuidv4(),
+        order: orderArr,
       });
     }
   };
-
+  const sendOrder = useSendOrder();
   const [, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
@@ -51,47 +54,15 @@ export const BurgerConstructor = () => {
   });
 
   const [open, setOpen] = useState(false);
-
-  const [post, setPost] = useState({});
-
-  const idArr = orders.main.map((item) => item._id.toString());
-  orders.bun && idArr.push(orders.bun._id);
+  const orderArr = orders.main.map((item) => item._id.toString());
+  orders.bun && orderArr.push(orders.bun._id);
   const sum = useMemo(
     () =>
       orders.main.reduce((acc, cur) => acc + cur.price, 0) +
       (orders.bun && orders.bun.price * 2),
     [orders]
   );
-  let result;
-  let cookie = getCookie("authToken");
-  const navigate = useNavigate();
-  const sendOrder = async (
-    url = `${BASE_URL}/orders`,
-    data = { ingredients: idArr }
-  ) => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    } else {
-      try {
-        let response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + cookie,
-          },
-          body: JSON.stringify(data),
-        });
-        if (response.ok) {
-          result = await response.json();
-          setPost({ result });
-        } else {
-          console.log("Ошибка HTTP: " + response.status);
-        }
-      } catch (error) {
-        console.log("АШИПКА!!", error);
-      }
-    }
-  };
+
   const delCard = useCallback(
     (dragIndex) => {
       const newCards = [...orders.main];
@@ -119,12 +90,6 @@ export const BurgerConstructor = () => {
     [orders.main, dispatch]
   );
 
-  const checkLogin = () => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  };
-
   return (
     <div className={bConst.right} ref={dropTarget}>
       <div className={bConst.list}>
@@ -140,15 +105,15 @@ export const BurgerConstructor = () => {
           </div>
         )}
         <div className={bConst.mainlist}>
-          {orders.main.map((order, index) => {          
-            const id = order._id + index;         
+          {orders.main.map((order, index) => {
+            const id = order._id + index;
             return (
               <BurgerConstructorSinge
                 order={order}
                 moveCard={moveCard}
                 delCard={delCard}
                 index={index}
-                key={order.key}       
+                key={order.key}
               />
             );
           })}
@@ -174,16 +139,15 @@ export const BurgerConstructor = () => {
           size="medium"
           onClick={() => {
             setOpen(true);
-            // checkLogin();
-            sendOrder();
+            dispatch(sendOrder);
           }}
         >
           Оформить заказ
         </Button>
 
-        {open && post.result && (
+        {open && result.success && (
           <Modal onClose={() => setOpen(false)}>
-            <PostContext.Provider value={{ post }}>
+            <PostContext.Provider value={{ result }}>
               <OrderDetails />
             </PostContext.Provider>
           </Modal>

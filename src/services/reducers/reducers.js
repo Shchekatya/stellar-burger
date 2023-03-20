@@ -1,6 +1,5 @@
 
 import {
-  LOAD_SUCCESS,
   ADD_CONSTRUCTOR,
   UPDATE_CONSTRUCTOR,
   DELETE_CONSTRUCTOR,
@@ -9,19 +8,28 @@ import {
   ADD_BUN,
   GET_FEED,
   GET_FEED_FAILED,
-  GET_FEED_SUCCESS
+  GET_FEED_SUCCESS,
+  SEND_ORDER,
+  SEND_ORDER_SUCCESS,
+  SEND_ORDER_FAILED
+ 
 } from "../actions/actions"
 
 const initialIngredients = {
   feedRequest: false,
   feedFailed: false,
   items: [],
+
 }
 
 
 const initialConstructor = {
   main: [],
-  bun: null
+  bun: null,
+  orders: [],
+  orderSend: false,
+  orderFailed: false,
+  result:''
 }
 
 const initialItem = {
@@ -35,9 +43,10 @@ export const loadIngredients = (state = initialIngredients, action) => {
       return {
         ...state,          
         feedRequest: true,           
-                feedFailed: false,
+        feedFailed: false,
       };
     }
+
     case GET_FEED_SUCCESS: {
       return { 
                 ...state, 
@@ -51,7 +60,7 @@ export const loadIngredients = (state = initialIngredients, action) => {
                 feedFailed: true,    
                 feedRequest: false 
             };
-    }
+    }   
         default: {
             return state
         }
@@ -65,7 +74,8 @@ export const changeConstructor = (state = initialConstructor, action) => {
     case ADD_CONSTRUCTOR:     
       return {
         ...state,             
-        main: [...state.main, {...action.payload.item, key: action.key}],  
+        main: [...state.main, {...action.payload.item, key: action.key}],
+        orders: action.order
       }
      
       case DELETE_CONSTRUCTOR:
@@ -78,14 +88,37 @@ export const changeConstructor = (state = initialConstructor, action) => {
       case UPDATE_CONSTRUCTOR: 
         return {
           ...state,
-          main: action.payload
+          main: action.payload,          
         }
 
         case ADD_BUN:
           return {
             ...state,
-            bun: action.payload.item
+            bun: action.payload.item,   
+            orders: action.order
           }
+          case SEND_ORDER: {
+            return {
+              ...state,          
+              orderSend: true,           
+              orderFailed: false,
+            };
+          }
+      
+          case SEND_ORDER_SUCCESS: {
+            return { 
+                      ...state,     
+                      result: action.payload,               
+                      orderSend: false 
+                  };
+          }
+          case SEND_ORDER_FAILED: {
+            return { 
+                      ...state,    
+                      orderFailed: true,    
+                      orderSend: false 
+                  };
+          }   
           default:
             return state
   }

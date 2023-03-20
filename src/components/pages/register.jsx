@@ -6,42 +6,13 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { REGISTER } from "../../services/actions/profile-actions";
-import { BASE_URL } from "../../utils/api";
-import { checkResponse } from "../../utils/check-response";
-import { useNavigate } from "react-router-dom";
 import styles from "../pages/register.module.css";
+import { useSendRegister } from "../../services/actions/send-register";
 
 export function Register() {
   const user = useSelector((state) => state.login);
-
-  const sendRegister = async (
-    url = `${BASE_URL}/auth/register`,
-    data = user
-  ) => {
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      checkResponse(response);
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
-  };
-
+  const sendRegister = useSendRegister();
   const dispatch = useDispatch();
-  const registerUser = (user) => {
-    dispatch({
-      type: REGISTER,
-      payload: user,
-    });
-  };
-
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
   const [name, setName] = React.useState("");
@@ -57,18 +28,13 @@ export function Register() {
     setName(e.target.value);
     user.name = e.target.value;
   };
-  // console.log(user.isLoggedIn)
-  const navigate = useNavigate();
-  if (user.isLoggedIn) {
-    return navigate("/login");
-  }
+
   return (
     <div className={styles.wrapper}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          registerUser(user);
-          sendRegister();
+          dispatch(sendRegister);
         }}
       >
         <h1>Регистрация</h1>
