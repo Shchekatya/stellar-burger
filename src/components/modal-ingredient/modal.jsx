@@ -26,7 +26,9 @@ export const Modal = (props) => {
       <ModalOverlay onClick={props.onClose} />
       <div className={ModalStyle.background}>
         <div className={ModalStyle.modal}>
-        <CloseIcon type="primary" onClick={props.onClose} className={ModalStyle.svg}/>
+        <div className={ModalStyle.close}>
+        <CloseIcon type="primary" onClick={props.onClose} />
+        </div>
           <div className={ModalStyle.txt}>{props.children}</div>
         </div>
       </div>

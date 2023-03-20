@@ -6,17 +6,17 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/profile.module.css";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useLogOut } from "../../services/actions/logout";
+import { logOut } from "../../services/actions/logout";
 import { getUser } from "../../services/actions/get-user";
-import { useUpdateUser } from "../../services/actions/update-user";
+import { updateUser } from "../../services/actions/update-user";
+import { getCookie } from "../../utils/cookie";
 
 export function Profile() {
   const user = useSelector((state) => state.login);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
   const dispatch = useDispatch(); 
-  const logOut=useLogOut();
-  const updateUser=useUpdateUser();
 
   React.useEffect(() => {
     dispatch(getUser());
@@ -38,6 +38,7 @@ export function Profile() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.left}>
@@ -56,7 +57,7 @@ export function Profile() {
         <NavLink
           to={"/login"}
           className="text text_type_main-medium p-4"
-          onClick={() => dispatch(logOut)}
+          onClick={() => dispatch(logOut())}
         >
           Выход
         </NavLink>
@@ -68,7 +69,7 @@ export function Profile() {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();      
-          dispatch(updateUser)
+          dispatch(updateUser(user))
         }}
       >
         <div className={styles.formwrap}>

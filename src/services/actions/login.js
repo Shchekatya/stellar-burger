@@ -10,11 +10,8 @@ import {
 } from "./profile-actions";
 
 
-export function useLoginUser() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const fromPage = location.state?.from?.pathname || "/";
-    const user = useSelector((state) => state.login);
+export function loginUser(user) {
+ 
     const data = {
         email: user.email,
         password: user.password
@@ -37,8 +34,7 @@ export function useLoginUser() {
                   setCookie("authToken", authToken);
                   setCookie("refreshToken", refreshToken);
                   console.log(document.cookie.split("refreshToken=")[1]);
-                  console.log(document.cookie);
-                  navigate(fromPage, { replace: true });   
+                  console.log(document.cookie);         
                 }
                 dispatch({
                   type: LOGIN,

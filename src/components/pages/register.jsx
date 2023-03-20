@@ -7,11 +7,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../pages/register.module.css";
-import { useSendRegister } from "../../services/actions/send-register";
+import { sendRegister } from "../../services/actions/send-register";
+import { Navigate } from "react-router-dom";
 
 export function Register() {
   const user = useSelector((state) => state.login);
-  const sendRegister = useSendRegister();
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
   const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
@@ -28,13 +29,15 @@ export function Register() {
     setName(e.target.value);
     user.name = e.target.value;
   };
-
+  if (isLogged) {
+    return <Navigate to='/login' />;
+  }
   return (
     <div className={styles.wrapper}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(sendRegister);
+          dispatch(sendRegister(user));
         }}
       >
         <h1>Регистрация</h1>

@@ -9,9 +9,7 @@ import {
 } from "./profile-actions";
 
 
-export function useSendRegister() {
-    const navigate = useNavigate();
-    const user = useSelector((state) => state.login);
+export function sendRegister(user) {
     const data = {
         name:user.name,
         email: user.email,
@@ -29,8 +27,6 @@ export function useSendRegister() {
             body: JSON.stringify(data),
           }).then(checkResponse)
           .then(res=> {    
-            navigate("/login")     
-            console.log(res)  
                 dispatch({
                   type: REGISTER,
                   payload: user,

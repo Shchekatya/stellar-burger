@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
+import { ProtectedReset } from "../protected-route/protected-reset";
 
 const App = () => {
   const location = useLocation();
@@ -55,7 +56,14 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/reset-password" element={<Reset />} />
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedReset>
+                <Reset />
+              </ProtectedReset>
+            }
+          />
           <Route
             path="/profile"
             element={

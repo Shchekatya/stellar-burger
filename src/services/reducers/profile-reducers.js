@@ -5,7 +5,8 @@ import {
   REGISTER,
   GET_USER,
   UPDATE_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  FORGOT
 } from "../actions/profile-actions";
 
 const initialUser = {
@@ -31,8 +32,17 @@ export const login = (state = initialUser, action) => {
           ...state,
           sendFailed: true,
           sendRequest: false
-        };
-      }     
+        }
+      }
+        case FORGOT: {
+          console.log(action.payload)
+          return {
+            ...state,
+           name: action.payload,
+            sendRequest: false
+          };
+        } 
+       
       case LOGIN:
         return {
           ...state,

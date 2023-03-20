@@ -9,8 +9,8 @@ import {
 } from "./profile-actions";
 
 
-export function useUpdateUser() {
-    const user = useSelector((state) => state.login);
+export function updateUser(user) {
+ 
     let cookie = getCookie("authToken");  
     const data = {
         email: user.email,

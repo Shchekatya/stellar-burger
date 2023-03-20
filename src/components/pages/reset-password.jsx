@@ -5,13 +5,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
-import { useReset } from "../../services/actions/reset";
+import { Navigate } from "react-router-dom";
+import { reset } from "../../services/actions/reset";
+
 
 export function Reset() {
-  const location = useLocation();
-  const fromPage = location.state.pathname || "/";
   const user = useSelector((state) => state.login);
+  const response = useSelector((state) => state.login.name);
+
   const [code, setCode] = React.useState("");
   const onChangeCode = (e) => {
     setCode(e.target.value);
@@ -22,17 +23,17 @@ export function Reset() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  const reset = useReset();
+
   const dispatch = useDispatch();
-  if (fromPage !== "/forgot-password") {
-    return <Navigate to="/" />;
+  if (response === "Password successfully reset") {
+    return <Navigate to="/login" />;
   }
   return (
     <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(reset);
+          dispatch(reset(user));
         }}
       >
         <h1>Сбросить пароль</h1>

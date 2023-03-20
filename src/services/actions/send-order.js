@@ -11,16 +11,11 @@ import {
 } from "./actions";
 
 
-export function useSendOrder() {
-    const orders = useSelector((state) => state.changeConstructor.orders);
-    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
-    const navigate=useNavigate();
+export function sendOrder(orders) {
+
     let cookie = getCookie("authToken");
     const data = { ingredients: orders }
-    return function (dispatch) {
-        if (!isLoggedIn && !cookie) {
-            navigate("/login");
-          } else {
+    return function (dispatch) {      
         dispatch({
             type: SEND_ORDER
         })
@@ -47,5 +42,5 @@ export function useSendOrder() {
                 type: SEND_ORDER_FAILED
             })
         })
-    }}
+    }
 }

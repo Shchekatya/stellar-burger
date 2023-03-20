@@ -4,13 +4,12 @@ import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
 import {
     SENDING,
-    SENDING_FAILED
+    SENDING_FAILED,
+    FORGOT  
 } from "./profile-actions";
 
 
-export const useReset=() =>{   
-    const navigate=useNavigate();
-    const user = useSelector((state) => state.login);
+export const reset=(user) =>{      
     const data = {
         password: user.password,
         token: user.name,
@@ -27,8 +26,10 @@ export const useReset=() =>{
         body: JSON.stringify(data),
           }).then(checkResponse)
           .then(res=> {
-            if (res.message)          
-           navigate('/login')
+            dispatch({
+              type: FORGOT,
+              payload: res.message,
+          })
           }).catch(err => {
             console.log(err)
                 dispatch({

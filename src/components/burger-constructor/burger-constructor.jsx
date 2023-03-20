@@ -21,12 +21,13 @@ import { BASE_URL } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useSendOrder } from "../../services/actions/send-order";
+import { sendOrder } from "../../services/actions/send-order";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
-  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
   const result = useSelector((state) => state.changeConstructor.result);
+  const navigate=useNavigate();
   const dispatch = useDispatch();
 
   const addConstructor = (item) => {
@@ -45,7 +46,7 @@ export const BurgerConstructor = () => {
       });
     }
   };
-  const sendOrder = useSendOrder();
+
   const [, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
@@ -138,9 +139,12 @@ export const BurgerConstructor = () => {
           type="primary"
           size="medium"
           onClick={() => {
+            if (!isLogged) {
+              navigate('/login')         
+            } else {
             setOpen(true);
-            dispatch(sendOrder);
-          }}
+            dispatch(sendOrder(orders));
+          }}}
         >
           Оформить заказ
         </Button>

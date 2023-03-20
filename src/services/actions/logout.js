@@ -13,8 +13,8 @@ import {
 } from "./profile-actions";
 
 
-export function useLogOut() {
-    const navigate = useNavigate(); 
+export function logOut() {
+
     const data = {
         token: getCookie("refreshToken"),
     }
@@ -40,8 +40,7 @@ export function useLogOut() {
                     dispatch({
                         type: LOGOUT_USER,
                         payload: '',
-                    });
-                    navigate('/login')
+                    });        
                 }
 
             }).catch(err => {
