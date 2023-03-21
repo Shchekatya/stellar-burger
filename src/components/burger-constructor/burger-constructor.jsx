@@ -19,7 +19,7 @@ import {
 import { BurgerConstructorSinge } from "./burger-constructor-single";
 import { BASE_URL } from "../../utils/api";
 import { getCookie } from "../../utils/cookie";
-import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { sendOrder } from "../../services/actions/send-order";
 
@@ -29,6 +29,7 @@ export const BurgerConstructor = () => {
   const result = useSelector((state) => state.changeConstructor.result);
   const navigate=useNavigate();
   const dispatch = useDispatch();
+  const location=useLocation();
 
   const addConstructor = (item) => {
     if (item.item.type === "bun") {
@@ -140,10 +141,10 @@ export const BurgerConstructor = () => {
           size="medium"
           onClick={() => {
             if (!isLogged) {
-              navigate('/login')         
+              navigate('/login',{ state: location })         
             } else {
             setOpen(true);
-            dispatch(sendOrder(orders));
+            dispatch(sendOrder(orderArr));
           }}}
         >
           Оформить заказ

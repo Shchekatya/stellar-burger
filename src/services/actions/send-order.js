@@ -15,6 +15,7 @@ export function sendOrder(orders) {
 
     let cookie = getCookie("authToken");
     const data = { ingredients: orders }
+    console.log(data)
     return function (dispatch) {      
         dispatch({
             type: SEND_ORDER

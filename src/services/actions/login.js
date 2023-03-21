@@ -32,9 +32,7 @@ export function loginUser(user) {
                 const refreshToken = res.refreshToken;
                 if (authToken) {
                   setCookie("authToken", authToken);
-                  setCookie("refreshToken", refreshToken);
-                  console.log(document.cookie.split("refreshToken=")[1]);
-                  console.log(document.cookie);         
+                  setCookie("refreshToken", refreshToken);                 
                 }
                 dispatch({
                   type: LOGIN,

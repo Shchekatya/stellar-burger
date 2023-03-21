@@ -8,7 +8,7 @@ export const ProtectedRouteElement = ({ children }) => {
   const isLogged = useSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
   if (!isLogged && !cookie) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/login" state={ location } />;
   }
   return children;
 };

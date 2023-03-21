@@ -8,13 +8,16 @@ import { NavLink, } from "react-router-dom";
 import styles from "../pages/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../services/actions/login";
-import {useLocation, useNavigate,Navigate,  } from "react-router-dom";
+import {useLocation, useNavigate, Navigate} from "react-router-dom";
+import { getCookie } from "../../utils/cookie";
 
 export function Login() {
   const user = useSelector((state) => state.login);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
-  const fromPage = location.state?.from?.pathname || "/";
+  const cookie=getCookie("authToken")
+  
+  const fromPage = location.state?.pathname || "/";
   const data = {
       email: user.email,
       password: user.password
@@ -31,19 +34,19 @@ export function Login() {
     setPass(e.target.value);
     user.password = e.target.value;
   };
-  // if (isLogged) {
-  //   return <Navigate to={fromPage} />;
-  // }
+  if (isLogged) {  
+   return <Navigate to={fromPage   }   />
+  }
   return (
     <div className={styles.wrapper}>
       <form
         className={styles.form}
         onSubmit={(e) => {
-          e.preventDefault();
-          dispatch(loginUser(user, fromPage));
-          if (isLogged) {
-            navigate(fromPage)         
-          }
+          e.preventDefault();        
+          dispatch(loginUser(user, fromPage));    
+          // if (cookie) {
+          //   navigate(fromPage)         
+          // }
         }}
       >
         <h1>Вход</h1>

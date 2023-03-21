@@ -6,7 +6,8 @@ import {
   GET_USER,
   UPDATE_USER,
   LOGOUT_USER,
-  FORGOT
+  FORGOT,
+  EMAIL_TO_FORGOT
 } from "../actions/profile-actions";
 
 const initialUser = {
@@ -34,6 +35,14 @@ export const login = (state = initialUser, action) => {
           sendRequest: false
         }
       }
+      case EMAIL_TO_FORGOT: {
+        console.log(action.payload)
+        return {
+          ...state,
+         email: action.payload,
+          sendRequest: false
+        };
+      } 
         case FORGOT: {
           console.log(action.payload)
           return {
