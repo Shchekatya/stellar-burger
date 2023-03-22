@@ -55,8 +55,8 @@ export const login = (state = initialUser, action) => {
       case LOGIN:
         return {
           ...state,
-          email: action.payload.email,
-            password: action.payload.password,
+          email: action.email,
+            password: action.password,
             isLoggedIn: true,
             sendRequest: false
         }

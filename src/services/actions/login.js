@@ -10,11 +10,11 @@ import {
 } from "./profile-actions";
 
 
-export function loginUser(user) {
+export function loginUser(value, pass) {
  
     const data = {
-        email: user.email,
-        password: user.password
+        email: value,
+        password: pass
     }
     return function (dispatch) {
         dispatch({
@@ -36,7 +36,8 @@ export function loginUser(user) {
                 }
                 dispatch({
                   type: LOGIN,
-                  payload: user,
+                  email: value,
+                  password: pass,
                 });
           }).catch(err => {
                 dispatch({

@@ -18,21 +18,15 @@ export function Login() {
   const cookie=getCookie("authToken")
   
   const fromPage = location.state?.pathname || "/";
-  const data = {
-      email: user.email,
-      password: user.password
-  }
    const dispatch = useDispatch();
-  const [value, setValue] = React.useState("");
-  const [pass, setPass] = React.useState("");
+  const [value, setValue] = React.useState(user.email);
+  const [pass, setPass] = React.useState(user.password);
   const navigate=useNavigate();
   const onChange = (e) => {
     setValue(e.target.value);
-    user.email = e.target.value;
   };
   const onChangePass = (e) => {
     setPass(e.target.value);
-    user.password = e.target.value;
   };
   if (isLogged) {  
    return <Navigate to={fromPage   }   />
@@ -43,7 +37,7 @@ export function Login() {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();        
-          dispatch(loginUser(user, fromPage));    
+          dispatch(loginUser(value,pass, fromPage));    
           // if (cookie) {
           //   navigate(fromPage)         
           // }
@@ -53,14 +47,14 @@ export function Login() {
         <div className={styles.inputs}>
           <EmailInput
             onChange={onChange}
-            value={user.email}
+            value={value}
             name={"email"}
             isIcon={false}
             extraClass="mb-6"
           />
           <PasswordInput
             onChange={onChangePass}
-            value={user.password}
+            value={pass}
             name={"password"}
             extraClass="mb-2"
           />
