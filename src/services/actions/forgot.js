@@ -21,6 +21,7 @@ import {
 export const forgot = (email) => {
     const data = {
         email: email,
+        
     }
     return function (dispatch) {
         dispatch({
