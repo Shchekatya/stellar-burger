@@ -9,13 +9,13 @@ import {
 } from "./profile-actions";
 
 
-export function updateUser(user) {
+export function updateUser(value, login, pass) {
  
     let cookie = getCookie("authToken");  
     const data = {
-        email: user.email,
-        password: user.password,
-        name: user.name,
+        email: login,
+        password:  pass,
+        name: value,
     }
     return function (dispatch) {
         dispatch({

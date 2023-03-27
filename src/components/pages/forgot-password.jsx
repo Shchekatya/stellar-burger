@@ -35,7 +35,7 @@ const emailToPassword=()=> {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(forgot(user));
+          dispatch(forgot(email));
           emailToPassword()
         }}
       >

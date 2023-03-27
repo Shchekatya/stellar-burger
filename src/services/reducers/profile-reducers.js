@@ -84,7 +84,7 @@ export const login = (state = initialUser, action) => {
                   isLoggedIn: false,
                   sendRequest: false
               }
-            case REGISTER:
+            case REGISTER:          
               return {
                 email: action.payload.email,
                   name: action.payload.name,

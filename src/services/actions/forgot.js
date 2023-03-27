@@ -18,9 +18,9 @@ import {
 } from "./profile-actions";
 
 
-export const forgot = (user) => {
+export const forgot = (email) => {
     const data = {
-        email: user.email,
+        email: email,
     }
     return function (dispatch) {
         dispatch({

@@ -26,17 +26,14 @@ export function Profile() {
   const [value, setValue] = React.useState(user.name);
   const onChange = (e) => {
     setValue(e.target.value);
-    user.name = e.target.value;
   };
   const [login, setLogin] = React.useState(user.email);
   const onChangeLogin = (e) => {
-    setLogin(e.target.value);
-    user.email = e.target.value;
+    setLogin(e.target.value); 
   };
-  const [pass, setPass] = React.useState("");
+  const [pass, setPass] = React.useState(user.password);
   const onChangePass = (e) => {
-    setPass(e.target.value);
-    user.password = e.target.value;
+    setPass(e.target.value); 
   };
 
   return (
@@ -69,7 +66,7 @@ export function Profile() {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();      
-          dispatch(updateUser(user))
+          dispatch(updateUser(value, login, pass))
         }}
       >
         <div className={styles.formwrap}>
@@ -78,7 +75,7 @@ export function Profile() {
             placeholder={"Имя"}
             onChange={onChange}
             icon={"EditIcon"}
-            value={user.name}
+            value={value}
             name={"name"}
             error={false}
             errorText={"Ошибка"}
@@ -87,7 +84,7 @@ export function Profile() {
           />
           <EmailInput
             onChange={onChangeLogin}
-            value={user.email}
+            value={login}
             name={"email"}
             placeholder="Логин"
             isIcon={true}
@@ -95,7 +92,7 @@ export function Profile() {
           />
           <PasswordInput
             onChange={onChangePass}
-            value={user.password}
+            value={pass}
             name={"password"}
             icon="EditIcon"
             extraClass="mb-6"

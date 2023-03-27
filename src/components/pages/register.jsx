@@ -18,16 +18,13 @@ export function Register() {
   const [pass, setPass] = React.useState("");
   const [name, setName] = React.useState("");
   const onChange = (e) => {
-    setValue(e.target.value);
-    user.email = e.target.value;
+    setValue(e.target.value); 
   };
   const onChangePass = (e) => {
     setPass(e.target.value);
-    user.password = e.target.value;
   };
   const onChangeName = (e) => {
     setName(e.target.value);
-    user.name = e.target.value;
   };
   if (isLogged) {
     return <Navigate to='/login' />;
@@ -37,7 +34,7 @@ export function Register() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(sendRegister(user));
+          dispatch(sendRegister(value, pass, name));
         }}
       >
         <h1>Регистрация</h1>
