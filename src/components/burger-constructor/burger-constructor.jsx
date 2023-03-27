@@ -5,8 +5,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useMemo, useCallback } from "react";
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { Modal } from "../modal/Modal";
-import { OrderDetails } from "../order-details/OrderDetails";
+import { Modal } from "../modal-ingredient/modal";
+import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,23 +17,33 @@ import {
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
-import {postOrder} from '../../utils/api'
+import { BASE_URL } from "../../utils/api";
+import { getCookie } from "../../utils/cookie";
+import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { sendOrder } from "../../services/actions/send-order";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
-
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
+  const result = useSelector((state) => state.changeConstructor.result);
+  const navigate=useNavigate();
   const dispatch = useDispatch();
+  const location=useLocation();
 
   const addConstructor = (item) => {
     if (item.item.type === "bun") {
       dispatch({
         type: ADD_BUN,
         payload: item,
+        order: orderArr,
       });
     } else {
       dispatch({
         type: ADD_CONSTRUCTOR,
         payload: item,
+        key: uuidv4(),
+        order: orderArr,
       });
     }
   };
@@ -46,40 +56,15 @@ export const BurgerConstructor = () => {
   });
 
   const [open, setOpen] = useState(false);
-
-  const [post, setPost] = useState({});
-  const idArr = orders.main.map((item) => item._id.toString());
-  orders.bun && idArr.push(orders.bun._id);
-
+  const orderArr = orders.main.map((item) => item._id.toString());
+  orders.bun && orderArr.push(orders.bun._id);
   const sum = useMemo(
     () =>
       orders.main.reduce((acc, cur) => acc + cur.price, 0) +
       (orders.bun && orders.bun.price * 2),
     [orders]
   );
-  let result;
-  const sendOrder = async (
-    url = postOrder,
-    data = { ingredients: idArr }
-  ) => {
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        result = await response.json();
-        setPost({ result });
-      } else {
-        console.log("Ошибка HTTP: " + response.status);
-      }
-    } catch (error) {
-      console.log("АШИПКА!!", error);
-    }
-  };
+
   const delCard = useCallback(
     (dragIndex) => {
       const newCards = [...orders.main];
@@ -109,10 +94,7 @@ export const BurgerConstructor = () => {
 
   return (
     <div className={bConst.right} ref={dropTarget}>
-      <div
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-        className={bConst.list}
-      >
+      <div className={bConst.list}>
         {orders.bun && (
           <div>
             <ConstructorElement
@@ -133,7 +115,7 @@ export const BurgerConstructor = () => {
                 moveCard={moveCard}
                 delCard={delCard}
                 index={index}
-                key={id}
+                key={order.key}
               />
             );
           })}
@@ -158,15 +140,19 @@ export const BurgerConstructor = () => {
           type="primary"
           size="medium"
           onClick={() => {
+            if (!isLogged) {
+              navigate('/login',{ state: location })         
+            } else {
             setOpen(true);
-            sendOrder();
-          }}
+            dispatch(sendOrder(orderArr));
+          }}}
         >
           Оформить заказ
         </Button>
-        {open && post.result && (
+
+        {open && result.success && (
           <Modal onClose={() => setOpen(false)}>
-            <PostContext.Provider value={{ post }}>
+            <PostContext.Provider value={{ result }}>
               <OrderDetails />
             </PostContext.Provider>
           </Modal>

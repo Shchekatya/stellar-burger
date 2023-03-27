@@ -1,0 +1,21 @@
+.wrapper {
+   margin: 0 auto;
+}
+
+.wrapper h1 {
+   text-align: center;
+}
+
+.wrapper button {
+   margin: 24px auto 80px;
+}
+
+.form {
+   display: flex;
+   flex-direction: column;
+}
+
+.inputs {
+   display: flex;
+   flex-direction: column; 
+}

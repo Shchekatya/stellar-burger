@@ -4,9 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useRef } from "react";
 import PropTypes from "prop-types";
 
-
 export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
-
   const onClick = () => delCard(index);
   const ref = useRef(null);
 
@@ -54,10 +52,8 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = isDragging ? 0 : 1;
 
   drag(drop(ref));
-
   const preventDefault = (e) => e.preventDefault();
   return (
     <div
@@ -65,7 +61,6 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
       ref={ref}
       onDrop={preventDefault}
       data-handler-id={handlerId}
-      style={{ opacity }}
     >
       <ConstructorElement
         key={order._id}

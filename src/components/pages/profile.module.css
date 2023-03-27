@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 120px;
+}
+
+.left {
+display: flex;
+flex-direction: column;
+max-width: 30%;
+margin-left: 60px;
+}
+
+.left a {
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.left a .current {
+      color: white;
+}
+
+.form {
+    margin: 0 auto;
+}
+
+.formwrap {
+    display: flex; 
+    flex-direction: column;
+}

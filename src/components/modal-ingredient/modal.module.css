@@ -23,19 +23,11 @@
 
 
 
-.svg {
-    display: block;
-    width: 18px;
+.modal .close {
+    display: block;  
     position: absolute;
     right: 40px;
     top: 60px;
 }
 
-.svg line {
-    stroke: #ffffff;
-    stroke-width: 10;
-}
 
-.svg:hover line {
-    stroke: #4C4CFF;
-}

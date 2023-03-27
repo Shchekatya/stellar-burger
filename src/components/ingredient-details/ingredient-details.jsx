@@ -1,15 +1,23 @@
 import detailsStyle from "../ingredient-details/ingredient-details.module.css";
-import PropTypes from "prop-types";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export const IngredientDetails = () => {
-  const item = useSelector(state => state.showItem.item)
- 
+  const { ingredientId } = useParams();
+  const item = useSelector((state) => {
+    return state.loadIngredients.items.find(
+      (item) => item._id === ingredientId
+    );
+  });
+
+  if (!item) {
+    return null;
+  }
 
   return (
     <div className={detailsStyle.container}>
       <h1 className="text text_type_main-large">Детали ингредиента</h1>
-      <img src={item.image} alt={item.name}/>
+      <img src={item.image} alt={item.name} />
       <h2 className="text text_type_main-medium">{item.name}</h2>
       <div className={detailsStyle.calories}>
         <p className="mr-5 text text_type_main-small">
@@ -32,5 +40,3 @@ export const IngredientDetails = () => {
     </div>
   );
 };
-
-
