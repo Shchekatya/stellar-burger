@@ -9,11 +9,11 @@ import {
 } from "./profile-actions";
 
 
-export function sendRegister(user) {
+export function sendRegister(value, pass, name) {
     const data = {
-        name:user.name,
-        email: user.email,
-        password: user.password
+        name: name,
+        email: value,
+        password: pass
     }
     return function (dispatch) {
         dispatch({
@@ -26,10 +26,10 @@ export function sendRegister(user) {
             },
             body: JSON.stringify(data),
           }).then(checkResponse)
-          .then(res=> {    
+          .then(res=> {                
                 dispatch({
                   type: REGISTER,
-                  payload: user,
+                  payload: data,
                 });
           }).catch(err => {
                 dispatch({

@@ -9,10 +9,10 @@ import {
 } from "./profile-actions";
 
 
-export const reset=(user) =>{      
+export const reset=(code, pass) =>{      
     const data = {
-        password: user.password,
-        token: user.name,
+        password: pass,
+        token: code,
       }
     return function (dispatch) {
         dispatch({

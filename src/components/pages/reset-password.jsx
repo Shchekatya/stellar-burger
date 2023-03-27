@@ -15,13 +15,11 @@ export function Reset() {
 
   const [code, setCode] = React.useState("");
   const onChangeCode = (e) => {
-    setCode(e.target.value);
-    user.name = e.target.value;
+    setCode(e.target.value);  
   };
   const [pass, setPass] = React.useState("");
   const onChangePass = (e) => {
     setPass(e.target.value);
-    user.password = e.target.value;
   };
 
   const dispatch = useDispatch();
@@ -33,7 +31,7 @@ export function Reset() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(reset(user));
+          dispatch(reset(code, pass));
         }}
       >
         <h1>Сбросить пароль</h1>
