@@ -29,7 +29,7 @@ const initialUser:TInitialUser = {
 }
 
 
-type TActionUser={
+export type TActionUser={
 type: string,
 payload?: any,
 email?: string,

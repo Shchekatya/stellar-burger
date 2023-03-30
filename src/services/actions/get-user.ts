@@ -10,7 +10,7 @@ import { refreshToken } from "./refresh-token";
 import { Dispatch } from "redux";
 
 
-export function getUser() {
+export function getUser():any {
     let cookie = getCookie("authToken");  
     return function (dispatch:any) {
         dispatch({

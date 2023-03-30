@@ -14,7 +14,7 @@ import {
 import { Dispatch } from "redux";
 
 
-export function logOut() {
+export function logOut():any {
 
     const data = {
         token: getCookie("refreshToken"),

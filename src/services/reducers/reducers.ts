@@ -55,7 +55,7 @@ const initialItem: TInitialItem= {
   item: null,
 }
 
-type TActionGetFeed = {
+export type TActionGetFeed = {
   type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
   items?: Array<object>
 }
@@ -92,7 +92,7 @@ export const loadIngredients = (state = initialIngredients, action:TActionGetFee
 
 }
 
-type TActionConstructor = {
+export type TActionConstructor = {
   type: string
   payload:any
   item: object
@@ -155,7 +155,7 @@ export const changeConstructor = (state = initialConstructor, action:TActionCons
   }
 }
 
-type TActionShow = {
+export type TActionShow = {
   type: typeof HIDE_ITEM
   payload:object |null
 }

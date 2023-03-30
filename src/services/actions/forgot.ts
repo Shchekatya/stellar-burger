@@ -19,11 +19,11 @@ import {
 import { Dispatch } from "redux";
 
 
-export const forgot = (email:string) => {
+export const forgot = (email:string):any => {
     const data = {
         email: email,
     }
-    return function (dispatch:any) {
+    return function (dispatch:Dispatch) {
         dispatch({
             type: SENDING
         })
