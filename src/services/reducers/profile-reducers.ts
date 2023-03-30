@@ -10,7 +10,16 @@ import {
   EMAIL_TO_FORGOT
 } from "../actions/profile-actions";
 
-const initialUser = {
+type TInitialUser = {
+  email: string,
+  password: string,
+  name: string,
+  isLoggedIn: boolean,
+  sendRequest: boolean,
+  sendFailed?: boolean,
+}
+
+const initialUser:TInitialUser = {
   email: '',
   password: '',
   name: '',
@@ -20,7 +29,14 @@ const initialUser = {
 }
 
 
-export const login = (state = initialUser, action) => {
+type TActionUser={
+type: string,
+payload?: any,
+email?: string,
+password?: string,
+}
+
+export const login = (state = initialUser, action:TActionUser) => {
   switch (action.type) {
     case SENDING:
       return {

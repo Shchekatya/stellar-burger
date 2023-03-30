@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import {useNavigate } from "react-router-dom";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
+import { Dispatch } from "redux";
 import {
     SENDING,
     SENDING_FAILED,
@@ -9,12 +10,12 @@ import {
 } from "./profile-actions";
 
 
-export const reset=(code, pass) =>{      
+export const reset=(code:string, pass:string) =>{      
     const data = {
         password: pass,
         token: code,
       }
-    return function (dispatch) {
+    return function (dispatch:Dispatch) {
         dispatch({
             type: SENDING
         })

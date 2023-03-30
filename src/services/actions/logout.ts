@@ -11,6 +11,7 @@ import {
     LOGOUT_USER,
     SENDING_FAILED
 } from "./profile-actions";
+import { Dispatch } from "redux";
 
 
 export function logOut() {
@@ -18,7 +19,7 @@ export function logOut() {
     const data = {
         token: getCookie("refreshToken"),
     }
-    return function (dispatch) {
+    return function (dispatch:Dispatch) {
         dispatch({
             type: SENDING
         })

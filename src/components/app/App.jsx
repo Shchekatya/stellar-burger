@@ -23,7 +23,7 @@ const App = () => {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  const { items, feedRequest, feedFailed } = useSelector(
+  const {feedRequest, feedFailed } = useSelector(
     (state) => state.loadIngredients
   );
   useEffect(() => {

@@ -4,6 +4,7 @@ import { BASE_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/check-response";
 import { getCookie } from "../../utils/cookie";
 import { refreshToken } from "./refresh-token";
+import { Dispatch } from "redux";
 import {
     SEND_ORDER,
     SEND_ORDER_SUCCESS,
@@ -11,12 +12,12 @@ import {
 } from "./actions";
 
 
-export function sendOrder(orders) {
+export function sendOrder(orders:Array<string>) {
 
     let cookie = getCookie("authToken");
     const data = { ingredients: orders }
     console.log(data)
-    return function (dispatch) {      
+    return function (dispatch:any) {      
         dispatch({
             type: SEND_ORDER
         })

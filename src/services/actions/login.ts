@@ -8,9 +8,12 @@ import {
     LOGIN,
     SENDING_FAILED
 } from "./profile-actions";
+import { Dispatch } from "redux";
+import { ThunkAction } from 'redux-thunk';
+import {AppDispatch,RootState} from "../../index";
 
 
-export function loginUser(value, pass) {
+export function loginUser(value:string, pass:string) {
  
     const data = {
         email: value,

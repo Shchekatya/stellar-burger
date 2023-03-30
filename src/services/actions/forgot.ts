@@ -1,28 +1,33 @@
 import {
+    useSelector
+} from "react-redux";
+import {
+    useLocation,
+    useNavigate
+} from "react-router-dom";
+import {
     BASE_URL
 } from "../../utils/api";
 import {
     checkResponse
 } from "../../utils/check-response";
 import {
-    setCookie,
-    getCookie
-} from "../../utils/cookie";
-import {
     SENDING,
-    SENDING_FAILED
+    SENDING_FAILED,
+    FORGOT
 } from "./profile-actions";
+import { Dispatch } from "redux";
 
 
-export function refreshToken() {
+export const forgot = (email:string) => {
     const data = {
-        token: getCookie("refreshToken"),
+        email: email,
     }
-    return function (dispatch) {
+    return function (dispatch:any) {
         dispatch({
             type: SENDING
         })
-        fetch(`${BASE_URL}/auth/token`, {
+        fetch(`${BASE_URL}/password-reset`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,13 +35,12 @@ export function refreshToken() {
                 body: JSON.stringify(data),
             }).then(checkResponse)
             .then(res => {
-                let authToken = res.accessToken.split("Bearer ")[1];
-                let refreshToken = res.refreshToken;
-                if (authToken) {
-                    setCookie("authToken", authToken);
-                    setCookie("refreshToken", refreshToken);
-                }
-            }).catch(err => {
+                dispatch({
+                    type: FORGOT,
+                    payload: res.message,
+                })
+            })
+            .catch(err => {
                 dispatch({
                     type: SENDING_FAILED
                 })

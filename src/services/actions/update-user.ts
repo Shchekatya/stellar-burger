@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import {useSelector} from "react-redux";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
@@ -9,7 +10,7 @@ import {
 } from "./profile-actions";
 
 
-export function updateUser(value, login, pass) {
+export function updateUser(value:string, login:string, pass:string) {
  
     let cookie = getCookie("authToken");  
     const data = {
@@ -17,7 +18,8 @@ export function updateUser(value, login, pass) {
         password:  pass,
         name: value,
     }
-    return function (dispatch) {
+   
+    return function (dispatch:Dispatch) {
         dispatch({
             type: SENDING
         })

@@ -5,11 +5,12 @@ import {
     GET_FEED_FAILED,
     GET_FEED_SUCCESS
 } from "./actions";
+import { Dispatch } from "redux";
 
 
 export function getFeed() {
 
-    return function (dispatch) {
+    return function (dispatch:Dispatch) {
         dispatch({
             type: GET_FEED
         })

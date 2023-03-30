@@ -21,6 +21,9 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+export type RootState=ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

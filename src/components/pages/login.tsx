@@ -10,22 +10,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../services/actions/login";
 import {useLocation, useNavigate, Navigate} from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { ThunkAction } from 'redux-thunk';
 
 export function Login() {
-  const user = useSelector((state) => state.login);
-  const isLogged = useSelector((state) => state.login.isLoggedIn);
+  const user = useAppSelector((state) => state.login);
+  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
   const cookie=getCookie("authToken")
   
   const fromPage = location.state?.pathname || "/";
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
   const [value, setValue] = React.useState(user.email);
   const [pass, setPass] = React.useState(user.password);
   const navigate=useNavigate();
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
     setValue(e.target.value);
   };
-  const onChangePass = (e) => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value);
   };
   if (isLogged) {  
@@ -37,10 +39,7 @@ export function Login() {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();        
-          dispatch(loginUser(value,pass, fromPage));    
-          // if (cookie) {
-          //   navigate(fromPage)         
-          // }
+          dispatch(loginUser(value,pass));             
         }}
       >
         <h1>Вход</h1>

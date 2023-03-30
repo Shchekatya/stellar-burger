@@ -7,11 +7,12 @@ import {
     SENDING_FAILED
 } from "./profile-actions";
 import { refreshToken } from "./refresh-token";
+import { Dispatch } from "redux";
 
 
 export function getUser() {
     let cookie = getCookie("authToken");  
-    return function (dispatch) {
+    return function (dispatch:any) {
         dispatch({
             type: SENDING
         })

@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { TChildren } from "./protected-route";
 
-export const ProtectedReset = ({ children }) => {
+export const ProtectedReset = ({ children }:TChildren ) => {
   const location = useLocation();
   if (location.state)
 

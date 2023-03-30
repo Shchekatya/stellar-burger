@@ -15,15 +15,30 @@ import {
  
 } from "../actions/actions"
 
-const initialIngredients = {
+type TInitialIngredients = {
+  feedRequest: boolean,
+  feedFailed: boolean,
+  items: Array<object>,
+}
+
+const initialIngredients:TInitialIngredients = {
   feedRequest: false,
   feedFailed: false,
   items: [],
 
 }
 
+type TInitialConstructor = {
+  main: Array<object>,
+  bun: null | object,
+  orders: Array<string>,
+  orderSend: boolean,
+  orderFailed: boolean,
+  result:string
+}
 
-const initialConstructor = {
+
+const initialConstructor:TInitialConstructor = {
   main: [],
   bun: null,
   orders: [],
@@ -32,12 +47,21 @@ const initialConstructor = {
   result:''
 }
 
-const initialItem = {
+type TInitialItem = {
+  item: null |object
+}
+
+const initialItem: TInitialItem= {
   item: null,
 }
 
+type TActionGetFeed = {
+  type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
+  items?: Array<object>
+}
 
-export const loadIngredients = (state = initialIngredients, action) => {
+
+export const loadIngredients = (state = initialIngredients, action:TActionGetFeed) => {
   switch (action.type) {
     case GET_FEED: {
       return {
@@ -68,8 +92,15 @@ export const loadIngredients = (state = initialIngredients, action) => {
 
 }
 
+type TActionConstructor = {
+  type: string
+  payload:any
+  item: object
+  key: string
+  order: string
+}
 
-export const changeConstructor = (state = initialConstructor, action) => {
+export const changeConstructor = (state = initialConstructor, action:TActionConstructor) => {
   switch (action.type) {    
     case ADD_CONSTRUCTOR:     
       return {
@@ -124,15 +155,18 @@ export const changeConstructor = (state = initialConstructor, action) => {
   }
 }
 
+type TActionShow = {
+  type: typeof HIDE_ITEM
+  payload:object |null
+}
 
-
-export const showItem = (state = initialItem, action) => {
+export const showItem = (state = initialItem, action:TActionShow) => {
   switch (action.type) { 
-    case SHOW_ITEM:
-      return {
-        ...state,
-        item: action.payload
-      }
+    // case SHOW_ITEM:
+    //   return {
+    //     ...state,
+    //     item: action.payload
+    //   }
       case HIDE_ITEM:
         return {
           ...state,
