@@ -16,6 +16,7 @@ import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
 import { ProtectedReset } from "../protected-route/protected-reset";
+import { useAppSelector } from "../../services/hooks/hooks";
 
 const App = () => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const App = () => {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  const {feedRequest, feedFailed } = useSelector(
+  const {feedRequest, feedFailed } = useAppSelector(
     (state) => state.loadIngredients
   );
   useEffect(() => {

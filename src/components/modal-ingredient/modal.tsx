@@ -7,9 +7,13 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalElement = document.querySelector("#modal");
 
-export const Modal = (props) => {
+type TProp ={
+  children: string | JSX.Element | JSX.Element[] 
+  onClose: ()=>void
+}
+export const Modal = (props: TProp) => {
   useEffect(() => {
-    function closeByEscape(e) {
+    function closeByEscape(e:KeyboardEvent) {
       if(e.key === 'Escape') {
         props.onClose();
       }
@@ -23,7 +27,9 @@ export const Modal = (props) => {
 
   return createPortal(
     <>
-      <ModalOverlay onClick={props.onClose} />
+    <div onClick={props.onClose}>
+      <ModalOverlay />
+      </div>
       <div className={ModalStyle.background}>
         <div className={ModalStyle.modal}>
         <div className={ModalStyle.close}>
@@ -33,7 +39,7 @@ export const Modal = (props) => {
         </div>
       </div>
     </>,
-    modalElement
+    modalElement!
   );
 };
 

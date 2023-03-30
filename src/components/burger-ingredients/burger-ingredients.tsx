@@ -6,8 +6,8 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-export const BurgerIngredients = (props) => {
-  const items = useSelector((state) => state.loadIngredients.items);
+export const BurgerIngredients = () => {
+  const items = useSelector((state:any) => state.loadIngredients.items);
   const [currentTab, setCurrentTab] = React.useState("buns");
 
   const [bunsRef, inViewBuns] = useInView({
@@ -32,7 +32,7 @@ export const BurgerIngredients = (props) => {
     }
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
-  const onTabClick = (tab) => {
+  const onTabClick = (tab:any) => {
     setCurrentTab(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -60,15 +60,15 @@ export const BurgerIngredients = (props) => {
       <div className={bIng.ingredients} id="viewport">
         <section id="buns" className="section" ref={bunsRef}>
           <h2 className="text text_type_main-medium mt-10 mb-6">Булки</h2>
-          <Ingredients type="bun" items={items} onAdd={props.onAdd} />
+          <Ingredients type="bun" items={items} />
         </section>
         <section id="sauces" className="section" ref={saucesRef}>
           <h2 className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
-          <Ingredients type="sauce" items={items} onAdd={props.onAdd} />
+          <Ingredients type="sauce" items={items} />
         </section>
         <section id="mains" className="section" ref={mainsRef}>
           <h2 className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
-          <Ingredients type="main" items={items} onAdd={props.onAdd} />
+          <Ingredients type="main" items={items}  />
         </section>
       </div>
     </div>

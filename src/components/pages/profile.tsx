@@ -12,11 +12,12 @@ import { logOut } from "../../services/actions/logout";
 import { getUser } from "../../services/actions/get-user";
 import { updateUser } from "../../services/actions/update-user";
 import { getCookie } from "../../utils/cookie";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export function Profile() {
-  const user = useSelector((state) => state.login);
-  const isLogged = useSelector((state) => state.login.isLoggedIn);
-  const dispatch = useDispatch(); 
+  const user = useAppSelector((state) => state.login);
+  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
+  const dispatch = useAppDispatch(); 
 
   React.useEffect(() => {
     dispatch(getUser());
@@ -24,15 +25,15 @@ export function Profile() {
   }, []);
 
   const [value, setValue] = React.useState(user.name);
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   const [login, setLogin] = React.useState(user.email);
-  const onChangeLogin = (e) => {
+  const onChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value); 
   };
   const [pass, setPass] = React.useState(user.password);
-  const onChangePass = (e) => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value); 
   };
 

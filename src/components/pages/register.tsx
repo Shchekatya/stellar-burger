@@ -9,21 +9,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../pages/register.module.css";
 import { sendRegister } from "../../services/actions/send-register";
 import { Navigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 
 export function Register() {
-  const user = useSelector((state) => state.login);
-  const isLogged = useSelector((state) => state.login.isLoggedIn);
-  const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.login);
+  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
+  const dispatch = useAppDispatch();
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
   const [name, setName] = React.useState("");
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value); 
   };
-  const onChangePass = (e) => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value);
   };
-  const onChangeName = (e) => {
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   if (isLogged) {

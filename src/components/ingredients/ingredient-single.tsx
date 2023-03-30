@@ -6,12 +6,25 @@ import { Modal } from "../modal-ingredient/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../services/hooks/hooks";
 
+type TItemProp= { 
+  key: string
+  item: TItem
+}
 
-export const IngredientSingle = ({ item }) => {
-  const ItemActive = useSelector((state) => state.showItem.item);
-  const orders = useSelector((state) => state.changeConstructor);
-  const orderArr = orders.main.map((item) => item._id.toString());
+export type TItem={
+   _id: string
+    image?: string
+    name?: string
+    price?: number
+}
+export const IngredientSingle = (prop:TItemProp) => {
+ const item=prop.item
+
+  const ItemActive = useAppSelector((state) => state.showItem.item);
+  const orders = useSelector((state:any) => state.changeConstructor);
+  const orderArr = orders.main.map((item:TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
   const location = useLocation();
   const ingredientId = item["_id"];
@@ -21,7 +34,7 @@ export const IngredientSingle = ({ item }) => {
   });
 
 let count=0;
-    orderArr.map(e=>{
+    orderArr.map((e:string)=>{
       if(e===item._id) {
     count++
       }

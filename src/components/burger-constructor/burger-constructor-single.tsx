@@ -4,9 +4,28 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useRef } from "react";
 import PropTypes from "prop-types";
 
-export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
+
+type TProps={
+  order: TOrder
+  index: any
+  moveCard:any
+  delCard:any
+}
+
+type TOrder= {
+  key: string   
+  _id: string
+  price: number
+  image: string
+  name: string
+  type?: "top" | "bottom" | undefined
+  id: string
+  index: number
+}
+
+export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProps) => {   
   const onClick = () => delCard(index);
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
 
   const [{ handlerId }, drop] = useDrop({
     accept: "main",
@@ -20,7 +39,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
         return;
       }
 
-      const dragIndex = order.index;
+      const dragIndex =/*order.*/index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -30,7 +49,13 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      let hoverClientY
+      if (clientOffset) {
+        hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      } else {
+        hoverClientY = hoverBoundingRect.top;
+      }
+      
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -41,7 +66,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
 
       moveCard(dragIndex, hoverIndex);
 
-      order.index = hoverIndex;
+     /*order.*/index = hoverIndex;
     },
   });
 
@@ -54,7 +79,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }) => {
   });
 
   drag(drop(ref));
-  const preventDefault = (e) => e.preventDefault();
+  const preventDefault: (e:any)=>void = (e: React.ChangeEvent<HTMLInputElement>) => e.preventDefault();
   return (
     <div
       className={bConst.main}
