@@ -20,7 +20,7 @@ type TOrder= {
   name: string
   type?: "top" | "bottom" | undefined
   id: string
-  index: number
+  index: any
 }
 
 export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProps) => {   
@@ -39,7 +39,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
         return;
       }
 
-      const dragIndex =order.index;
+      const dragIndex =order?.index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -66,7 +66,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
 
       moveCard(dragIndex, hoverIndex);
 
-    order.index = hoverIndex;
+    order?.index = hoverIndex;
     },
   });
 

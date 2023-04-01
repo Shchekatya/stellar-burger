@@ -45,7 +45,7 @@ export const BurgerConstructor = () => {
   }
   
 type TCurr={  
-     price?: any
+     price?: number
  }
   const addConstructor = (item:any) => {
     if (item.item.type === "bun") {
@@ -77,7 +77,7 @@ type TCurr={
   const sum = useMemo(
    
     () =>
-      orders.main.reduce((acc:number, cur:TCurr) => acc + cur.price, 0) +
+      orders.main.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) +
       (orders.bun && orders.bun.price * 2),
     [orders]
   );
