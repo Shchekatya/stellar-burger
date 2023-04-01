@@ -26,10 +26,8 @@ export const Modal = (props: TProp) => {
   }, []) 
 
   return createPortal(
-    <>
-    <div onClick={props.onClose}>
-      <ModalOverlay />
-      </div>
+    <>    
+      <ModalOverlay onClick={props.onClose}/>    
       <div className={ModalStyle.background}>
         <div className={ModalStyle.modal}>
         <div className={ModalStyle.close}>

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 type TProps={
   order: TOrder
-  index: any
+  index: number
   moveCard:any
   delCard:any
 }
@@ -39,7 +39,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
         return;
       }
 
-      const dragIndex =/*order.*/index;
+      const dragIndex =order.index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -66,7 +66,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
 
       moveCard(dragIndex, hoverIndex);
 
-     /*order.*/index = hoverIndex;
+    order.index = hoverIndex;
     },
   });
 
