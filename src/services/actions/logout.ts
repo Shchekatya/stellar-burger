@@ -32,10 +32,10 @@ export function logOut():any {
             }).then(checkResponse)
             .then(res => {
                 if (res.message) {
-                    setCookie("authToken", null, {
+                    setCookie("authToken", '', {
                         expires: -1
                     });
-                    setCookie("refreshToken", null, {
+                    setCookie("refreshToken", '', {
                         expires: -1
                     });
                     dispatch({
