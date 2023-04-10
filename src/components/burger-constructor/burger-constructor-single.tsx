@@ -1,8 +1,9 @@
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop,ConnectDropTarget } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
 import PropTypes from "prop-types";
+import { Identifier } from 'dnd-core';
 
 
 type TProps={
@@ -29,19 +30,19 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
   const onClick = () => delCard(index);
   const ref = useRef<HTMLInputElement>(null);
 
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop< TOrder, ConnectDropTarget, { handlerId: Identifier | null }>({
     accept: "main",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(order, monitor) {
+    hover(order: TOrder, monitor) {
       if (!ref.current) {
         return;
       }
 
-      const dragIndex =/*order?.*/index;
+      const dragIndex =order.index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -68,7 +69,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
 
       moveCard(dragIndex, hoverIndex);
 
-    /*order?.*/index = hoverIndex;
+    order.index = hoverIndex;
     },
   });
 
