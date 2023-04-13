@@ -16,7 +16,29 @@ export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
 
+export type TActionGetFeed = {
+    type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
+    items?: Array<object>
+  }
 
+  export type TActionConstructor = {
+    type: typeof ADD_CONSTRUCTOR 
+    | typeof DELETE_CONSTRUCTOR 
+    | typeof UPDATE_CONSTRUCTOR 
+    | typeof ADD_BUN 
+    | typeof SEND_ORDER
+    | typeof SEND_ORDER_SUCCESS
+    | typeof SEND_ORDER_FAILED
+    payload:any
+    item: object
+    key: string
+    order: string
+  }
+
+  export type TActionShow = {
+    type: typeof HIDE_ITEM
+    payload:object |null
+  }
 
 
 

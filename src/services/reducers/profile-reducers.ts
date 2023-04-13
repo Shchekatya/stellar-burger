@@ -7,7 +7,8 @@ import {
   UPDATE_USER,
   LOGOUT_USER,
   FORGOT,
-  EMAIL_TO_FORGOT
+  EMAIL_TO_FORGOT,
+  TUserActions
 } from "../actions/profile-actions";
 
 type TInitialUser = {
@@ -29,14 +30,7 @@ const initialUser:TInitialUser = {
 }
 
 
-export type TActionUser={
-type: string,
-payload?: any,
-email?: string,
-password?: string,
-}
-
-export const login = (state = initialUser, action:TActionUser) => {
+export const login = (state = initialUser, action:TUserActions) => {
   switch (action.type) {
     case SENDING:
       return {

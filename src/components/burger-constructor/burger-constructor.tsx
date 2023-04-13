@@ -9,7 +9,6 @@ import { Modal } from "../modal-ingredient/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
@@ -22,15 +21,15 @@ import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { sendOrder } from "../../services/actions/send-order";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 import {TItem} from "../ingredients/ingredient-single";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state:any) => state.changeConstructor);
-  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
   const result = useSelector((state:any) => state.changeConstructor.result);
   const navigate=useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const location=useLocation();
 
   type TOrder ={

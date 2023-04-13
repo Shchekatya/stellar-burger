@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+
 import Ing from "../ingredients/ingredients.module.css";
 import { useDrag } from "react-dnd";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import { Modal } from "../modal-ingredient/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 type TItemProp= { 
   key: string
@@ -22,7 +22,7 @@ export type TItem={
 export const IngredientSingle = (prop:TItemProp) => {
  const item=prop.item
 
-  const ItemActive = useAppSelector((state) => state.showItem.item);
+  const ItemActive = useSelector((state) => state.showItem.item);
   const orders = useSelector((state:any) => state.changeConstructor);
   const orderArr = orders.main.map((item:TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);

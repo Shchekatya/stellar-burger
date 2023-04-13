@@ -5,16 +5,15 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import styles from "../pages/register.module.css";
 import { sendRegister } from "../../services/actions/send-register";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Register() {
-  const user = useAppSelector((state) => state.login);
-  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
-  const dispatch = useAppDispatch();
+  const user = useSelector((state) => state.login);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
   const [name, setName] = React.useState("");

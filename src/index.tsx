@@ -4,11 +4,16 @@ import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { compose, legacy_createStore as createStore, applyMiddleware } from 'redux';
+import { compose, legacy_createStore as createStore, applyMiddleware, ActionCreator,Action,AnyAction } from 'redux';
 import rootReducer from './services/reducers/root-reducer';
-import thunk from 'redux-thunk';
+import thunk, { ThunkAction } from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import {loginUser} from './services/actions/login';
+import { TUserActions } from './services/actions/profile-actions';
+import { TActionGetFeed,TActionConstructor } from './services/actions/actions';
+import { TWSActions } from './services/actions/ws-actions';
+import { ThunkDispatch } from 'redux-thunk';
+import { socketMiddleware } from './middleware/socket-middleware' 
 
 
 
@@ -18,12 +23,15 @@ declare global {
   }
 }
 
-const store = createStore(rootReducer, applyMiddleware<ReturnType<typeof loginUser>>(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk,socketMiddleware('wss://echo.websocket.org')));
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-export type RootState=ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type TypedDispatch<T> = ThunkDispatch<T, any, TAppActions>;
+export type TAppActions = TUserActions | TActionGetFeed | TActionConstructor | TWSActions;
+export type RootState=ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<TReturn=void>=ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
 
 root.render(
   <React.StrictMode>

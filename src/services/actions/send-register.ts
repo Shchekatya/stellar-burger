@@ -8,7 +8,7 @@ import {
     REGISTER,
     SENDING_FAILED
 } from "./profile-actions";
-import { useAppDispatch } from "../hooks/hooks";
+import { useDispatch } from "../hooks/hooks";
 
 export function sendRegister(value:string, pass:string, name:string):any {
     const data = {

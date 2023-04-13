@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.header {
+    width: 100%; 
+}
+
+.left {
+    width: 48%;
+    min-height: 40px;
+}
+
+
+.right {
+    width: 49%;   
+    min-height: 100px;
+}

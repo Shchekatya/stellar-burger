@@ -6,21 +6,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, } from "react-router-dom";
 import styles from "../pages/login.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../services/actions/login";
 import {useLocation, useNavigate, Navigate} from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
-import { ThunkAction } from 'redux-thunk';
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Login() {
-  const user = useAppSelector((state) => state.login);
-  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
+  const user = useSelector((state) => state.login);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
   const cookie=getCookie("authToken")
   
   const fromPage = location.state?.pathname || "/";
-   const dispatch = useAppDispatch();
+   const dispatch = useDispatch();
   const [value, setValue] = React.useState(user.email);
   const [pass, setPass] = React.useState(user.password);
   const navigate=useNavigate();

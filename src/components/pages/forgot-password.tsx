@@ -5,18 +5,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/register.module.css";
 import { forgot } from "../../services/actions/forgot";
-import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { EMAIL_TO_FORGOT } from "../../services/actions/profile-actions";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");
   const location = useLocation();
-  const user = useAppSelector((state) => state.login);
-  const response = useAppSelector((state) => state.login.name); 
+  const user = useSelector((state) => state.login);
+  const response = useSelector((state) => state.login.name); 
   console.log(user)
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };

@@ -1,7 +1,6 @@
 import Ing from "../ingredients/ingredients.module.css";
-import { useSelector } from "react-redux";
 import { IngredientSingle } from "./ingredient-single";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useSelector } from "../../services/hooks/hooks";
 
 type Prop= {
   type: string

@@ -1,0 +1,23 @@
+.wrapper {
+    margin: 0 auto;
+    width: 50%;
+    border: 1px solid green;
+}
+
+.number {
+    text-align: center;
+}
+
+.status {
+    color: rgba(0, 204, 204, 1);
+}
+
+.bottom {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.date {   
+    color:rgba(133, 133, 173, 1);
+
+}

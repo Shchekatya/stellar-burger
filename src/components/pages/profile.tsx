@@ -7,17 +7,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/profile.module.css";
 import { Navigate, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../services/actions/logout";
 import { getUser } from "../../services/actions/get-user";
 import { updateUser } from "../../services/actions/update-user";
 import { getCookie } from "../../utils/cookie";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Profile() {
-  const user = useAppSelector((state) => state.login);
-  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
-  const dispatch = useAppDispatch(); 
+  const user = useSelector((state) => state.login);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch(); 
 
   React.useEffect(() => {
     dispatch(getUser());

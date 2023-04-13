@@ -11,12 +11,13 @@ import { MainBurgers } from "../pages/main-burgers";
 import { Profile } from "../pages/profile";
 import { Forgot } from "../pages/forgot-password";
 import { ProtectedRouteElement } from "../protected-route/protected-route";
-import { useDispatch, useSelector } from "react-redux";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
 import { ProtectedReset } from "../protected-route/protected-reset";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { Feed } from "../pages/feed";
+import { FeedId } from "../feed/feed-id";
 
 const App = () => {
   const location = useLocation();
@@ -24,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  const {feedRequest, feedFailed } = useAppSelector(
+  const {feedRequest, feedFailed } = useSelector(
     (state) => state.loadIngredients
   );
   useEffect(() => {
@@ -57,6 +58,8 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/id" element={<FeedId />} />
           <Route
             path="/reset-password"
             element={

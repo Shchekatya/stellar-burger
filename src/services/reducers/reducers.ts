@@ -4,15 +4,16 @@ import {
   UPDATE_CONSTRUCTOR,
   DELETE_CONSTRUCTOR,
   HIDE_ITEM,
-  SHOW_ITEM,
   ADD_BUN,
   GET_FEED,
   GET_FEED_FAILED,
   GET_FEED_SUCCESS,
   SEND_ORDER,
   SEND_ORDER_SUCCESS,
-  SEND_ORDER_FAILED
- 
+  SEND_ORDER_FAILED,
+  TActionGetFeed,
+  TActionConstructor,
+  TActionShow
 } from "../actions/actions"
 
 type TInitialIngredients = {
@@ -55,11 +56,6 @@ const initialItem: TInitialItem= {
   item: null,
 }
 
-export type TActionGetFeed = {
-  type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
-  items?: Array<object>
-}
-
 
 export const loadIngredients = (state = initialIngredients, action:TActionGetFeed) => {
   switch (action.type) {
@@ -92,13 +88,7 @@ export const loadIngredients = (state = initialIngredients, action:TActionGetFee
 
 }
 
-export type TActionConstructor = {
-  type: string
-  payload:any
-  item: object
-  key: string
-  order: string
-}
+
 
 export const changeConstructor = (state = initialConstructor, action:TActionConstructor) => {
   switch (action.type) {    
@@ -155,18 +145,10 @@ export const changeConstructor = (state = initialConstructor, action:TActionCons
   }
 }
 
-export type TActionShow = {
-  type: typeof HIDE_ITEM
-  payload:object |null
-}
+
 
 export const showItem = (state = initialItem, action:TActionShow) => {
-  switch (action.type) { 
-    // case SHOW_ITEM:
-    //   return {
-    //     ...state,
-    //     item: action.payload
-    //   }
+  switch (action.type) {   
       case HIDE_ITEM:
         return {
           ...state,
