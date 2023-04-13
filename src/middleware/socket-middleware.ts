@@ -1,14 +1,20 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 
 import type { TAppActions, AppDispatch, RootState } from '../index';
-import { TWSActions } from '../services/actions/ws-actions';
+import {
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSED,
+  WS_GET_MESSAGE,
+  TWSActions 
+} from '../services/actions/ws-actions';
 
 
 export const socketMiddleware = (wsUrl: string): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-    return next => (action: TWSActions) => {
+    return next => (action: TAppActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
  
