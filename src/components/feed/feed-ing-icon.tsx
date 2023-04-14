@@ -15,7 +15,6 @@ export const FeedIngIcon: FC<FeedIngIconProps> = ({
   overflow = 0,
   extraClass
 }) => {
-  console.log(src)
   return (
     <div className={clsx(styles.container, extraClass)}>
       <div>

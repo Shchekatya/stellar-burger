@@ -78,8 +78,7 @@ type TCurr={
   const [open, setOpen] = useState(false);
   const orderArr = orders.main.map((item:TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
-  const sum = useMemo(
-   
+  const sum = useMemo(   
     () =>
       orders.main.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) +
       (orders.bun && orders.bun.price * 2),
