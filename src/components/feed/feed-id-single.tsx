@@ -10,8 +10,7 @@ export function FeedIdSingle () {
         <div className={clsx(styles.singleWrap, "mr-6")}>
             <div className={clsx(styles.main, "mt-6")}>
         <FeedIngIcon
-        src='https://code.s3.yandex.net/react/code/meat-04-mobile.png'
-        srcSet='https://code.s3.yandex.net/react/code/meat-04-mobile.png'       
+        src='https://code.s3.yandex.net/react/code/meat-04-mobile.png'      
         extraClass={styles.items_picture}
       />
       <p className="text text_type_main-small ml-4">Флюоресцентная булка R2-D3</p>

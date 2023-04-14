@@ -1,30 +1,41 @@
 import styles from "./feed-order.module.css";
 import { FeedIngIcon } from "../feed/feed-ing-icon";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-// import {TSingleOrder} from './feed-left'
+import {TSingleOrder} from './feed-left';
+import { useSelector } from "../../services/hooks/hooks";
+import {TItem} from '../ingredients/ingredient-single'
 
-export function FeedOrder(prop:any) {
-  const item=prop.item  
-  console.log(item)
+type TProp={
+  item: TSingleOrder
+}
+export function FeedOrder(prop:TProp) {
+  const singleOrder=prop.item  
+  const ingredients=prop.item.ingredients
+  const items = useSelector((state:any) => state.loadIngredients.items);
+
+ 
+ let ingImg:Array<TItem>=[]
+ ingredients.forEach((el: string) => {
+const arr:TItem=items.find((e: TItem) => 
+    e._id===el     
+  ) 
+  const ar:number=ingImg.push(arr)
+})
+
+  console.log(ingImg)
     const today = new Date() 
-    const ArrPic=['https://code.s3.yandex.net/react/code/meat-02-mobile.png', 
-  'https://code.s3.yandex.net/react/code/sauce-03-mobile.png', 
-  'https://code.s3.yandex.net/react/code/meat-04-mobile.png',
-  'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-  'https://code.s3.yandex.net/react/code/sauce-02-mobile.png',
-  'https://code.s3.yandex.net/react/code/bun-02-mobile.png']
-    const icons = ArrPic.map((el, index) => (
+  
+    const icons = ingImg.map((el:any, index:number) => (
       <FeedIngIcon
-        src={el}
-        srcSet={el}
-        overflow={!index ? 6 : 0}
+        src={el.image_mobile}       
+        // overflow={!index ? 6 : 0}
         extraClass={styles.items_picture}
       />
     ));
     return (
         <div className={styles.order}>
         <div className={styles.orderHeader}>
-          <p className="text text_type_digits-default">{1}</p>
+          <p className="text text_type_digits-default">#{singleOrder.number}</p>
           <FormattedDate
   date={
     new Date(
@@ -39,7 +50,7 @@ export function FeedOrder(prop:any) {
 />
           </div>
             
-            <p className={`${styles.orderName} text text_type_main-small`}>Death Star Starship Main бургер</p>
+            <p className={`${styles.orderName} text text_type_main-small`}>{singleOrder.name}</p>
             <div className={styles.orderMain}>
             <div className={styles.orderMainImg}>
             <div className={styles.items_list}>{icons}</div>

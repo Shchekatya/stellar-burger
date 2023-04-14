@@ -2,21 +2,20 @@ import clsx from "clsx";
 import { FC } from "react";
 import styles from "./feed-ing-icon.module.css";
 
-interface FeedIngIconProps {
-  srcSet: string;
+interface FeedIngIconProps {  
   src: string;
   alt?: string;
   overflow?: number;
   extraClass?: string;
 }
 
-export const FeedIngIcon: FC<FeedIngIconProps> = ({
-  srcSet,
+export const FeedIngIcon: FC<FeedIngIconProps> = ({ 
   src,
   alt = "ingredient",
   overflow = 0,
   extraClass
 }) => {
+  console.log(src)
   return (
     <div className={clsx(styles.container, extraClass)}>
       <div>
