@@ -4,17 +4,21 @@ import {
 import {
   loadIngredients,
   changeConstructor,
-  showItem
+  showItem,
 } from "./reducers"
 import {
   login,
 } from "./profile-reducers"
+import {
+  wsReducer,
+} from "./ws-reducers"
 
 const rootReducer = combineReducers({
   loadIngredients,
   changeConstructor,
   showItem,
   login,
+  wsReducer
 })
 
 export default rootReducer

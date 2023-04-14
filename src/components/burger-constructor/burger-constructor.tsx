@@ -21,15 +21,20 @@ import { getCookie } from "../../utils/cookie";
 import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { sendOrder } from "../../services/actions/send-order";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import {TItem} from "../ingredients/ingredient-single";
+import { useDispatch } from 'react-redux'
+import { AppThunk } from "../..";
+import { Dispatch } from 'redux';
+import { AppDispatch } from '../../index';
+
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state:any) => state.changeConstructor);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
   const result = useSelector((state:any) => state.changeConstructor.result);
   const navigate=useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location=useLocation();
 
   type TOrder ={
@@ -46,7 +51,7 @@ export const BurgerConstructor = () => {
 type TCurr={  
      price?: number
  }
-  const addConstructor = (item:any) => {
+  const addConstructor = (item:any) => (dispatch: Dispatch)=> {
     if (item.item.type === "bun") {
       dispatch({
         type: ADD_BUN,
@@ -82,7 +87,7 @@ type TCurr={
   );
 
   const delCard = useCallback(
-    (dragIndex:number) => {
+    (dragIndex:number) => (dispatch: Dispatch)=> {
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
       dispatch({
@@ -94,7 +99,7 @@ type TCurr={
   );
 
   const moveCard = useCallback(
-    (dragIndex:number, hoverIndex:number) => {
+    (dragIndex:number, hoverIndex:number) => (dispatch: Dispatch)=> {
       const dragCard = orders.main[dragIndex];
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
@@ -156,6 +161,7 @@ type TCurr={
           type="primary"
           size="medium"
           onClick={() => {
+            console.log(isLogged)
             if (!isLogged) {
               navigate('/login',{ state: location })         
             } else {

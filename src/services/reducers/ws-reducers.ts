@@ -15,7 +15,7 @@ import {
     error?: Event;
   }
   
-  const initialState = {
+  const initialState:TWSState = {
     wsConnected: false,
     messages: []
   };
@@ -57,7 +57,7 @@ import {
         return {
           ...state,
                   error: undefined,
-          messages: [...state.messages, action.payload]
+          messages:  action.payload
         };
       default:
         return state;

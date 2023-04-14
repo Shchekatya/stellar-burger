@@ -9,16 +9,17 @@ import styles from "../pages/login.module.css";
 import { loginUser } from "../../services/actions/login";
 import {useLocation, useNavigate, Navigate} from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { useDispatch } from "react-redux";
 
 export function Login() {
   const user = useSelector((state) => state.login);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
+  const dispatch = useDispatch();
   const cookie=getCookie("authToken")
   
-  const fromPage = location.state?.pathname || "/";
-   const dispatch = useDispatch();
+  const fromPage = location.state?.pathname || "/";   
   const [value, setValue] = React.useState(user.email);
   const [pass, setPass] = React.useState(user.password);
   const navigate=useNavigate();
@@ -29,7 +30,7 @@ export function Login() {
     setPass(e.target.value);
   };
   if (isLogged) {  
-   return <Navigate to={fromPage   }   />
+   return <Navigate to={fromPage}   />
   }
   return (
     <div className={styles.wrapper}>

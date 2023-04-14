@@ -15,9 +15,11 @@ import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
 import { ProtectedReset } from "../protected-route/protected-reset";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { Feed } from "../pages/feed";
 import { FeedId } from "../feed/feed-id";
+import { useDispatch } from "react-redux";
+
 
 const App = () => {
   const location = useLocation();

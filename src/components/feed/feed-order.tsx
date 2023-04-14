@@ -1,11 +1,14 @@
 import styles from "./feed-order.module.css";
 import { FeedIngIcon } from "../feed/feed-ing-icon";
 import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+// import {TSingleOrder} from './feed-left'
 
-export function FeedOrder() {
+export function FeedOrder(prop:any) {
+  const item=prop.item  
+  console.log(item)
     const today = new Date() 
     const ArrPic=['https://code.s3.yandex.net/react/code/meat-02-mobile.png', 
-    'https://code.s3.yandex.net/react/code/sauce-03-mobile.png', 
+  'https://code.s3.yandex.net/react/code/sauce-03-mobile.png', 
   'https://code.s3.yandex.net/react/code/meat-04-mobile.png',
   'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
   'https://code.s3.yandex.net/react/code/sauce-02-mobile.png',
@@ -21,7 +24,7 @@ export function FeedOrder() {
     return (
         <div className={styles.order}>
         <div className={styles.orderHeader}>
-          <p className="text text_type_digits-default">#034535</p>
+          <p className="text text_type_digits-default">{1}</p>
           <FormattedDate
   date={
     new Date(

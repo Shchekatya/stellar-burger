@@ -7,7 +7,8 @@ import styles from "../pages/register.module.css";
 import { forgot } from "../../services/actions/forgot";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { EMAIL_TO_FORGOT } from "../../services/actions/profile-actions";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { useDispatch } from "react-redux";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");

@@ -8,12 +8,12 @@ import {
 import styles from "../pages/register.module.css";
 import { sendRegister } from "../../services/actions/send-register";
 import { Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Register() {
   const user = useSelector((state) => state.login);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = React.useState("");
   const [pass, setPass] = React.useState("");
   const [name, setName] = React.useState("");

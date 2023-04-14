@@ -6,7 +6,7 @@ import { Modal } from "../modal-ingredient/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useSelector } from "../../services/hooks/hooks";
 
 type TItemProp= { 
   key: string

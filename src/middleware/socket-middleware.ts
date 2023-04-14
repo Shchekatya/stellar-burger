@@ -6,17 +6,18 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  TWSActions 
+  TWSActions,
+  TWSStoreActions
 } from '../services/actions/ws-actions';
 
 
-export const socketMiddleware = (wsUrl: string): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-    return next => (action: TAppActions) => {
+    return next => (action: TAppActions ) => {
       const { dispatch, getState } = store;
-      const { type, payload } = action;
+      const { type } = action;         
  
       if (type === 'WS_CONNECTION_START') {
             // объект класса WebSocket
@@ -45,6 +46,7 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
         };
 
         if (type === 'WS_SEND_MESSAGE') {
+          const payload = action.payload;
           const message = payload;
                     // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));

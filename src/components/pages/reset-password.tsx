@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Navigate } from "react-router-dom";
 import { reset } from "../../services/actions/reset";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 
 
 export function Reset() {
@@ -22,7 +22,7 @@ export function Reset() {
     setPass(e.target.value);
   };
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   if (response === "Password successfully reset") {
     return <Navigate to="/login" />;
   }

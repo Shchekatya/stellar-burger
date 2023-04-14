@@ -3,5 +3,5 @@ import {AppDispatch,RootState,AppThunk, TypedDispatch} from "../../index";
 
 
 
-export const useDispatch = () => dispatchHook<TypedDispatch<RootState>>();
+export const useAppDispatch = () => dispatchHook<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 

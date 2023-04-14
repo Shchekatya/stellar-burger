@@ -1,7 +1,7 @@
 import bIng from "../burger-ingredients/burger-ingredients.module.css";
 import Ingredients from "../ingredients/ingredients";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks/hooks";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useState } from "react";
 import { useInView } from "react-intersection-observer";

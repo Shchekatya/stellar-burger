@@ -11,12 +11,13 @@ import { logOut } from "../../services/actions/logout";
 import { getUser } from "../../services/actions/get-user";
 import { updateUser } from "../../services/actions/update-user";
 import { getCookie } from "../../utils/cookie";
-import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { useDispatch } from "react-redux";
 
 export function Profile() {
   const user = useSelector((state) => state.login);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
-  const dispatch = useDispatch(); 
+  const dispatch = useAppDispatch(); 
 
   React.useEffect(() => {
     dispatch(getUser());

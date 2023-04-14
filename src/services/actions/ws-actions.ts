@@ -5,13 +5,49 @@ export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSE
 export const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
 export const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
 
-export type TWSActions = {
-    readonly type: typeof WS_CONNECTION_START
-    | typeof WS_CONNECTION_SUCCESS
-    | typeof WS_CONNECTION_ERROR
-    | typeof WS_CONNECTION_ERROR
-    | typeof WS_CONNECTION_CLOSED
-    | typeof WS_GET_MESSAGE
-    | typeof WS_SEND_MESSAGE
-   payload: any
-}
+
+
+export interface IWSConnectionStart {
+    readonly type: typeof WS_CONNECTION_START;
+  }
+  
+  export interface IWSConnectionSuccessAction {
+    readonly type: typeof WS_CONNECTION_SUCCESS;
+  }
+  
+  export interface IWSConnectionErrorAction {
+    readonly type: typeof WS_CONNECTION_ERROR;
+    readonly payload: Event;
+  }
+  
+  export interface IWSConnectionClosedAction {
+    readonly type: typeof WS_CONNECTION_CLOSED;
+  }
+  
+  export interface IWSGetMessageAction {
+    readonly type: typeof WS_GET_MESSAGE;
+    readonly payload: any;
+  }
+  
+  export interface IWSSendMessageAction {
+    readonly type: typeof WS_SEND_MESSAGE;
+    readonly payload: {message: string};
+  }
+  
+  export type TWSActions =
+    | IWSConnectionStart
+    | IWSConnectionSuccessAction
+    | IWSConnectionErrorAction
+    | IWSConnectionClosedAction
+    | IWSGetMessageAction
+    | IWSSendMessageAction;
+
+    
+export type TWSStoreActions = {
+    wsInit: typeof  WS_CONNECTION_START,
+    wsSendMessage: typeof  WS_SEND_MESSAGE,
+    onOpen: typeof  WS_CONNECTION_SUCCESS,
+    onClose: typeof WS_CONNECTION_CLOSED,
+    onError: typeof  WS_CONNECTION_ERROR,
+    onMessage: typeof  WS_GET_MESSAGE,
+  };
