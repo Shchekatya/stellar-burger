@@ -29,11 +29,11 @@ const arr:TItem=items.find((e: TItem) =>
 })
 const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) 
     const today = new Date() 
-  
-    const icons = ingImg.map((el:any, index:number) => (
+    const more=ingImg.length-5
+    const icons = ingImg.slice(0, 5).map((el:any, index:number) => (
       <FeedIngIcon
         src={el.image_mobile}       
-        // overflow={!index ? 6 : 0}
+        overflow={!index ? more : 0}
         extraClass={styles.items_picture}
       />
     ));
