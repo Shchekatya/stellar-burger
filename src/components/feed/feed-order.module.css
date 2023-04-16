@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: white;
+}
+
 .order {
     border-radius: 40px;
     background: #1C1C21;
@@ -45,3 +50,4 @@
   .items_list > .items_picture:last-child {
     margin-left: 0;
   }
+

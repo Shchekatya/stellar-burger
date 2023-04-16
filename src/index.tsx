@@ -25,7 +25,7 @@ declare global {
   }
 }
 
-const wsUrl: string = 'wss://norma.nomoreparties.space/orders/all';
+const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
 
 const wsActions: TWSStoreActions = {
   wsInit: WS_CONNECTION_START,

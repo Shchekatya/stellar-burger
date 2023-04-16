@@ -9,9 +9,11 @@ import {
   TWSActions,
   TWSStoreActions
 } from '../services/actions/ws-actions';
+import { getCookie } from '../utils/cookie';
 
 
 export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Middleware => {
+  const cookie=getCookie("authToken")
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
@@ -19,9 +21,14 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Mid
       const { dispatch, getState } = store;
       const { type } = action;         
  
+      if (type === 'WS_CONNECTION_START' && cookie) {
+        // объект класса WebSocket
+        socket = new WebSocket(`${wsUrl}?token=${cookie}`);
+  }
+
       if (type === 'WS_CONNECTION_START') {
             // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(`${wsUrl}/all`);
       }
       if (socket) {
 

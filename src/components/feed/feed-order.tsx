@@ -4,18 +4,22 @@ import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burge
 import {TSingleOrder} from './feed-left';
 import { useSelector } from "../../services/hooks/hooks";
 import {TItem} from '../ingredients/ingredient-single'
+import { Link, useLocation } from "react-router-dom";
 
 type TProp={
   item: TSingleOrder
 }
 export function FeedOrder(prop:TProp) {
+  const location = useLocation();
   const singleOrder=prop.item  
   const ingredients=prop.item.ingredients
   const items = useSelector((state:any) => state.loadIngredients.items);
   type TCurr={  
     price?: number
 }
- 
+
+const orderId = singleOrder["_id"];
+
  let ingImg:Array<TItem>=[]
  ingredients.forEach((el: string) => {
 const arr:TItem=items.find((e: TItem) => 
@@ -34,6 +38,12 @@ const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
       />
     ));
     return (
+      <Link
+        key={orderId}
+        to={`/feed/${orderId}`}
+        state={{ background: location }}
+        className={styles.link}
+      >
         <div className={styles.order}>
         <div className={styles.orderHeader}>
           <p className="text text_type_digits-default">#{singleOrder.number}</p>
@@ -64,6 +74,6 @@ const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
             </div>
             </div>
         </div>
-
+        </Link>
     )
 }

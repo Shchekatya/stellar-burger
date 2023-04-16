@@ -8,7 +8,7 @@ import { Reset } from "../pages/reset-password";
 import { Login } from "../pages/login";
 import { Page404 } from "../pages/404";
 import { MainBurgers } from "../pages/main-burgers";
-import { Profile } from "../pages/profile";
+import { Profile } from "../pages/profile-menu";
 import { Forgot } from "../pages/forgot-password";
 import { ProtectedRouteElement } from "../protected-route/protected-route";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
@@ -19,6 +19,8 @@ import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { Feed } from "../pages/feed";
 import { FeedId } from "../feed/feed-id";
 import { useDispatch } from "react-redux";
+import { Order } from "../pages/orders";
+import { ProfileInfo } from "../pages/profile";
 
 
 const App = () => {
@@ -61,7 +63,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/id" element={<FeedId />} />
+          
+          <Route
+            path="/feed/:orderId"
+            element={<FeedId />}
+          />          
           <Route
             path="/reset-password"
             element={
@@ -77,7 +83,10 @@ const App = () => {
                 <Profile />
               </ProtectedRouteElement>
             }
-          />
+          >
+<Route path="/profile/orders" element={<Order />} />
+<Route path="/profile" element={<ProfileInfo />} />
+          </Route>
 
           <Route path="/forgot-password" element={<Forgot />} />
           <Route path="*" element={<Page404 />} />
@@ -90,6 +99,14 @@ const App = () => {
               element={
                 <Modal onClose={handleModalClose}>
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+             <Route
+              path="/feed/:orderId"
+              element={
+                <Modal onClose={handleModalClose}>
+                  <FeedId />
                 </Modal>
               }
             />

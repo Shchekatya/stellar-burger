@@ -1,9 +1,26 @@
 .wrapper {
-    margin: 0 auto;
-    width: 50%;
-    border: 1px solid green;
+    margin: 0 auto;   
+    max-height: 100%;
+    margin: 20px;
+}
+.ing {
+    max-height: 200px;  
+    overflow: auto;
 }
 
+.ing::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .ing::-webkit-scrollbar-track {
+    background: #2F2F37;
+  }
+  
+  .ing::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+  }
+
+  
 .number {
     text-align: center;
 }
