@@ -24,7 +24,7 @@ return (
     <div className={styles.wrap}>  
     {getOrders.length ? (
             getOrders.map((item:TSingleOrder) => (            
-              <FeedOrder item={item}  />         
+              <FeedOrder item={item} key={item._id} />         
               ))
           ) : (
             <div>Нет в наличии</div>

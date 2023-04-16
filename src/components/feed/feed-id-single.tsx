@@ -7,7 +7,7 @@ import { useSelector } from "../../services/hooks/hooks";
 
 
 export function FeedIdSingle ({ing}:any) {
-console.log(ing)
+
     return (
         <div className={clsx(styles.singleWrap, "mr-6")}>
             <div className={clsx(styles.main, "mt-6")}>
@@ -18,7 +18,7 @@ console.log(ing)
       <p className="text text_type_main-small ml-4">{ing.name}</p>
       </div>
       <div className={styles.price}>
-      <p className="text text_type_digits-default">{ing.price}
+      <p className="text text_type_digits-default">{ing.count}x{ing.price}
         <CurrencyIcon type="primary" />
         </p>
       </div>

@@ -6,7 +6,13 @@ import { Modal } from "../modal-ingredient/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { Dispatch } from 'redux';
+import { v4 as uuidv4 } from "uuid";
+import {
+  ADD_CONSTRUCTOR,
+  ADD_BUN,
+} from "../../services/actions/actions";
 
 type TItemProp= { 
   key: string
@@ -21,16 +27,38 @@ export type TItem={
 }
 export const IngredientSingle = (prop:TItemProp) => {
  const item=prop.item
-
+const dispatch=useAppDispatch();
   const ItemActive = useSelector((state) => state.showItem.item);
   const orders = useSelector((state:any) => state.changeConstructor);
   const orderArr = orders.main.map((item:TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
   const location = useLocation();
   const ingredientId = item["_id"];
+    const addConstructor = (item:any) => (dispatch: Dispatch)=> {
+    if (item.item.type === "bun") {
+      dispatch({
+        type: ADD_BUN,
+        payload: item,
+        order: orderArr,
+      });
+    } else {
+      dispatch({
+        type: ADD_CONSTRUCTOR,
+        payload: item,
+        key: uuidv4(),
+        order: orderArr,
+      });
+    }
+  };
   const [, dragRef] = useDrag({
     type: "items",
     item: { item },
+    end: (item, monitor) => {
+      const dropResult=monitor.getDropResult();
+      if (item&& dropResult) {
+        dispatch(addConstructor(item))
+      }
+    }
   });
 
 let count=0;

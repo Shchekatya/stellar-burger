@@ -5,7 +5,16 @@ import { FormattedDate, CurrencyIcon } from "@ya.praktikum/react-developer-burge
 import { useParams } from "react-router-dom";
 import { useSelector } from "../../services/hooks/hooks";
 import {TSingleOrder} from './feed-left';
-import {TItem} from '../ingredients/ingredient-single'
+import {TItem} from '../ingredients/ingredient-single';
+import { v4 as uuidv4 } from "uuid";
+
+export type TOrderId={
+  _id: string
+  image?: string
+  name?: string
+  price?: number
+  count?: number
+}
 
 export function FeedId () {
     const today = new Date() 
@@ -15,6 +24,7 @@ export function FeedId () {
     type TCurr={  
       price?: number
   }
+
   let order
   let ingredients
   let ingImg:Array<TItem>=[]
@@ -39,9 +49,11 @@ if (order.status==='done') {
 }
 price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) 
 };
-
-console.log(ingImg)
-
+let ar
+ingImg.forEach((element:TOrderId) => {
+ ar=ingImg.filter(e => e._id===element._id)
+ element.count=ar.length
+});
   
     if (!order) {
       return null;
@@ -55,7 +67,7 @@ console.log(ingImg)
         <div className={styles.ing}>
         {
           ingImg.map(ing => 
-            <FeedIdSingle ing={ing}/>
+            <FeedIdSingle ing={ing} key={uuidv4()}/>
           )
         }
        </div>

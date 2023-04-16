@@ -51,28 +51,28 @@ export const BurgerConstructor = () => {
 type TCurr={  
      price?: number
  }
-  const addConstructor = (item:any) => (dispatch: Dispatch)=> {
-    if (item.item.type === "bun") {
-      dispatch({
-        type: ADD_BUN,
-        payload: item,
-        order: orderArr,
-      });
-    } else {
-      dispatch({
-        type: ADD_CONSTRUCTOR,
-        payload: item,
-        key: uuidv4(),
-        order: orderArr,
-      });
-    }
-  };
+  // const addConstructor = (item:any) => (dispatch: Dispatch)=> {
+  //   if (item.item.type === "bun") {
+  //     dispatch({
+  //       type: ADD_BUN,
+  //       payload: item,
+  //       order: orderArr,
+  //     });
+  //   } else {
+  //     dispatch({
+  //       type: ADD_CONSTRUCTOR,
+  //       payload: item,
+  //       key: uuidv4(),
+  //       order: orderArr,
+  //     });
+  //   }
+  // };
 
   const [, dropTarget] = useDrop({
     accept: "items",
-    drop(item) {
-      addConstructor(item);
-    },
+    // drop(item) {
+    //   addConstructor(item);
+    // },
   });
 
   const [open, setOpen] = useState(false);
