@@ -40,7 +40,7 @@ const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
     return (
       <Link
         key={orderId}
-        to={`/feed/${orderId}`}
+        to={`${orderId}`}
         state={{ background: location }}
         className={styles.link}
       >

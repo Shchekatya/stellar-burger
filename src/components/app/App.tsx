@@ -67,7 +67,11 @@ const App = () => {
           <Route
             path="/feed/:orderId"
             element={<FeedId />}
-          />          
+          />     
+          <Route
+            path="/profile/orders/:orderId"
+            element={<FeedId />}
+          />       
           <Route
             path="/reset-password"
             element={
@@ -104,6 +108,14 @@ const App = () => {
             />
              <Route
               path="/feed/:orderId"
+              element={
+                <Modal onClose={handleModalClose}>
+                  <FeedId />
+                </Modal>
+              }
+            />
+            <Route
+              path="/profile/orders/:orderId"
               element={
                 <Modal onClose={handleModalClose}>
                   <FeedId />
