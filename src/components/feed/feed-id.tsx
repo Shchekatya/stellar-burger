@@ -36,11 +36,14 @@ if (messages.length) {
   );
   ingredients=order.ingredients
 
-ingredients.forEach((el: string) => {
-const arr:TItem=items.find((e: TItem) => 
-   e._id===el     
- ) 
- const ar:number=ingImg.push(arr)
+ingredients.forEach((el: string|null) => {
+  if (el !=null){
+    const arr:TItem=items.find((e: TItem) => 
+    e._id===el     
+  ) 
+  const ar:number=ingImg.push(arr)
+  }
+
 })
 if (order.status==='done') {
   orderStatus="Выполнен"
