@@ -55,8 +55,14 @@ price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
 let ar
 ingImg.forEach((element:TOrderId) => {
  ar=ingImg.filter(e => e._id===element._id)
- element.count=ar.length
+ if (ar.length>1) {
+  const del=ingImg.indexOf(element)
+  ingImg.splice(del, 1)
+  element.count=ar.length
+ } 
 });
+
+
   
     if (!order) {
       return null;
