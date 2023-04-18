@@ -12,7 +12,7 @@ import { Dispatch } from "redux";
 
 
 
-export function loginUser(value:string, pass:string):any {
+export function loginUser(value:string, pass:string) {
     const data = {
         email: value,
         password: pass

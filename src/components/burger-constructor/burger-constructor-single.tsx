@@ -4,6 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useRef } from "react";
 import PropTypes from "prop-types";
 import { Identifier } from 'dnd-core';
+import {TItem} from '../ingredients/ingredient-single'
 
 
 type TProps={

@@ -8,7 +8,7 @@ import {
 } from "./profile-actions";
 import { useAppDispatch } from "../hooks/hooks";
 
-export function sendRegister(value:string, pass:string, name:string):any {
+export function sendRegister(value:string, pass:string, name:string) {
     const data = {
         name: name,
         email: value,

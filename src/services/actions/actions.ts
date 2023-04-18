@@ -1,3 +1,5 @@
+import {TItem} from '../../components/ingredients/ingredient-single';
+
 export const LOAD_SUCCESS = 'LOAD_SUCCESS';
 export const ADD_CONSTRUCTOR = 'ADD_CONSTRUCTOR';
 export const DELETE_CONSTRUCTOR = 'DELETE_CONSTRUCTOR';
@@ -18,7 +20,9 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
 export type TActionGetFeed = {
     type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
-    items?: Array<object>
+    items: Array<TItem>
+    feedRequest: boolean
+    feedFailed: boolean
   }
 
   export type TActionConstructor = {

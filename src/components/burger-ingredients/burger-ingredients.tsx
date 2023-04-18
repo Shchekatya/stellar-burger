@@ -3,11 +3,12 @@ import Ingredients from "../ingredients/ingredients";
 import PropTypes from "prop-types";
 import { useSelector } from "../../services/hooks/hooks";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useState } from "react";
+import React from "react";
 import { useInView } from "react-intersection-observer";
+import {TItem} from '../ingredients/ingredient-single'
 
 export const BurgerIngredients = () => {
-  const items = useSelector((state:any) => state.loadIngredients.items);
+  const items = useSelector((state) => state.loadIngredients.items);
   const [currentTab, setCurrentTab] = React.useState("buns");
 
   const [bunsRef, inViewBuns] = useInView({

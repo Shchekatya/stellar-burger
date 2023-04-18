@@ -5,7 +5,7 @@ import { useSelector } from "../../services/hooks/hooks";
 
 export const IngredientDetails = () => {
   const { ingredientId } = useParams();
-  const item = useSelector((state:any) => {
+  const item = useSelector((state) => {
     return state.loadIngredients.items.find(
       (item:TItem) => item._id === ingredientId
     );

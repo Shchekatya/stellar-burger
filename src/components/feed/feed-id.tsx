@@ -20,7 +20,7 @@ export function FeedId () {
     const today = new Date() 
     const { orderId } = useParams();
     const messages=useSelector(state => state.wsReducer.messages)
-    const items = useSelector((state:any) => state.loadIngredients.items);
+    const items = useSelector((state) => state.loadIngredients.items);
     type TCurr={  
       price?: number
   }
@@ -38,7 +38,7 @@ if (messages.length) {
 
 ingredients.forEach((el: string|null) => {
   if (el !=null){
-    const arr:TItem=items.find((e: TItem) => 
+    const arr:TItem|undefined=items.find((e: TItem) => 
     e._id===el     
   ) 
   if (arr!=undefined) {

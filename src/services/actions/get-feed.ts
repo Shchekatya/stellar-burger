@@ -8,7 +8,7 @@ import {
 import { Dispatch } from "redux";
 
 
-export function getFeed():any {
+export function getFeed() {
 
     return function (dispatch:Dispatch) {
         dispatch({

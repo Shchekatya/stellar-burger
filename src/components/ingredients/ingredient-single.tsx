@@ -24,6 +24,11 @@ export type TItem={
     image?: string
     name?: string
     price?: number
+    proteins?: string
+    calories?: string
+    fat?: string
+    carbohydrates?: string
+    type?: string
 }
 export const IngredientSingle = (prop:TItemProp) => {
  const item=prop.item

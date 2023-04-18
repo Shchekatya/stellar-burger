@@ -1,4 +1,4 @@
-
+import {TItem} from '../../components/ingredients/ingredient-single';
 import {
   ADD_CONSTRUCTOR,
   UPDATE_CONSTRUCTOR,
@@ -19,7 +19,7 @@ import {
 type TInitialIngredients = {
   feedRequest: boolean,
   feedFailed: boolean,
-  items: Array<object>,
+  items: Array<TItem>,
 }
 
 const initialIngredients:TInitialIngredients = {

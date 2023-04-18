@@ -14,7 +14,7 @@ export function FeedOrder(prop:TProp) {
   const location = useLocation();
   const singleOrder=prop.item  
   const ingredients=prop.item.ingredients
-  const items = useSelector((state:any) => state.loadIngredients.items);
+  const items = useSelector((state) => state.loadIngredients.items);
   type TCurr={  
     price?: number
 }
@@ -23,7 +23,7 @@ const orderId = singleOrder["_id"];
  let ingImg:Array<TItem>=[]
  ingredients.forEach((el: string|null) => {
   if (el!=null) {   
-    const arr:TItem=items.find((e: TItem) => 
+    const arr:TItem|undefined=items.find((e: TItem) => 
     e._id===el     
   ) 
   if (arr!=undefined) {

@@ -1,6 +1,8 @@
+import { AppThunk } from "../..";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
 import { getCookie } from "../../utils/cookie";
+import { useAppDispatch } from "../hooks/hooks";
 import {
     SENDING,
     GET_USER,
@@ -10,9 +12,10 @@ import { refreshToken } from "./refresh-token";
 import { Dispatch } from "redux";
 
 
-export function getUser():any {
+export function getUser() {
+    let dispatch=useAppDispatch
     let cookie = getCookie("authToken");  
-    return function (dispatch:any) {
+    return function (dispatch:Dispatch) {
         dispatch({
             type: SENDING
         })
@@ -28,7 +31,7 @@ export function getUser():any {
                     type: GET_USER,
                     payload: res.user,
                 });
-          }).catch(err => {
+          }).catch(err => (dispatch:AppThunk)=> {
             if (err.message === "jwt expired") {
                       dispatch(refreshToken());
                     }

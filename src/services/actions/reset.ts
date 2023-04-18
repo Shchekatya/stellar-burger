@@ -9,7 +9,7 @@ import {
 } from "./profile-actions";
 
 
-export const reset=(code:string, pass:string):any =>{      
+export const reset=(code:string, pass:string) =>{      
     const data = {
         password: pass,
         token: code,

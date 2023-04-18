@@ -25,9 +25,9 @@ import { Dispatch } from 'redux';
 
 
 export const BurgerConstructor = () => {
-  const orders = useSelector((state:any) => state.changeConstructor);
+  const orders = useSelector((state) => state.changeConstructor);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
-  const result = useSelector((state:any) => state.changeConstructor.result);
+  const result = useSelector((state) => state.changeConstructor.result);
   const navigate=useNavigate();
   const dispatch = useAppDispatch();
   const location=useLocation();
@@ -46,28 +46,11 @@ export const BurgerConstructor = () => {
 type TCurr={  
      price?: number
  }
-  // const addConstructor = (item:any) => (dispatch: Dispatch)=> {
-  //   if (item.item.type === "bun") {
-  //     dispatch({
-  //       type: ADD_BUN,
-  //       payload: item,
-  //       order: orderArr,
-  //     });
-  //   } else {
-  //     dispatch({
-  //       type: ADD_CONSTRUCTOR,
-  //       payload: item,
-  //       key: uuidv4(),
-  //       order: orderArr,
-  //     });
-  //   }
-  // };
+
 
   const [, dropTarget] = useDrop({
     accept: "items",
-    // drop(item) {
-    //   addConstructor(item);
-    // },
+
   });
 
   const [open, setOpen] = useState(false);

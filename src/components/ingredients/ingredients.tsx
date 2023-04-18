@@ -1,27 +1,22 @@
 import Ing from "../ingredients/ingredients.module.css";
 import { IngredientSingle } from "./ingredient-single";
 import { useSelector } from "../../services/hooks/hooks";
+import {TItem} from './ingredient-single'
 
 type Prop= {
   type: string
-items:[]
+items:Array<TItem>
 }
 
-type TE= {
-  type:string
-}
-type TItem ={ 
-  _id: string
-}
 export const Ingredients = (props:Prop) => {
-  const items = useSelector((state:any) => state.loadIngredients.items);
+  const items = useSelector((state) => state.loadIngredients.items);
 
   return (
     <div className={Ing.show}>
       {items ? (
         items
-          .filter((e:TE) => e.type === props.type)
-          .map((item:TItem) => (
+          .filter((e) => e.type === props.type)
+          .map((item) => (
             <IngredientSingle item={item} key={item._id} />
           ))
       ) : (

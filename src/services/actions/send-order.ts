@@ -7,14 +7,15 @@ import {
     SEND_ORDER_SUCCESS,
     SEND_ORDER_FAILED
 } from "./actions";
-
+import { Dispatch } from "redux";
+import { AppThunk } from "../..";
 
 export function sendOrder(orders:Array<string>) {
 
     let cookie = getCookie("authToken");
     const data = { ingredients: orders }
     console.log(data)
-    return function (dispatch:any) {      
+    return function (dispatch:Dispatch) {      
         dispatch({
             type: SEND_ORDER
         })
@@ -33,7 +34,7 @@ export function sendOrder(orders:Array<string>) {
                 type: SEND_ORDER_SUCCESS,
                 payload: data
             }))
-        .catch(err => {
+        .catch(err => (dispatch:AppThunk) =>{
             if (err.message === "jwt expired") {
                 dispatch(refreshToken());
               }
