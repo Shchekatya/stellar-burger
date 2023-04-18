@@ -18,31 +18,34 @@ export function FeedOrder(prop:TProp) {
   type TCurr={  
     price?: number
 }
-
 const orderId = singleOrder["_id"];
 
  let ingImg:Array<TItem>=[]
  ingredients.forEach((el: string|null) => {
-  if (el!=null) {
+  if (el!=null) {   
     const arr:TItem=items.find((e: TItem) => 
     e._id===el     
   ) 
-  const ar:number=ingImg.push(arr)
-  }
+  if (arr!=undefined) {
+    const ar:number=ingImg.push(arr)
+  } 
+}})
 
-})
 const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) 
 
     const today = new Date() 
     const more=ingImg.length-5
-    const icons = ingImg.slice(0, 5).map((el:any, index:number) => (
+    const icons = ingImg.slice(0, 5).map((el:any, index:number) => {
+      if (el!=undefined) {
+      return (
       <FeedIngIcon
-        src={el.image}       
+        src=
+        {el.image}       
         overflow={!index ? more : 0}
         extraClass={styles.items_picture}
         key={uuidv4()}
       />
-    ));
+    )}});
     return (
       <Link
         key={orderId}

@@ -41,8 +41,9 @@ ingredients.forEach((el: string|null) => {
     const arr:TItem=items.find((e: TItem) => 
     e._id===el     
   ) 
+  if (arr!=undefined) {
   const ar:number=ingImg.push(arr)
-  }
+  }  }
 
 })
 if (order.status==='done') {
