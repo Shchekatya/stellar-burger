@@ -1,6 +1,7 @@
 import styles from "./feed-right.module.css";
 import { useSelector } from "../../services/hooks/hooks";
 import {TSingleOrder} from './feed-left';
+import clsx from "clsx";
 
 
 export function FeedRight() {
@@ -18,8 +19,9 @@ if (messages.length) {
         <div className={styles.orders}> 
           <div className={styles.ordersReady}>
             <p className="text text_type_main-medium">Готовы:</p>
-            <ul className="text text_type_digits-default">             
-              {ordersStatus.filter((el:TSingleOrder)=> el.status==='done').map((e:TSingleOrder) => {
+            <ul className={clsx(styles.ordersReadyList, "text text_type_digits-default")}>             
+              {ordersStatus.filter((el:TSingleOrder)=> el.status==='done').map((e:TSingleOrder, index:number) => {
+                if (index<20)
                return <li key={e._id}>{e.number}</li>            
               })}                      
             </ul>

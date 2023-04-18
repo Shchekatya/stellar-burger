@@ -1,3 +1,22 @@
+.wrapper {
+  max-height: 90vh;
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+
 .order {
     border-radius: 40px;
     background: #1C1C21;

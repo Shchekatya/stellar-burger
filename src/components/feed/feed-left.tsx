@@ -32,7 +32,7 @@ if (messages.length) {
 };
 
     return (
-      <>  
+      <div className={styles.wrapper}>  
 {getOrders.length ? (
         getOrders.map((item:TSingleOrder) => (            
           <FeedOrder item={item} key={item._id}/>         
@@ -40,6 +40,6 @@ if (messages.length) {
       ) : (
         <div>Нет в наличии</div>
       )}     
-      </>
+      </div>
     );
   }

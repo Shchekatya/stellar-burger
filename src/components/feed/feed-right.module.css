@@ -7,27 +7,33 @@
     width: 48%;
 }
 
-.ordersReady ul {
+.ordersReadyList {
     color: rgba(0, 204, 204, 1);
     padding-left: 0;
     margin-top: 24px;
+    max-height: 170px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .ordersReady li {
     list-style-type: none;
     margin-top: 8px;
+    display: block;
+    flex-shrink: 0.5;
 }
 
 .ordersProgress {
     width: 48%;
 }
 
-.ordersProgress  ul {
+.ordersProgress ul {
     padding-left: 0;
     margin-top: 24px;
 }
 
-.ordersProgress  li {
+.ordersProgress li {
     list-style-type: none;
     margin-top: 8px;
 }
