@@ -77,7 +77,7 @@ ingImg.forEach((element:TOrderId) => {
         <div className={styles.ing}>
         {
           ingImg.map(ing => 
-            <FeedIdSingle ing={ing} key={uuidv4()}/>
+            <FeedIdSingle ing={ing} key={ing._id}/>
           )
         }
        </div>

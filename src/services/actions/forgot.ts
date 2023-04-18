@@ -1,6 +1,4 @@
-import {
-    useSelector
-} from "react-redux";
+import { useSelector } from "../../services/hooks/hooks";
 import {
     useLocation,
     useNavigate

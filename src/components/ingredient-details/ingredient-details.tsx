@@ -1,7 +1,7 @@
 import detailsStyle from "../ingredient-details/ingredient-details.module.css";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {TItem} from "../ingredients/ingredient-single";
+import { useSelector } from "../../services/hooks/hooks";
 
 export const IngredientDetails = () => {
   const { ingredientId } = useParams();

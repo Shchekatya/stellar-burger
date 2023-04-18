@@ -1,11 +1,7 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/check-response";
 import { getCookie } from "../../utils/cookie";
 import { refreshToken } from "./refresh-token";
-import { Dispatch } from "redux";
-import { AppDispatch } from "../../index";
 import {
     SEND_ORDER,
     SEND_ORDER_SUCCESS,

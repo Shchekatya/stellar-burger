@@ -1,19 +1,8 @@
-import React from "react";
-import {
-  EmailInput,
-  Input,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/profile.module.css";
-import { Navigate, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { logOut } from "../../services/actions/logout";
-import { getUser } from "../../services/actions/get-user";
-import { updateUser } from "../../services/actions/update-user";
-import { getCookie } from "../../utils/cookie";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
-import { useDispatch } from "react-redux";
-import { OutgoingMessage } from "http";
+
 
 export function Profile() {
 

@@ -3,7 +3,6 @@ import { useSelector } from "../../services/hooks/hooks";
 import styles from "./feed-left.module.css";
 import { FeedOrder } from "./feed-order";
 import { WS_CONNECTION_START } from "../../services/actions/ws-actions";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
 export type TSingleOrder={

@@ -29,10 +29,14 @@ export type TActionGetFeed = {
     | typeof SEND_ORDER
     | typeof SEND_ORDER_SUCCESS
     | typeof SEND_ORDER_FAILED
-    payload:any
-    item: object
-    key: string
-    order: string
+    payload?:any
+    item?: object
+    key?: string    
+  bun: null | object,
+  order: Array<string>,
+  orderSend: boolean,
+  orderFailed: boolean,
+  result:string
   }
 
   export type TActionShow = {

@@ -10,13 +10,13 @@ import { loginUser } from "../../services/actions/login";
 import {useLocation, useNavigate, Navigate} from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
-import { useDispatch } from "react-redux";
+
 
 export function Login() {
   const user = useSelector((state) => state.login);
   const isLogged = useSelector((state) => state.login.isLoggedIn);
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cookie=getCookie("authToken")
   
   const fromPage = location.state?.pathname || "/";   

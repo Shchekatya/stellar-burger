@@ -29,7 +29,7 @@ export const IngredientSingle = (prop:TItemProp) => {
  const item=prop.item
 const dispatch=useAppDispatch();
   const ItemActive = useSelector((state) => state.showItem.item);
-  const orders = useSelector((state:any) => state.changeConstructor);
+  const orders = useSelector((state) => state.changeConstructor);
   const orderArr = orders.main.map((item:TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
   const location = useLocation();

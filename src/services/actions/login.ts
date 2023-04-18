@@ -1,4 +1,4 @@
-import {useSelector} from "react-redux";
+import { useSelector } from "../../services/hooks/hooks";
 import {useLocation, useNavigate } from "react-router-dom";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";

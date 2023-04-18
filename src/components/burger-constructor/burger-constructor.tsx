@@ -16,17 +16,12 @@ import {
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
-import { BASE_URL } from "../../utils/api";
-import { getCookie } from "../../utils/cookie";
-import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { useLocation, useNavigate } from "react-router-dom";
 import { sendOrder } from "../../services/actions/send-order";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import {TItem} from "../ingredients/ingredient-single";
-import { useDispatch } from 'react-redux'
-import { AppThunk } from "../..";
 import { Dispatch } from 'redux';
-import { AppDispatch } from '../../index';
+
 
 
 export const BurgerConstructor = () => {

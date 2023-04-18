@@ -18,15 +18,17 @@ import { ProtectedReset } from "../protected-route/protected-reset";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { Feed } from "../pages/feed";
 import { FeedId } from "../feed/feed-id";
-import { useDispatch } from "react-redux";
+
 import { Order } from "../pages/orders";
 import { ProfileInfo } from "../pages/profile";
+import { Dispatch } from 'redux';
+
 
 
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const background = location.state && location.state.background;
 
   const {feedRequest, feedFailed } = useSelector(
@@ -37,7 +39,7 @@ const App = () => {
     getFeed();
   }, []);
 
-  const handleModalClose = () => {
+  const handleModalClose = () => (dispatch: Dispatch)=> {
     dispatch({
       type: HIDE_ITEM,
     });

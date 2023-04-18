@@ -1,5 +1,4 @@
 import { Dispatch } from "redux";
-import {useSelector} from "react-redux";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
 import { getCookie } from "../../utils/cookie";

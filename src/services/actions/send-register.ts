@@ -1,5 +1,3 @@
-import {useSelector} from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
 import { Dispatch } from "redux";
