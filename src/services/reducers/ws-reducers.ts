@@ -46,7 +46,8 @@ import {
         return {
           ...state,
                   error: undefined,
-          wsConnected: false
+          wsConnected: false,
+          messages: []
         };
   
           // Опишем обработку экшена с типом WS_GET_MESSAGE
