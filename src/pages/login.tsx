@@ -6,10 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, } from "react-router-dom";
 import styles from "../pages/login.module.css";
-import { loginUser } from "../../services/actions/login";
+import { loginUser } from "../services/actions/login";
 import {useLocation, useNavigate, Navigate} from "react-router-dom";
-import { getCookie } from "../../utils/cookie";
-import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { getCookie } from "../utils/cookie";
+import { useAppDispatch, useSelector } from "../services/hooks/hooks";
 
 
 export function Login() {

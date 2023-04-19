@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "../../services/hooks/hooks";
 import styles from "./feed-left.module.css";
 import { FeedOrder } from "./feed-order";
-import { WS_CONNECTION_START } from "../../services/actions/ws-actions";
+import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../services/actions/ws-actions";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
 export type TSingleOrder={
@@ -22,6 +22,9 @@ const messages=useSelector(state => state.wsReducer.messages)
 useEffect(
   () => {  
       dispatch({ type: WS_CONNECTION_START });     
+      return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });  
+      };
   },
   [] 
 );

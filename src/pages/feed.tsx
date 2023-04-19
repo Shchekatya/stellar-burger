@@ -1,6 +1,6 @@
 
-import { FeedLeft } from "../feed/feed-left";
-import { FeedRight } from "../feed/feed-right";
+import { FeedLeft } from "../components/feed/feed-left";
+import { FeedRight } from "../components/feed/feed-right";
 import styles from "../pages/feed.module.css";
 
 export function Feed() {

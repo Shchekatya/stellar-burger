@@ -3,24 +3,24 @@ import { AppHeader } from "../app-header/app-header";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal-ingredient/modal";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Register } from "../pages/register";
-import { Reset } from "../pages/reset-password";
-import { Login } from "../pages/login";
-import { Page404 } from "../pages/404";
-import { MainBurgers } from "../pages/main-burgers";
-import { Profile } from "../pages/profile-menu";
-import { Forgot } from "../pages/forgot-password";
+import { Register } from "../../pages/register";
+import { Reset } from "../../pages/reset-password";
+import { Login } from "../../pages/login";
+import { Page404 } from "../../pages/404";
+import { MainBurgers } from "../../pages/main-burgers";
+import { Profile } from "../../pages/profile-menu";
+import { Forgot } from "../../pages/forgot-password";
 import { ProtectedRouteElement } from "../protected-route/protected-route";
 import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
 import { ProtectedReset } from "../protected-route/protected-reset";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
-import { Feed } from "../pages/feed";
+import { Feed } from "../../pages/feed";
 import { FeedId } from "../feed/feed-id";
 
-import { Order } from "../pages/orders";
-import { ProfileInfo } from "../pages/profile";
+import { Order } from "../../pages/orders";
+import { ProfileInfo } from "../../pages/profile";
 import { Dispatch } from 'redux';
 
 
@@ -35,8 +35,7 @@ const App = () => {
     (state) => state.loadIngredients
   );
   useEffect(() => {
-    dispatch(getFeed());
-    getFeed();
+    dispatch(getFeed());  
   }, []);
 
   const handleModalClose = () => (dispatch: Dispatch)=> {

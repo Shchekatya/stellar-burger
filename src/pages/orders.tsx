@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
-import { FeedOrder } from "../feed/feed-order";
+import { useAppDispatch, useSelector } from "../services/hooks/hooks";
+import { FeedOrder } from "../components/feed/feed-order";
 import styles from "../pages/order.module.css";
-import {TSingleOrder} from '../feed/feed-left';
-import { WS_CONNECTION_START } from "../../services/actions/ws-actions";
+import {TSingleOrder} from '../components/feed/feed-left';
+import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../services/actions/ws-actions";
 
 
 export function Order() {
@@ -13,6 +13,9 @@ export function Order() {
     useEffect(
       () => {  
           dispatch({ type: WS_CONNECTION_START });     
+          return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED });  
+            };
       },
       [] 
     );
