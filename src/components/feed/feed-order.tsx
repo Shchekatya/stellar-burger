@@ -19,7 +19,6 @@ export function FeedOrder(prop:TProp) {
     price?: number
 }
 const orderId = singleOrder["_id"];
-
  let ingImg:Array<TItem>=[]
  ingredients.forEach((el: string|null) => {
   if (el!=null) {   
@@ -43,7 +42,7 @@ const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
         {el.image}       
         overflow={!index ? more : 0}
         extraClass={styles.items_picture}
-        key={uuidv4()}
+        key={index}
       />
     )}});
     return (
@@ -58,13 +57,8 @@ const price=ingImg.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0)
           <p className="text text_type_digits-default">#{singleOrder.number}</p>
           <FormattedDate
   date={
-    new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-      today.getHours(),
-      today.getMinutes() - 1,
-      0,
+    new Date(   
+      singleOrder.createdAt
     )
   }
 />

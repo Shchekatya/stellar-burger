@@ -10,8 +10,7 @@ import {
   
   type TWSState = {
     wsConnected: boolean;
-    messages: any;
-  
+    messages: any; 
     error?: Event;
   }
   

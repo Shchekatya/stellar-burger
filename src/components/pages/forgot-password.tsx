@@ -4,10 +4,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/register.module.css";
-import { forgot } from "../services/actions/forgot";
+import { forgot } from "../../services/actions/forgot";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { EMAIL_TO_FORGOT } from "../services/actions/profile-actions";
-import { useAppDispatch, useSelector } from "../services/hooks/hooks";
+import { EMAIL_TO_FORGOT } from "../../services/actions/profile-actions";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Forgot() {
   const [email, setEmail] = React.useState("");

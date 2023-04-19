@@ -15,9 +15,9 @@ import { TWSActions, WS_CONNECTION_ERROR } from './services/actions/ws-actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { Dispatch } from 'redux';
 import { socketMiddleware } from './middleware/socket-middleware' 
-import { WS_CONNECTION_START,WS_SEND_MESSAGE,WS_CONNECTION_SUCCESS,WS_CONNECTION_CLOSED, WS_GET_MESSAGE,TWSStoreActions} from './services/actions/ws-actions' 
+import { WS_CONNECTION_START,WS_CONNECTION_PROFILE,WS_SEND_MESSAGE,WS_CONNECTION_SUCCESS,WS_CONNECTION_CLOSED, WS_GET_MESSAGE,TWSStoreActions} from './services/actions/ws-actions' 
 
-
+// export type TWSStoreActions = { [key in TWSActions['type']] : key }
 
 declare global {
   interface Window {
@@ -29,14 +29,15 @@ const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
 
 const wsActions: TWSStoreActions = {
   wsInit: WS_CONNECTION_START,
+  wsInitProfile: WS_CONNECTION_PROFILE,
   wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
+  onWSClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE
+  onMessage: WS_GET_MESSAGE, 
 };
 
-const store = createStore(rootReducer, applyMiddleware(thunk,socketMiddleware(wsUrl,wsActions)));
+const store = createStore(rootReducer, applyMiddleware(thunk,socketMiddleware(wsActions)));
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

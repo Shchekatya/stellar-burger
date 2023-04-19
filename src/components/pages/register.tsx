@@ -6,9 +6,9 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../pages/register.module.css";
-import { sendRegister } from "../services/actions/send-register";
+import { sendRegister } from "../../services/actions/send-register";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch, useSelector } from "../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 
 export function Register() {
   const user = useSelector((state) => state.login);

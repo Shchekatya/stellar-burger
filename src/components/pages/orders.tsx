@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { useAppDispatch, useSelector } from "../services/hooks/hooks";
-import { FeedOrder } from "../components/feed/feed-order";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { FeedOrder } from "../feed/feed-order";
 import styles from "../pages/order.module.css";
-import {TSingleOrder} from '../components/feed/feed-left';
-import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../services/actions/ws-actions";
+import {TSingleOrder} from '../feed/feed-left';
+import { WS_CONNECTION_START,WS_CONNECTION_CLOSED, WS_CONNECTION_PROFILE } from "../../services/actions/ws-actions";
+import { getCookie } from "../../utils/cookie";
 
 
 export function Order() {
@@ -12,7 +13,10 @@ export function Order() {
     
     useEffect(
       () => {  
-          dispatch({ type: WS_CONNECTION_START });     
+        const cookie=getCookie("authToken")
+          dispatch({ 
+            type: WS_CONNECTION_PROFILE,
+            payload:`wss://norma.nomoreparties.space/orders?token=${cookie}`});                
           return () => {
             dispatch({ type: WS_CONNECTION_CLOSED });  
             };

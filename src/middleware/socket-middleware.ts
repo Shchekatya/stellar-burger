@@ -9,31 +9,32 @@ import {
   WS_SEND_MESSAGE,
   TWSActions,
   TWSStoreActions,
-  WS_CONNECTION_START
+  WS_CONNECTION_START,
+  WS_CONNECTION_PROFILE
 } from '../services/actions/ws-actions';
 import { getCookie } from '../utils/cookie';
 
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Middleware => {
+export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
   
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-    return next => (action: TAppActions ) => {
-      const { dispatch, getState } = store;
-      const { type } = action;         
-      const cookie=getCookie("authToken")
-      if (type === 'WS_CONNECTION_START' && cookie) {
+    return next => (action: TWSActions ) => {
+      const { dispatch} = store;
+      const { type, payload } = action;  
+    
+        const cookie=getCookie("authToken")
+      if (type === WS_CONNECTION_PROFILE ) {
         // объект класса WebSocket
-        socket = new WebSocket(`${wsUrl}?token=${cookie}`);
+        socket = new WebSocket(payload);
   }
 
-      if (type === WS_CONNECTION_START) {
+      if (type === WS_CONNECTION_START) {        
             // объект класса WebSocket
-        socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(payload);
       }
       if (socket) {
-
                 // функция, которая вызывается при открытии сокета
         socket.onopen = event => {
           dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });

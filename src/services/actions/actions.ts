@@ -20,6 +20,7 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
 export type TActionGetFeed = {
     type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
+    payload?:any
     items: Array<TItem>
     feedRequest: boolean
     feedFailed: boolean
@@ -45,7 +46,7 @@ export type TActionGetFeed = {
 
   export type TActionShow = {
     type: typeof HIDE_ITEM
-    payload:object |null
+    payload?:object |null
   }
 
 

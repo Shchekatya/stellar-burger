@@ -11,16 +11,19 @@ export const EMAIL_TO_FORGOT = 'EMAIL_TO_FORGOT';
 
 export interface ISendingUser {
     readonly type: typeof SENDING;
+    payload?:any
 }
 
 export interface ISendingFailedUser {
     readonly type: typeof SENDING_FAILED;
+    payload?:any
 }
 
 export interface ILoginUser {
     readonly type: typeof LOGIN;
     email: string,
     password: string,
+    payload?:any
 }
 
 export interface IRegisterUser {
@@ -40,6 +43,7 @@ export interface IGetUser {
 
 export interface ILogouttUser {
     readonly type: typeof LOGOUT_USER;
+    payload?:any
 }
 
 export interface IForgotUser {

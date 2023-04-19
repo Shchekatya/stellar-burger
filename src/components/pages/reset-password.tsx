@@ -5,8 +5,8 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Navigate } from "react-router-dom";
-import { reset } from "../services/actions/reset";
-import { useAppDispatch, useSelector } from "../services/hooks/hooks";
+import { reset } from "../../services/actions/reset";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 
 
 export function Reset() {

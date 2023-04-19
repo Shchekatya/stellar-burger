@@ -84,13 +84,8 @@ ingImg.forEach((element:TOrderId) => {
         <div className={styles.bottom}>
         <FormattedDate className={clsx(styles.date, "text text_type_main-small")}
   date={
-    new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-      today.getHours(),
-      today.getMinutes() - 1,
-      0,
+    new Date(    
+      order.createdAt
     )
   }
 />

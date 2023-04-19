@@ -30,7 +30,7 @@ if (messages.length) {
           <p className="text text_type_main-medium">В работе:</p>
             <ul className="text text_type_digits-default">
             {ordersStatus.filter((el:TSingleOrder)=> el.status==='pending'||el.status==='created').map((e:TSingleOrder) => {             
-               return <li>{e.number}</li>            
+               return <li key={e._id}>{e.number}</li>            
               })}          
             </ul>
           </div>

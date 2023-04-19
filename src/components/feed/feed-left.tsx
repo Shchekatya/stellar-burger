@@ -21,7 +21,9 @@ const messages=useSelector(state => state.wsReducer.messages)
 
 useEffect(
   () => {  
-      dispatch({ type: WS_CONNECTION_START });     
+      dispatch({ 
+        type: WS_CONNECTION_START,
+        payload:'wss://norma.nomoreparties.space/orders/all' });     
       return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });  
       };
