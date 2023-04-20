@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useMemo, useCallback } from "react";
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { Modal } from "../modal-ingredient/modal";
+import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";

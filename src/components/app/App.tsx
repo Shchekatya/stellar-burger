@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { Modal } from "../modal-ingredient/modal";
+import { Modal } from "../modal/modal";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../../pages/register";
 import { Reset } from "../../pages/reset-password";
@@ -106,14 +106,14 @@ const App = () => {
                 </Modal>
               }
             />
-             {/* <Route
+             <Route
               path="/feed/:orderId"
               element={
                 <Modal onClose={handleModalClose}>
                   <FeedId />
                 </Modal>
               }
-            /> */}
+            />
             <Route
               path="/profile/orders/:orderId"
               element={
