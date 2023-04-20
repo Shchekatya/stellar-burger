@@ -38,11 +38,7 @@ const App = () => {
     dispatch(getFeed());    
   }, []);
 
-  const handleModalClose = () => (dispatch:Dispatch) => {
-    console.log('close')
-    dispatch({
-      type: HIDE_ITEM,
-    });
+  const handleModalClose = () =>  {   
     navigate(-1);
   };
   if (feedFailed) {
@@ -56,7 +52,9 @@ const App = () => {
         <AppHeader />
       </header>
       <main>
-        <Routes location={background || location}>
+        <Routes 
+        location={background || location}
+        >
           <Route path="/" element={<MainBurgers />} />
           <Route
             path="/ingredients/:ingredientId"
@@ -108,14 +106,14 @@ const App = () => {
                 </Modal>
               }
             />
-             <Route
+             {/* <Route
               path="/feed/:orderId"
               element={
                 <Modal onClose={handleModalClose}>
                   <FeedId />
                 </Modal>
               }
-            />
+            /> */}
             <Route
               path="/profile/orders/:orderId"
               element={
