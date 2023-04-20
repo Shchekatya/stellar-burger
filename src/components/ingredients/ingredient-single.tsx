@@ -58,7 +58,7 @@ const dispatch=useAppDispatch();
   const [, dragRef] = useDrag({
     type: "items",
     item: { item },
-    end: (item, monitor) => (dispatch:AppThunk)=>{
+    end: (item, monitor) => {
       const dropResult=monitor.getDropResult();
       if (item&& dropResult) {
         dispatch(addConstructor(item))
