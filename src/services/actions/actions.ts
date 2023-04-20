@@ -26,23 +26,66 @@ export type TActionGetFeed = {
     feedFailed: boolean
   }
 
-  export type TActionConstructor = {
-    type: typeof ADD_CONSTRUCTOR 
-    | typeof DELETE_CONSTRUCTOR 
-    | typeof UPDATE_CONSTRUCTOR 
-    | typeof ADD_BUN 
-    | typeof SEND_ORDER
-    | typeof SEND_ORDER_SUCCESS
-    | typeof SEND_ORDER_FAILED
-    payload?:any
-    item?: object
-    key?: string    
-  bun: null | object,
-  order: Array<string>,
-  orderSend: boolean,
-  orderFailed: boolean,
-  result:string
+  
+  export interface IAddConsructor {
+    readonly type: typeof ADD_CONSTRUCTOR;
+    readonly order: Array<string>;
+    key: string 
+    payload: any
   }
+
+  export interface IDeleteConstructor {
+    readonly type: typeof DELETE_CONSTRUCTOR;
+    readonly payload:TItem
+  }
+
+  export interface IUpdate {
+    readonly type: typeof UPDATE_CONSTRUCTOR;
+    readonly payload:TItem
+  }
+
+  export interface IAddBun {
+    readonly type: typeof ADD_BUN;
+    readonly bun: null | object;
+    order: Array<string>;
+    payload: any
+  }
+
+  export interface ISendOrder {
+    readonly type: typeof SEND_ORDER;
+  }
+  
+  export interface ISendOrderSuccess {
+    readonly type: typeof SEND_ORDER_SUCCESS;
+    readonly payload:any
+
+  }
+
+  export interface ISendOrderFailed {
+    readonly type: typeof SEND_ORDER_FAILED;
+  }
+
+  export type TActionConstructor = 
+    | IAddConsructor
+    | IDeleteConstructor
+    | IUpdate
+    | IAddBun
+    | ISendOrder 
+    | ISendOrderSuccess
+    | ISendOrderFailed
+
+    // type:      
+    // | typeof SEND_ORDER_SUCCESS
+    // | typeof SEND_ORDER_FAILED
+    // payload?:any
+    // item?: object
+    // key?: string    
+    // bun: null | object,
+    // order: Array<string>,
+    // orderSend: boolean,
+    // orderFailed: boolean,
+    // result:string
+
 
   export type TActionShow = {
     type: typeof HIDE_ITEM
