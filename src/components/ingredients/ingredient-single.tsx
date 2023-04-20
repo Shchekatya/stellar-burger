@@ -13,6 +13,7 @@ import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
 } from "../../services/actions/actions";
+import { AppThunk } from "../..";
 
 type TItemProp= { 
   key: string
@@ -57,7 +58,7 @@ const dispatch=useAppDispatch();
   const [, dragRef] = useDrag({
     type: "items",
     item: { item },
-    end: (item, monitor) => {
+    end: (item, monitor) => (dispatch:AppThunk)=>{
       const dropResult=monitor.getDropResult();
       if (item&& dropResult) {
         dispatch(addConstructor(item))

@@ -65,26 +65,31 @@ type TCurr={
 
   const delCard = useCallback(
     (dragIndex:number) => {
-      const newCards = [...orders.main];
+      const newCards = [...orders.main];     
       newCards.splice(dragIndex, 1);
+      const orderArr = newCards.map((item:TItem) => item._id.toString());
+      orders.bun && orderArr.push(orders.bun._id);
       dispatch({
         type: DELETE_CONSTRUCTOR,
         payload: newCards,
+        order: orderArr,
       });
     },
     [orders.main, dispatch]
   );
 
   const moveCard = useCallback(
-    (dragIndex:number, hoverIndex:number) => (dispatch: Dispatch)=> {
+    (dragIndex:number, hoverIndex:number) => {
       const dragCard = orders.main[dragIndex];
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-
+      const orderArr = newCards.map((item:TItem) => item._id.toString());
+      orders.bun && orderArr.push(orders.bun._id);
       dispatch({
         type: UPDATE_CONSTRUCTOR,
         payload: newCards,
+        order: orderArr,
       });
     },
     [orders.main, dispatch]

@@ -99,18 +99,19 @@ export const changeConstructor = (state = initialConstructor, action:TActionCons
         orders: action.order
       }
      
-      case DELETE_CONSTRUCTOR:
-        console.log(action.payload)
+      case DELETE_CONSTRUCTOR:      
       return {
         ...state,
-        main: action.payload
+        main: action.payload,    
+        orders: action.order    
       }
       
 
       case UPDATE_CONSTRUCTOR: 
         return {
           ...state,
-          main: action.payload,          
+          main: action.payload, 
+          orders: action.order         
         }
 
         case ADD_BUN:
