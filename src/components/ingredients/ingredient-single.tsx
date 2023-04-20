@@ -39,7 +39,7 @@ const dispatch=useAppDispatch();
   orders.bun && orderArr.push(orders.bun._id);
   const location = useLocation();
   const ingredientId = item["_id"];
-    const addConstructor = (item:any) => {
+    const addConstructor = (item:{item:TItem}) => {
     if (item.item.type === "bun") {
       dispatch({
         type: ADD_BUN,
