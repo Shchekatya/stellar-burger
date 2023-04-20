@@ -100,6 +100,7 @@ export const changeConstructor = (state = initialConstructor, action:TActionCons
       }
      
       case DELETE_CONSTRUCTOR:
+        console.log(action.payload)
       return {
         ...state,
         main: action.payload

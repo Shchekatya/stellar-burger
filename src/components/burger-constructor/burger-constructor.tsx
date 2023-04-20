@@ -64,7 +64,7 @@ type TCurr={
   );
 
   const delCard = useCallback(
-    (dragIndex:number) => (dispatch: Dispatch)=> {
+    (dragIndex:number) => {
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
       dispatch({
