@@ -46,9 +46,9 @@ export type TAppActions = TWSActions | TUserActions | TActionGetFeed | TActionCo
 export type RootState=ReturnType<typeof store.getState>;
 export type TypedDispatch<T> = ThunkDispatch<T, any, TAppActions>;
 export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
-// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, never, TAppActions>>;
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, never, TAppActions>>;
 
-export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TAppActions>>;
+// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TAppActions>>;
 // export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TAppActions>>;
 // export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
 

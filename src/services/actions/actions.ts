@@ -18,7 +18,26 @@ export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
 
-export type TActionGetFeed = {
+
+  // export type TActionConstructor = {
+  //   type: typeof ADD_CONSTRUCTOR 
+  //   | typeof DELETE_CONSTRUCTOR 
+  //   | typeof UPDATE_CONSTRUCTOR 
+  //   | typeof ADD_BUN 
+  //   | typeof SEND_ORDER
+  //   | typeof SEND_ORDER_SUCCESS
+  //   | typeof SEND_ORDER_FAILED
+  //   payload:any
+  //   item: object
+  //   key: string    
+  // bun: null | object,
+  // order: Array<string>,
+  // orderSend: boolean,
+  // orderFailed: boolean,
+  // result:string
+  // }
+
+  export type TActionGetFeed = {
     type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
     payload?:any
     items: Array<TItem>
@@ -29,26 +48,26 @@ export type TActionGetFeed = {
   
   export interface IAddConsructor {
     readonly type: typeof ADD_CONSTRUCTOR;
-    readonly order: Array<string>;
+    order: Array<string>;
     key: string 
     payload: any
+ 
   }
 
   export interface IDeleteConstructor {
     readonly type: typeof DELETE_CONSTRUCTOR;
-    readonly payload:TItem
+    payload:Array<TItem>
   }
 
   export interface IUpdate {
     readonly type: typeof UPDATE_CONSTRUCTOR;
-    readonly payload:TItem
+    payload:TItem
   }
 
   export interface IAddBun {
-    readonly type: typeof ADD_BUN;
-    readonly bun: null | object;
+    readonly type: typeof ADD_BUN; 
     order: Array<string>;
-    payload: any
+    payload: any     
   }
 
   export interface ISendOrder {
@@ -57,8 +76,7 @@ export type TActionGetFeed = {
   
   export interface ISendOrderSuccess {
     readonly type: typeof SEND_ORDER_SUCCESS;
-    readonly payload:any
-
+    payload:any
   }
 
   export interface ISendOrderFailed {
@@ -73,19 +91,6 @@ export type TActionGetFeed = {
     | ISendOrder 
     | ISendOrderSuccess
     | ISendOrderFailed
-
-    // type:      
-    // | typeof SEND_ORDER_SUCCESS
-    // | typeof SEND_ORDER_FAILED
-    // payload?:any
-    // item?: object
-    // key?: string    
-    // bun: null | object,
-    // order: Array<string>,
-    // orderSend: boolean,
-    // orderFailed: boolean,
-    // result:string
-
 
   export type TActionShow = {
     type: typeof HIDE_ITEM

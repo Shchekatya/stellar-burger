@@ -30,7 +30,7 @@ const initialIngredients:TInitialIngredients = {
 }
 
 type TInitialConstructor = {
-  main: Array<object>,
+  main: Array<TItem>,
   bun: null | object,
   orders: Array<string>,
   orderSend: boolean,
