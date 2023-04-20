@@ -31,7 +31,7 @@ export function getUser() {
                     type: GET_USER,
                     payload: res.user,
                 });
-          }).catch(err => (dispatch:AppThunk)=> {
+          }).catch(err => {
             if (err.message === "jwt expired") {
                       dispatch(refreshToken());
                     }

@@ -34,7 +34,7 @@ export function sendOrder(orders:Array<string>) {
                 type: SEND_ORDER_SUCCESS,
                 payload: data
             }))
-        .catch(err => (dispatch:AppThunk) =>{
+        .catch(err => {
             if (err.message === "jwt expired") {
                 dispatch(refreshToken());
               }
