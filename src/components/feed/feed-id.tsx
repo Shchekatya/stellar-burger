@@ -10,7 +10,10 @@ import { useSelector } from "../../services/hooks/hooks";
 import { TSingleOrder } from "./feed-left";
 import { TItem } from "../ingredients/ingredient-single";
 import { useEffect } from "react";
-import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../services/actions/ws-actions";
+import {
+  WS_CONNECTION_START,
+  WS_CONNECTION_CLOSED,
+} from "../../services/actions/ws-actions";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
 export type TOrderId = {
@@ -22,28 +25,24 @@ export type TOrderId = {
 };
 
 export function FeedId() {
- 
-
   const today = new Date();
   const { orderId } = useParams();
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
   const messages = useSelector((state) => state.wsReducer.messages);
   const items = useSelector((state) => state.loadIngredients.items);
   type TCurr = {
     price?: number;
   };
 
-  useEffect(
-    () => {  
-        dispatch({ 
-          type: WS_CONNECTION_START,
-          payload:'wss://norma.nomoreparties.space/orders/all' });     
-        return () => {
-        dispatch({ type: WS_CONNECTION_CLOSED });  
-        };
-    },
-    [] 
-  );
+  useEffect(() => {
+    dispatch({
+      type: WS_CONNECTION_START,
+      payload: "wss://norma.nomoreparties.space/orders/all",
+    });
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, []);
 
   let order;
   let ingredients;

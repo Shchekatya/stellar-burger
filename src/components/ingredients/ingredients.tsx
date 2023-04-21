@@ -1,14 +1,14 @@
 import Ing from "../ingredients/ingredients.module.css";
 import { IngredientSingle } from "./ingredient-single";
 import { useSelector } from "../../services/hooks/hooks";
-import {TItem} from './ingredient-single'
+import { TItem } from "./ingredient-single";
 
-type Prop= {
-  type: string
-items:Array<TItem>
-}
+type Prop = {
+  type: string;
+  items: Array<TItem>;
+};
 
-export const Ingredients = (props:Prop) => {
+export const Ingredients = (props: Prop) => {
   const items = useSelector((state) => state.loadIngredients.items);
 
   return (
@@ -16,9 +16,7 @@ export const Ingredients = (props:Prop) => {
       {items ? (
         items
           .filter((e) => e.type === props.type)
-          .map((item) => (
-            <IngredientSingle item={item} key={item._id} />
-          ))
+          .map((item) => <IngredientSingle item={item} key={item._id} />)
       ) : (
         <div>Нет в наличии</div>
       )}
