@@ -79,7 +79,7 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
   
   export interface ISendOrderSuccess {
     readonly type: typeof SEND_ORDER_SUCCESS;
-    payload:string
+    payload:any
   }
 
   export interface ISendOrderFailed {
