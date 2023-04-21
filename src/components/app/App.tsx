@@ -20,10 +20,7 @@ import { Feed } from "../../pages/feed";
 import { FeedId } from "../feed/feed-id";
 import { Order } from "../../pages/orders";
 import { ProfileInfo } from "../../pages/profile";
-import { Dispatch } from 'redux';
-
-
-
+import { Dispatch } from "redux";
 
 const App = () => {
   const location = useLocation();
@@ -31,14 +28,14 @@ const App = () => {
   const dispatch = useAppDispatch();
   const background = location.state && location.state.background;
 
-  const {feedRequest, feedFailed } = useSelector(
+  const { feedRequest, feedFailed } = useSelector(
     (state) => state.loadIngredients
   );
   useEffect(() => {
-    dispatch(getFeed());    
+    dispatch(getFeed());
   }, []);
 
-  const handleModalClose = () =>  {   
+  const handleModalClose = () => {
     navigate(-1);
   };
   if (feedFailed) {
@@ -52,9 +49,7 @@ const App = () => {
         <AppHeader />
       </header>
       <main>
-        <Routes 
-        location={background || location}
-        >
+        <Routes location={background || location}>
           <Route path="/" element={<MainBurgers />} />
           <Route
             path="/ingredients/:ingredientId"
@@ -63,15 +58,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
-          
-          <Route
-            path="/feed/:orderId"
-            element={<FeedId />}
-          />     
-          <Route
-            path="/profile/orders/:orderId"
-            element={<FeedId />}
-          />       
+
+          <Route path="/feed/:orderId" element={<FeedId />} />
+          <Route path="/profile/orders/:orderId" element={<FeedId />} />
           <Route
             path="/reset-password"
             element={
@@ -88,8 +77,8 @@ const App = () => {
               </ProtectedRouteElement>
             }
           >
-<Route path="/profile/orders" element={<Order />} />
-<Route path="/profile" element={<ProfileInfo />} />
+            <Route path="/profile/orders" element={<Order />} />
+            <Route path="/profile" element={<ProfileInfo />} />
           </Route>
 
           <Route path="/forgot-password" element={<Forgot />} />
@@ -106,7 +95,7 @@ const App = () => {
                 </Modal>
               }
             />
-             <Route
+            <Route
               path="/feed/:orderId"
               element={
                 <Modal onClose={handleModalClose}>

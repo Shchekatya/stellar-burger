@@ -1,37 +1,43 @@
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { useDrag, useDrop,ConnectDropTarget } from "react-dnd";
+import { useDrag, useDrop, ConnectDropTarget } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
 import PropTypes from "prop-types";
-import { Identifier } from 'dnd-core';
-import {TItem} from '../ingredients/ingredient-single'
+import { Identifier } from "dnd-core";
+import { TItem } from "../ingredients/ingredient-single";
 
+type TProps = {
+  order: TOrder;
+  index: number;
+  moveCard: any;
+  delCard: any;
+};
 
-type TProps={
-  order: TOrder
-  index: number
-  moveCard:any
-  delCard:any  
-}
+export type TOrder = {
+  key: string;
+  _id: string;
+  price: number;
+  image: string;
+  name: string;
+  type?: "top" | "bottom" | undefined;
+  id: string;
+  index: any;
+};
 
-
-export type TOrder= {
-  key: string   
-  _id: string
-  price: number
-  image: string
-  name: string
-  type?: "top" | "bottom" | undefined
-  id: string
-  index: any  
-}
-
-
-export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProps) => {   
+export const BurgerConstructorSinge = ({
+  order,
+  index,
+  moveCard,
+  delCard,
+}: TProps) => {
   const onClick = () => delCard(index);
   const ref = useRef<HTMLInputElement>(null);
 
-  const [{ handlerId }, drop] = useDrop< TOrder, ConnectDropTarget, { handlerId: Identifier | null }>({
+  const [{ handlerId }, drop] = useDrop<
+    TOrder,
+    ConnectDropTarget,
+    { handlerId: Identifier | null }
+  >({
     accept: "main",
     collect(monitor) {
       return {
@@ -43,7 +49,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
         return;
       }
 
-      const dragIndex =order.index;
+      const dragIndex = order.index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -53,13 +59,13 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      let hoverClientY
+      let hoverClientY;
       if (clientOffset) {
         hoverClientY = clientOffset.y - hoverBoundingRect.top;
       } else {
         hoverClientY = hoverBoundingRect.top;
       }
-      
+
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -70,7 +76,7 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
 
       moveCard(dragIndex, hoverIndex);
 
-    order.index = hoverIndex;
+      order.index = hoverIndex;
     },
   });
 
@@ -83,7 +89,9 @@ export const BurgerConstructorSinge = ({ order, index, moveCard, delCard }:TProp
   });
 
   drag(drop(ref));
-  const preventDefault: (e:any)=>void = (e: React.ChangeEvent<HTMLInputElement>) => e.preventDefault();
+  const preventDefault: (e: any) => void = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => e.preventDefault();
   return (
     <div
       className={bConst.main}
