@@ -45,7 +45,6 @@ export function FeedId() {
     order = JSON.parse(messages).orders.find(
       (order: TSingleOrder) => order._id === orderId
     );
-    console.log(order)
     ingredients = order.ingredients;
  
 
