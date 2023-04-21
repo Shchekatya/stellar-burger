@@ -1,7 +1,7 @@
 .wrapper {
     margin: 0 auto;   
     max-height: 100%;
-    margin: 20px;
+    margin: 20px auto;
 }
 .ing {
     max-height: 200px;  

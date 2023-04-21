@@ -9,6 +9,7 @@ import { Dispatch } from "redux";
 
 export function getUser() {
   let cookie = getCookie("authToken");
+  console.log(cookie )
   return function (dispatch:AppDispatch) {
     dispatch({
       type: SENDING,
@@ -22,6 +23,7 @@ export function getUser() {
     })
       .then(checkResponse)
       .then((res) => {
+        console.log(res)
         dispatch({
           type: GET_USER,
           payload: res.user,

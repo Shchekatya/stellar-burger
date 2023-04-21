@@ -29,7 +29,6 @@ const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
 
 const wsActions: TWSStoreActions = {
   wsInit: WS_CONNECTION_START,
-  wsInitProfile: WS_CONNECTION_PROFILE,
   wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
   onWSClose: WS_CONNECTION_CLOSED,

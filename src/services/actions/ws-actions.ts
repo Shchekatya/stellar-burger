@@ -14,11 +14,6 @@ export interface IWSConnectionStart {
   readonly payload: string;
 }
 
-export interface IWSConnectionProfile {
-  readonly type: typeof WS_CONNECTION_PROFILE;
-  readonly payload: string;
-}
-
 export interface IWSConnectionSuccessAction {
   readonly type: typeof WS_CONNECTION_SUCCESS;
   readonly payload: Event;
@@ -45,8 +40,7 @@ export interface IWSSendMessageAction {
 }
 
 export type TWSActions =
-  | IWSConnectionStart
-  | IWSConnectionProfile
+  | IWSConnectionStart 
   | IWSConnectionSuccessAction
   | IWSConnectionErrorAction
   | IWSConnectionClosedAction
@@ -55,7 +49,6 @@ export type TWSActions =
 
 export type TWSStoreActions = {
   wsInit: typeof WS_CONNECTION_START;
-  wsInitProfile: typeof WS_CONNECTION_PROFILE;
   wsSendMessage: typeof WS_SEND_MESSAGE;
   onOpen: typeof WS_CONNECTION_SUCCESS;
   onWSClose: typeof WS_CONNECTION_CLOSED;

@@ -16,20 +16,6 @@ import {
 } from "../../services/actions/ws-actions";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
-// export type TOrderId = {
-//   _id: string;
-//   image?: string;
-//   name?: string;
-//   price?: number;
-//   proteins?: string;
-//   calories?: string;
-//   fat?: string;
-//   carbohydrates?: string;
-//   type?: string;
-//   key: string;
-//   count?: number;
-// };
-
 export function FeedId() {
   const today = new Date();
   const { orderId } = useParams();
@@ -59,7 +45,9 @@ export function FeedId() {
     order = JSON.parse(messages).orders.find(
       (order: TSingleOrder) => order._id === orderId
     );
+    console.log(order)
     ingredients = order.ingredients;
+ 
 
     ingredients.forEach((el: string | null) => {
       if (el != null) {

@@ -16,11 +16,6 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
     return next => (action: TWSActions ) => {
       const { dispatch} = store;
       const { type, payload } = action;  
-    
-      if (type === wsActions.wsInitProfile) {
-        // объект класса WebSocket
-        socket = new WebSocket(payload);
-  }
 
       if (type === wsActions.wsInit) {        
             // объект класса WebSocket
