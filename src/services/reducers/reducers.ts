@@ -30,8 +30,8 @@ const initialIngredients: TInitialIngredients = {
 
 type TInitialConstructor = {
   main: Array<TItem>;
-  bun: null | object;
-  orders: Array<string>;
+  bun: null | TItem;
+  orders: Array<string> | undefined;
   orderSend: boolean;
   orderFailed: boolean;
   result: string;
@@ -54,10 +54,7 @@ const initialItem: TInitialItem = {
   item: null,
 };
 
-export const loadIngredients = (
-  state = initialIngredients,
-  action: TActionGetFeed
-) => {
+export const loadIngredients = (state = initialIngredients,action: TActionGetFeed) => {
   switch (action.type) {
     case GET_FEED: {
       return {

@@ -33,7 +33,7 @@ export const BurgerConstructor = () => {
   type TOrder = {
     key: string;
     _id: string;
-    price: number;
+    price: number ;
     image: string;
     name: string;
     type?: "top" | "bottom" | undefined;
@@ -52,12 +52,16 @@ export const BurgerConstructor = () => {
   const [open, setOpen] = useState(false);
   const orderArr = orders.main.map((item: TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
-  const sum = useMemo(
-    () =>
-      orders.main.reduce((acc: number, cur: TCurr) => acc + cur.price!, 0) +
-      (orders.bun && orders.bun.price * 2),
-    [orders]
-  );
+  // const sum = useMemo(() =>
+  //     orders.main.reduce((acc: number, cur: TItem) => acc + cur.price, 0)
+  //     + (orders.bun && orders.bun.price * 2),
+  //   [orders]
+  // );
+
+  const sum = useMemo(() =>
+  orders.main.reduce((acc: number, cur: TItem) => acc + cur.price, 0),
+[orders]
+);
 
   const delCard = useCallback(
     (dragIndex: number) => {

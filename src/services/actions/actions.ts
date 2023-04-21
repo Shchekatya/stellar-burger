@@ -19,70 +19,81 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
 
 
-  export type TActionConstructor = {
-    type: typeof ADD_CONSTRUCTOR 
-    | typeof DELETE_CONSTRUCTOR 
-    | typeof UPDATE_CONSTRUCTOR 
-    | typeof ADD_BUN 
-    | typeof SEND_ORDER
-    | typeof SEND_ORDER_SUCCESS
-    | typeof SEND_ORDER_FAILED
-    payload?:any
-    key?: string    
-    order?: Array<string>,
-  }
+  // export type TActionConstructor = {
+  //   type: typeof ADD_CONSTRUCTOR 
+  //   | typeof DELETE_CONSTRUCTOR 
+  //   | typeof UPDATE_CONSTRUCTOR 
+  //   | typeof ADD_BUN 
+  //   | typeof SEND_ORDER
+  //   | typeof SEND_ORDER_SUCCESS
+  //   | typeof SEND_ORDER_FAILED
+  //   payload?:any
+  //   key?: string    
+  //   order?: Array<string>,
+  // }
 
+  // export type TActionGetFeed = {
+  //   type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
+  //   items?: Array<TItem>  
+  // }
+
+  
   export type TActionGetFeed = {
-    type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
-    items?: Array<TItem>  
+    type: typeof GET_FEED     
+  } | {
+    type: typeof GET_FEED_SUCCESS
+    items: Array<TItem>  } | {
+    type: typeof GET_FEED_FAILED
+    }
+
+  
+  export interface IAddConsructor {
+    readonly type: typeof ADD_CONSTRUCTOR;
+    order: Array<string>;
+    key: string 
+    payload: {item:TItem}
+ 
   }
 
+  export interface IDeleteConstructor {
+    readonly type: typeof DELETE_CONSTRUCTOR;
+    payload:Array<TItem>
+    order: Array<string>;
+  }
+
+  export interface IUpdate {
+    readonly type: typeof UPDATE_CONSTRUCTOR;
+    payload:Array<TItem>
+    order: Array<string>;
+  }
+
+  export interface IAddBun {
+    readonly type: typeof ADD_BUN; 
+    order: Array<string>;
+    payload:{item:TItem}     
+  }
+
+  export interface ISendOrder {
+    readonly type: typeof SEND_ORDER;
+  }
   
-  // export interface IAddConsructor {
-  //   readonly type: typeof ADD_CONSTRUCTOR;
-  //   order: Array<string>;
-  //   key: string 
-  //   payload: any
- 
-  // }
+  export interface ISendOrderSuccess {
+    readonly type: typeof SEND_ORDER_SUCCESS;
+    payload:string
+  }
 
-  // export interface IDeleteConstructor {
-  //   readonly type: typeof DELETE_CONSTRUCTOR;
-  //   payload:Array<TItem>
-  // }
+  export interface ISendOrderFailed {
+    readonly type: typeof SEND_ORDER_FAILED;
+  }
 
-  // export interface IUpdate {
-  //   readonly type: typeof UPDATE_CONSTRUCTOR;
-  //   payload:TItem
-  // }
-
-  // export interface IAddBun {
-  //   readonly type: typeof ADD_BUN; 
-  //   order: Array<string>;
-  //   payload: any     
-  // }
-
-  // export interface ISendOrder {
-  //   readonly type: typeof SEND_ORDER;
-  // }
-  
-  // export interface ISendOrderSuccess {
-  //   readonly type: typeof SEND_ORDER_SUCCESS;
-  //   payload:any
-  // }
-
-  // export interface ISendOrderFailed {
-  //   readonly type: typeof SEND_ORDER_FAILED;
-  // }
-
-  // export type TActionConstructor = 
-  //   | IAddConsructor
-  //   | IDeleteConstructor
-  //   | IUpdate
-  //   | IAddBun
-  //   | ISendOrder 
-  //   | ISendOrderSuccess
-  //   | ISendOrderFailed
+  export type TActionConstructor = 
+    | IAddConsructor
+    | IDeleteConstructor
+    | IUpdate
+    | IAddBun
+    | ISendOrder 
+    | ISendOrderSuccess
+    | ISendOrderFailed
 
   export type TActionShow = {
     type: typeof HIDE_ITEM
