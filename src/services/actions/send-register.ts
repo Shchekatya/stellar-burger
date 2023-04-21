@@ -5,13 +5,13 @@ import { SENDING, REGISTER, SENDING_FAILED } from "./profile-actions";
 import { useAppDispatch } from "../hooks/hooks";
 
 export function sendRegister(value: string, pass: string, name: string) {
-  const dispatch = useAppDispatch();
+
   const data = {
     name: name,
     email: value,
     password: pass,
   };
-  return function () {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: SENDING,
     });

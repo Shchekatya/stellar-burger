@@ -5,8 +5,7 @@ import { GET_FEED, GET_FEED_FAILED, GET_FEED_SUCCESS } from "./actions";
 import { Dispatch } from "redux";
 
 export function getFeed() {
-  const dispatch = useAppDispatch();
-  return function () {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: GET_FEED,
     });

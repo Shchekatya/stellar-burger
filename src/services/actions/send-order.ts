@@ -8,11 +8,11 @@ import { AppDispatch, AppThunk } from "../..";
 import { useAppDispatch } from "../hooks/hooks";
 
 export function sendOrder(orders: Array<string>) {
-  const dispatch = useAppDispatch();
+
   let cookie = getCookie("authToken");
   const data = { ingredients: orders };
   console.log(data);
-  return function () {
+  return function (dispatch:AppDispatch) {
     dispatch({
       type: SEND_ORDER,
     });

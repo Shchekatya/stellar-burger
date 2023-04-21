@@ -1,4 +1,4 @@
-import { AppThunk } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 import { BASE_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/check-response";
 import { getCookie } from "../../utils/cookie";
@@ -8,9 +8,8 @@ import { refreshToken } from "./refresh-token";
 import { Dispatch } from "redux";
 
 export function getUser() {
-  let dispatch = useAppDispatch();
   let cookie = getCookie("authToken");
-  return function () {
+  return function (dispatch:AppDispatch) {
     dispatch({
       type: SENDING,
     });

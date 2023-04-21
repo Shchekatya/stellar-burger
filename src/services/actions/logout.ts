@@ -7,11 +7,11 @@ import { Dispatch } from "redux";
 import { useAppDispatch } from "../hooks/hooks";
 
 export function logOut() {
-  const dispatch = useAppDispatch();
+
   const data = {
     token: getCookie("refreshToken"),
   };
-  return function () {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: SENDING,
     });

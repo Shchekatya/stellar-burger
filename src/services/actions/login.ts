@@ -7,12 +7,12 @@ import { SENDING, LOGIN, SENDING_FAILED } from "./profile-actions";
 import { Dispatch } from "redux";
 
 export function loginUser(value: string, pass: string) {
-  const dispatch = useAppDispatch();
+
   const data = {
     email: value,
     password: pass,
   };
-  return function () {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: SENDING,
     });
