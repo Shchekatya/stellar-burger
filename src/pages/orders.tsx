@@ -15,7 +15,7 @@ export function Order() {
       () => {  
         const cookie=getCookie("authToken")
           dispatch({ 
-            type: WS_CONNECTION_PROFILE,
+            type: WS_CONNECTION_START,
             payload:`wss://norma.nomoreparties.space/orders?token=${cookie}`});                
           return () => {
             dispatch({ type: WS_CONNECTION_CLOSED });  
@@ -29,12 +29,12 @@ export function Order() {
     };
 return (
     <div className={styles.wrap}>  
-    {getOrders.length ? (
+    {getOrders ? (
             getOrders.map((item:TSingleOrder) => (            
               <FeedOrder item={item} key={item._id} />         
               ))
           ) : (
-            <div>Нет в наличии</div>
+            <div>Нет заказов</div>
           )}     
           </div>
 )
