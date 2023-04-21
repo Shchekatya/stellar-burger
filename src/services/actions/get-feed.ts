@@ -1,5 +1,6 @@
 import { BASE_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/check-response";
+import { useAppDispatch } from "../hooks/hooks";
 import {
     GET_FEED,
     GET_FEED_FAILED,
@@ -9,8 +10,8 @@ import { Dispatch } from "redux";
 
 
 export function getFeed() {
-
-    return function (dispatch:Dispatch) {
+const dispatch=useAppDispatch();
+    return function () {
         dispatch({
             type: GET_FEED
         })

@@ -29,15 +29,12 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
     | typeof SEND_ORDER_FAILED
     payload?:any
     key?: string    
-    order: Array<string>,
+    order?: Array<string>,
   }
 
   export type TActionGetFeed = {
     type: typeof GET_FEED | typeof GET_FEED_SUCCESS | typeof GET_FEED_FAILED
-    payload?:any
-    items: Array<TItem>
-    feedRequest: boolean
-    feedFailed: boolean
+    items?: Array<TItem>  
   }
 
   

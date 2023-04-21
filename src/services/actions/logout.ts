@@ -12,14 +12,15 @@ import {
     SENDING_FAILED
 } from "./profile-actions";
 import { Dispatch } from "redux";
+import { useAppDispatch } from "../hooks/hooks";
 
 
 export function logOut() {
-
+const dispatch=useAppDispatch();
     const data = {
         token: getCookie("refreshToken"),
     }
-    return function (dispatch:Dispatch) {
+    return function () {
         dispatch({
             type: SENDING
         })

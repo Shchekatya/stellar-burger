@@ -13,9 +13,9 @@ import { Dispatch } from "redux";
 
 
 export function getUser() {
-    let dispatch=useAppDispatch
+    let dispatch=useAppDispatch();
     let cookie = getCookie("authToken");  
-    return function (dispatch:Dispatch) {
+    return function () {
         dispatch({
             type: SENDING
         })

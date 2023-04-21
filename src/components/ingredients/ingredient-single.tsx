@@ -13,7 +13,7 @@ import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
 } from "../../services/actions/actions";
-import { AppThunk } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 
 type TItemProp= { 
   key: string
@@ -39,7 +39,7 @@ const dispatch=useAppDispatch();
   orders.bun && orderArr.push(orders.bun._id);
   const location = useLocation();
   const ingredientId = item["_id"];
-    const addConstructor = (item:{item:TItem}) => {
+    const addConstructor = (item:{item:TItem}) => (dispatch:AppDispatch)=>{
     if (item.item.type === "bun") {
       dispatch({
         type: ADD_BUN,

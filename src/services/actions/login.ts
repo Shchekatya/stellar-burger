@@ -1,4 +1,4 @@
-import { useSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import {useLocation, useNavigate } from "react-router-dom";
 import {BASE_URL} from "../../utils/api";
 import {checkResponse} from "../../utils/check-response";
@@ -13,11 +13,12 @@ import { Dispatch } from "redux";
 
 
 export function loginUser(value:string, pass:string) {
+  const dispatch=useAppDispatch();
     const data = {
         email: value,
         password: pass
     }
-    return function (dispatch:Dispatch) {
+    return function () {
         dispatch({
             type: SENDING
         })

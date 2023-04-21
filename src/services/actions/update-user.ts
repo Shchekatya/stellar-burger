@@ -7,10 +7,11 @@ import {
     UPDATE_USER,
     SENDING_FAILED
 } from "./profile-actions";
+import { useAppDispatch } from "../hooks/hooks";
 
 
 export function updateUser(value:string, login:string, pass:string) {
- 
+ const dispatch=useAppDispatch();
     let cookie = getCookie("authToken");  
     const data = {
         email: login,
@@ -18,7 +19,7 @@ export function updateUser(value:string, login:string, pass:string) {
         name: value,
     }
    
-    return function (dispatch:Dispatch) {
+    return function () {
         dispatch({
             type: SENDING
         })

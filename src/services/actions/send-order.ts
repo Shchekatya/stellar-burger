@@ -8,14 +8,15 @@ import {
     SEND_ORDER_FAILED
 } from "./actions";
 import { Dispatch } from "redux";
-import { AppThunk } from "../..";
+import { AppDispatch, AppThunk } from "../..";
+import { useAppDispatch } from "../hooks/hooks";
 
 export function sendOrder(orders:Array<string>) {
-
+const dispatch=useAppDispatch();
     let cookie = getCookie("authToken");
     const data = { ingredients: orders }
     console.log(data)
-    return function (dispatch:Dispatch) {      
+    return function () {      
         dispatch({
             type: SEND_ORDER
         })
