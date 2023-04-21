@@ -8,12 +8,13 @@ import { TSingleOrder } from "./feed-left";
 import { useSelector } from "../../services/hooks/hooks";
 import { TItem } from "../ingredients/ingredient-single";
 import { Link, useLocation } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+
 
 type TProp = {
   item: TSingleOrder;
 };
 export function FeedOrder(prop: TProp) {
+
   const location = useLocation();
   const singleOrder = prop.item;
   const ingredients = prop.item.ingredients;
@@ -31,6 +32,7 @@ export function FeedOrder(prop: TProp) {
       }
     }
   });
+
 
   const price = ingImg.reduce((acc: number, cur: TCurr) => acc + cur.price!, 0);
 
