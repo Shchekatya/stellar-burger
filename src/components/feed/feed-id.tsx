@@ -16,13 +16,19 @@ import {
 } from "../../services/actions/ws-actions";
 import { useAppDispatch } from "../../services/hooks/hooks";
 
-export type TOrderId = {
-  _id: string;
-  image?: string;
-  name?: string;
-  price?: number;
-  count?: number;
-};
+// export type TOrderId = {
+//   _id: string;
+//   image?: string;
+//   name?: string;
+//   price?: number;
+//   proteins?: string;
+//   calories?: string;
+//   fat?: string;
+//   carbohydrates?: string;
+//   type?: string;
+//   key: string;
+//   count?: number;
+// };
 
 export function FeedId() {
   const today = new Date();
@@ -71,7 +77,7 @@ export function FeedId() {
     price = ingImg.reduce((acc: number, cur: TCurr) => acc + cur.price!, 0);
   }
   let ar;
-  ingImg.forEach((element: TOrderId) => {
+  ingImg.forEach((element: TItem) => {
     ar = ingImg.filter((e) => e._id === element._id);
     if (ar.length > 1) {
       const del = ingImg.indexOf(element);

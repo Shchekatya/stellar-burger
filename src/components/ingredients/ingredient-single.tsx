@@ -20,12 +20,16 @@ export type TItem = {
   _id: string;
   image?: string;
   name?: string;
-  price?: number;
+  price: number;
   proteins?: string;
   calories?: string;
   fat?: string;
   carbohydrates?: string;
   type?: string;
+  key?: string;
+  id?: string;
+  index?: number;
+  count?: number;
 };
 export const IngredientSingle = (prop: TItemProp) => {
   const item = prop.item;

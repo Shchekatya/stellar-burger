@@ -7,22 +7,22 @@ import { Identifier } from "dnd-core";
 import { TItem } from "../ingredients/ingredient-single";
 
 type TProps = {
-  order: TOrder;
+  order: TItem;
   index: number;
   moveCard: any;
   delCard: any;
 };
 
-export type TOrder = {
-  key: string;
-  _id: string;
-  price: number;
-  image: string;
-  name: string;
-  type?: "top" | "bottom" | undefined;
-  id: string;
-  index: any;
-};
+// export type TOrder = {
+//   key: string;
+//   _id: string;
+//   price: number;
+//   image: string;
+//   name: string;
+//   type?: "top" | "bottom" | undefined;
+//   id: string;
+//   index: any;
+// };
 
 export const BurgerConstructorSinge = ({
   order,
@@ -34,7 +34,7 @@ export const BurgerConstructorSinge = ({
   const ref = useRef<HTMLInputElement>(null);
 
   const [{ handlerId }, drop] = useDrop<
-    TOrder,
+  TItem,
     ConnectDropTarget,
     { handlerId: Identifier | null }
   >({
@@ -44,7 +44,7 @@ export const BurgerConstructorSinge = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(order: TOrder, monitor) {
+    hover(order: TItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -66,11 +66,11 @@ export const BurgerConstructorSinge = ({
         hoverClientY = hoverBoundingRect.top;
       }
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      if (dragIndex! < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
 
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      if (dragIndex! > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
 
@@ -101,11 +101,11 @@ export const BurgerConstructorSinge = ({
     >
       <ConstructorElement
         key={order._id}
-        type={order.type}
+        type={order.type!}
         isLocked={false}
-        text={order.name}
+        text={order.name!}
         price={order.price}
-        thumbnail={order.image}
+        thumbnail={order.image!}
         handleClose={onClick}
       />
     </div>

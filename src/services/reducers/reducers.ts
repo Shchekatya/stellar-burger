@@ -34,7 +34,7 @@ type TInitialConstructor = {
   orders: Array<string> | undefined;
   orderSend: boolean;
   orderFailed: boolean;
-  result: string;
+  result: any;
 };
 
 const initialConstructor: TInitialConstructor = {
@@ -87,7 +87,7 @@ export const loadIngredients = (state = initialIngredients,action: TActionGetFee
 export const changeConstructor = (
   state = initialConstructor,
   action: TActionConstructor
-) => {
+):TInitialConstructor => {
   switch (action.type) {
     case ADD_CONSTRUCTOR:
       return {

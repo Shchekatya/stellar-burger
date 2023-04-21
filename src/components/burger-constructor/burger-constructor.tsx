@@ -30,20 +30,25 @@ export const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  type TOrder = {
-    key: string;
-    _id: string;
-    price: number ;
-    image: string;
-    name: string;
-    type?: "top" | "bottom" | undefined;
-    id: string;
-    index: number;
-  };
+  // type TOrder = {   
+  //   proteins?: string;
+  //   calories?: string;
+  //   fat?: string;
+  //   carbohydrates?: string;   
+  //   _id: string;
+  //   price: number ;
+  //   image: string;
+  //   name: string;
+  //   // type: "top" | "bottom" | undefined;
+  //   type: string;
+  //   id: string;
+  //   index: number;
+  //   key: string;
+  // };
 
-  type TCurr = {
-    price?: number;
-  };
+  // type TCurr = {
+  //   price?: number;
+  // };
 
   const [, dropTarget] = useDrop({
     accept: "items",
@@ -59,7 +64,7 @@ export const BurgerConstructor = () => {
   // );
 
   const sum = useMemo(() =>
-  orders.main.reduce((acc: number, cur: TItem) => acc + cur.price, 0),
+  orders.main.reduce((acc, cur) => acc + cur.price!, 0),
 [orders]
 );
 
@@ -104,13 +109,13 @@ export const BurgerConstructor = () => {
               type="top"
               isLocked={true}
               text={`${orders.bun.name} (верх)`}
-              price={orders.bun.price}
-              thumbnail={orders.bun.image}
+              price={orders.bun.price!}
+              thumbnail={orders.bun.image!}
             />
           </div>
         )}
         <div className={bConst.mainlist}>
-          {orders.main.map((order: TOrder, index: number) => {
+          {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge
                 order={order}
@@ -128,8 +133,8 @@ export const BurgerConstructor = () => {
               type="bottom"
               isLocked={true}
               text={`${orders.bun.name} (низ)`}
-              price={orders.bun.price}
-              thumbnail={orders.bun.image}
+              price={orders.bun.price!}
+              thumbnail={orders.bun.image!}
             />
           </div>
         )}
