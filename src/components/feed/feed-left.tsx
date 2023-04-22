@@ -4,7 +4,6 @@ import styles from "./feed-left.module.css";
 import { FeedOrder } from "./feed-order";
 import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../services/actions/ws-actions";
 import { useAppDispatch } from "../../services/hooks/hooks";
-import { TMessage } from "../../services/actions/ws-actions";
 
 export type TSingleOrder={
   _id: string
@@ -18,20 +17,27 @@ export type TSingleOrder={
 
 export function FeedLeft() {
 
-const messages:TMessage=useSelector(state => state.wsReducer.messages)
-console.log(messages)
+const messages=useSelector(state => state.wsReducer.messages)
 
+
+if (messages) {
  const getOrders=messages.orders
-
-    return (
-      <div className={styles.wrapper}>  
+ return (
+  <div className={styles.wrapper}>  
 {getOrders.length ? (
-        getOrders.map((item:TSingleOrder) => (            
-          <FeedOrder item={item} key={item._id}/>         
-          ))
-      ) : (
-        <div>Нет в наличии</div>
-      )}     
-      </div>
-    );
+    getOrders.map((item:TSingleOrder) => (            
+      <FeedOrder item={item} key={item._id}/>         
+      ))
+  ) : (
+    <div>Нет в наличии</div>
+  )}     
+  </div>
+);
+} else {
+  return (
+    <div>Нет данных</div>
+  )
+}
+
+  
   }

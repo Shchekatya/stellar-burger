@@ -2,15 +2,14 @@ import styles from "./feed-right.module.css";
 import { useSelector } from "../../services/hooks/hooks";
 import { TSingleOrder } from "./feed-left";
 import clsx from "clsx";
-import { TMessage } from "../../services/actions/ws-actions";
 
 export function FeedRight() {
-  const messages:TMessage = useSelector((state) => state.wsReducer.messages);
+  const messages = useSelector((state) => state.wsReducer.messages);
 
+
+  if (messages) {
    const ordersStatus = messages.orders;
- 
-
-  return (
+   return (
     <>
       <div className={styles.orders}>
         <div className={styles.ordersReady}>
@@ -52,4 +51,11 @@ export function FeedRight() {
       </div>
     </>
   );
+  } else {
+    return (
+      <div>Нет данных</div>
+    )
+  }
+
+  
 }

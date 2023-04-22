@@ -32,7 +32,6 @@ export const BurgerConstructorSinge = ({
 }: TProps) => {
   const onClick = () => delCard(index);
   const ref = useRef<HTMLInputElement>(null);
-
   const [{ handlerId }, drop] = useDrop<
   TItem,
     ConnectDropTarget,
@@ -100,8 +99,7 @@ export const BurgerConstructorSinge = ({
       data-handler-id={handlerId}
     >
       <ConstructorElement
-        key={order._id}
-        type={order.type!}
+        key={order._id}        
         isLocked={false}
         text={order.name!}
         price={order.price}

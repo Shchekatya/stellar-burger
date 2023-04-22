@@ -21,6 +21,8 @@ import { FeedId } from "../feed/feed-id";
 import { Order } from "../../pages/orders";
 import { ProfileInfo } from "../../pages/profile";
 import { Dispatch } from "redux";
+import { getCookie } from "../../utils/cookie";
+
 
 const App = () => {
   const location = useLocation();
@@ -38,6 +40,8 @@ const App = () => {
   const handleModalClose = () => {
     navigate(-1);
   };
+  const cookie=getCookie("authToken")
+
   if (feedFailed) {
     return <p>Произошла ошибка при получении данных</p>;
   } else if (feedRequest) {
@@ -59,8 +63,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
 
-          <Route path="/feed/:orderId" element={<FeedId />} />
-          <Route path="/profile/orders/:orderId" element={<FeedId />} />
+          <Route path="/feed/:orderId" element={<FeedId props={`wss://norma.nomoreparties.space/orders/all`}/>} />
+          <Route path="/profile/orders/:orderId" element={<FeedId props={`wss://norma.nomoreparties.space/orders?token=${cookie}`}/>} />
           <Route
             path="/reset-password"
             element={
@@ -99,7 +103,7 @@ const App = () => {
               path="/feed/:orderId"
               element={
                 <Modal onClose={handleModalClose}>
-                  <FeedId />
+                  <FeedId props={`wss://norma.nomoreparties.space/orders/all`}/>                  
                 </Modal>
               }
             />
@@ -107,7 +111,7 @@ const App = () => {
               path="/profile/orders/:orderId"
               element={
                 <Modal onClose={handleModalClose}>
-                  <FeedId />
+                  <FeedId props={`wss://norma.nomoreparties.space/orders?token=${cookie}`}/>
                 </Modal>
               }
             />

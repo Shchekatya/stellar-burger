@@ -6,17 +6,18 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   TWSActions,
+  TMessage
 } from "../actions/ws-actions";
 
 type TWSState = {
   wsConnected: boolean;
-  messages: any;
+  messages: TMessage | null;
   error?: Event;
 };
 
 const initialState: TWSState = {
   wsConnected: false,
-  messages: '',
+  messages: null,
 };
 
 // Создадим редьюсер для WebSocket
