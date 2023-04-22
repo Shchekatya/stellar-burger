@@ -19,7 +19,7 @@ export function Login() {
   const dispatch = useAppDispatch();
   const cookie=getCookie("authToken")
   
-  const fromPage = location.state?.pathname || "/";   
+  const fromPage = location.state?.pathname || "/";    
   const [value, setValue] = React.useState(user.email);
   const [pass, setPass] = React.useState(user.password);
   const navigate=useNavigate();

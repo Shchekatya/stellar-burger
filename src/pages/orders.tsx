@@ -19,7 +19,9 @@ export function Order() {
           dispatch({ 
             type: WS_CONNECTION_START,
             payload:`wss://norma.nomoreparties.space/orders?token=${cookie}`});               
-     
+            return () => {
+              dispatch({ type: WS_CONNECTION_CLOSED });  
+              };
       },
       [location] 
     );

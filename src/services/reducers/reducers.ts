@@ -129,6 +129,8 @@ export const changeConstructor = (
         ...state,
         result: action.payload,
         orderSend: false,
+        main: [],
+        bun: null,
       };
     }
     case SEND_ORDER_FAILED: {

@@ -6,6 +6,8 @@ import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED } from "./actions";
 import { Dispatch } from "redux";
 import { AppDispatch, AppThunk } from "../..";
 import { useAppDispatch } from "../hooks/hooks";
+import {TItem} from '../../components/ingredients/ingredient-single'
+
 
 export function sendOrder(orders: Array<string>) {
 
@@ -32,7 +34,9 @@ export function sendOrder(orders: Array<string>) {
         })
       )
       .catch((err) => {
+        console.log('что-то пошло не так')
         if (err.message === "jwt expired") {
+          
           dispatch(refreshToken());
         }
         dispatch({

@@ -70,7 +70,9 @@ const location=useLocation();
       ar = ingImg.filter((e) => e._id === element._id);
       if (ar.length > 1) {
         const del = ingImg.indexOf(element);
-        ingImg.splice(del, 1);
+        ingImg.splice(del, (ar.length-1));
+        element.count = ar.length;
+      } else {
         element.count = ar.length;
       }
     });

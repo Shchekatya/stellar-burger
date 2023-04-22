@@ -9,16 +9,17 @@ import styles from "../pages/profile.module.css";
 import { getUser } from "../services/actions/get-user";
 import { updateUser } from "../services/actions/update-user";
 import { useAppDispatch, useSelector } from "../services/hooks/hooks";
+import { useLocation } from "react-router-dom";
 
 
 export function ProfileInfo() {
     const user = useSelector((state) => state.login);
     const isLogged = useSelector((state) => state.login.isLoggedIn);
     const dispatch = useAppDispatch(); 
+    const location=useLocation()
 
     React.useEffect(() => {
-        dispatch(getUser());
-        getUser();
+        dispatch(getUser());     
       }, []);
     
       const [value, setValue] = React.useState(user.name);
