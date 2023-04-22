@@ -40,7 +40,7 @@ export interface IWSConnectionClosedAction {
 
 export interface IWSGetMessageAction {
   readonly type: typeof WS_GET_MESSAGE;
-  readonly payload: TMessage;
+  readonly payload: string;
 }
 
 

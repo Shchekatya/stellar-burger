@@ -2,16 +2,13 @@ import styles from "./feed-right.module.css";
 import { useSelector } from "../../services/hooks/hooks";
 import { TSingleOrder } from "./feed-left";
 import clsx from "clsx";
+import { TMessage } from "../../services/actions/ws-actions";
 
 export function FeedRight() {
-  const messages = useSelector((state) => state.wsReducer.messages);
+  const messages:TMessage = useSelector((state) => state.wsReducer.messages);
 
-  let getOrders = [];
-  let ordersStatus = [];
-  if (messages.length) {
-    getOrders = JSON.parse(messages);
-    ordersStatus = getOrders.orders;
-  }
+   const ordersStatus = messages.orders;
+ 
 
   return (
     <>
@@ -47,11 +44,11 @@ export function FeedRight() {
       </div>
       <div className={styles.all}>
         <p className="text text_type_main-medium">Выполнено за все время:</p>
-        <p className="text text_type_digits-large">{getOrders.total}</p>
+        <p className="text text_type_digits-large">{messages.total}</p>
       </div>
       <div className={styles.today}>
         <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-        <p className="text text_type_digits-large">{getOrders.totalToday}</p>
+        <p className="text text_type_digits-large">{messages.totalToday}</p>
       </div>
     </>
   );

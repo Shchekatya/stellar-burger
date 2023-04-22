@@ -16,7 +16,7 @@ type TWSState = {
 
 const initialState: TWSState = {
   wsConnected: false,
-  messages: [],
+  messages: '',
 };
 
 // Создадим редьюсер для WebSocket
@@ -56,7 +56,7 @@ export const wsReducer = (state = initialState, action: TWSActions):TWSState => 
       return {
         ...state,
         error: undefined,
-        messages: action.payload,
+        messages: JSON.parse(action.payload),
       };
     default:
       return state;
