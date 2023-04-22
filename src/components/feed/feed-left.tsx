@@ -10,7 +10,7 @@ export type TSingleOrder={
   status: string
   name: string
   number: number
-  ingredients: []
+  ingredients: string[]
   updatedAt: string
   createdAt: string   
 }

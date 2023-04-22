@@ -1,3 +1,5 @@
+import {TSingleOrder} from '../../components/feed/feed-left'
+
 export const WS_CONNECTION_PROFILE: "WS_CONNECTION_PROFILE" =
   "WS_CONNECTION_PROFILE";
 export const WS_CONNECTION_START: "WS_CONNECTION_START" = "WS_CONNECTION_START";
@@ -8,6 +10,13 @@ export const WS_CONNECTION_CLOSED: "WS_CONNECTION_CLOSED" =
   "WS_CONNECTION_CLOSED";
 export const WS_GET_MESSAGE: "WS_GET_MESSAGE" = "WS_GET_MESSAGE";
 export const WS_SEND_MESSAGE: "WS_SEND_MESSAGE" = "WS_SEND_MESSAGE";
+
+export type TMessage= {
+  success:boolean
+  orders:TSingleOrder[]
+  total: number
+  totalToday: number
+}
 
 export interface IWSConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
@@ -31,8 +40,9 @@ export interface IWSConnectionClosedAction {
 
 export interface IWSGetMessageAction {
   readonly type: typeof WS_GET_MESSAGE;
-  readonly payload: any;
+  readonly payload: TMessage;
 }
+
 
 export interface IWSSendMessageAction {
   readonly type: typeof WS_SEND_MESSAGE;
