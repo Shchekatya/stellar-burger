@@ -50,7 +50,7 @@ export function FeedId() {
       if (el != null) {
         const arr: TItem | undefined = items.find((e: TItem) => e._id === el);
         if (arr != undefined) {
-          const ar: number = ingImg.push(arr);
+          ingImg.push(arr);
         }
       }
     });
