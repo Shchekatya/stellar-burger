@@ -17,7 +17,7 @@ export const ProtectedRouteElement = ({ children}: TChildren) => {
   console.log(cookie)
   console.log(isLogged)
   const location = useLocation();
-  if (!isLogged || !cookie) {
+  if (!isLogged && !cookie) {
     return <Navigate to="/login" state={ location } />;
   }
   return children;

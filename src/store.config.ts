@@ -35,7 +35,7 @@ const wsActions: TWSStoreActions = {
 const configureStore = () => {
   const middlewares: Middleware[] = [thunk];
   let composeEnhancers = compose;
-
+  console.log(process.env)
   if (process.env.NODE_ENV === "development") {
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
