@@ -36,5 +36,5 @@ export function setCookie(name: string, value: string | boolean, props?: any) {
 
   
   export function deleteCookie(name:string) {
-    document.cookie=`${name}=0`
+    setCookie(name, '', { expires: -1 });
   }

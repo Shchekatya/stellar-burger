@@ -28,8 +28,8 @@ export function loginUser(value: string, pass: string) {
         const authToken = res.accessToken.split("Bearer ")[1];
         const refreshToken = res.refreshToken;
         if (authToken) {
-          setCookie("authToken", authToken);
-          setCookie("refreshToken", refreshToken);
+          setCookie("authToken", authToken, { path: "/" });
+          setCookie("refreshToken", refreshToken, { path: "/" });
         }
         dispatch({
           type: LOGIN,
