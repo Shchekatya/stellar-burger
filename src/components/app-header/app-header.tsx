@@ -15,7 +15,7 @@ export const AppHeader = () => {
           <BurgerIcon type="primary" />
           <p className="text text_type_main-default, ml-2">Конструктор</p>
         </Link>
-        <Link to="/" className={appHeader.icon}>
+        <Link to="/feed" className={appHeader.icon}>
           <ListIcon type="primary" />
           <p className="text text_type_main-default, ml-2">Лента заказов</p>
         </Link>

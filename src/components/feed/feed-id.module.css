@@ -1,0 +1,40 @@
+.wrapper {
+    margin: 0 auto;   
+    max-height: 100%;
+    margin: 20px auto;
+}
+.ing {
+    max-height: 200px;  
+    overflow: auto;
+}
+
+.ing::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .ing::-webkit-scrollbar-track {
+    background: #2F2F37;
+  }
+  
+  .ing::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+  }
+
+  
+.number {
+    text-align: center;
+}
+
+.status {
+    color: rgba(0, 204, 204, 1);
+}
+
+.bottom {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.date {   
+    color:rgba(133, 133, 173, 1);
+
+}

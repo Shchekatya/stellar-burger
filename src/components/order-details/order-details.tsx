@@ -9,7 +9,7 @@ export const OrderDetails = () => {
   return (
     <div className={OrderStyle.txt}>
       <p className="text text_type_digits-large">
-       { result.result.order.number}
+        {result.result.order.number}
       </p>
       <p className="text text_type_main-medium">индефикатор заказа</p>
       <div className="m-15">{img}</div>

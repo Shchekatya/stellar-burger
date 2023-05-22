@@ -4,7 +4,10 @@ import ModalStyle from "../modal/modal.module.css";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../services/actions/ws-actions";
+import { useAppDispatch } from "../../services/hooks/hooks";
+import { useLocation } from "react-router-dom";
+import { getCookie } from "../../utils/cookie";
 
 const modalElement = document.querySelector("#modal");
 
@@ -13,6 +16,10 @@ type TProp ={
   onClose: ()=>void
 }
 export const Modal = (props: TProp) => {
+  const dispatch=useAppDispatch();
+  const location=useLocation();
+
+
   useEffect(() => {
     function closeByEscape(e:KeyboardEvent) {
       if(e.key === 'Escape') {

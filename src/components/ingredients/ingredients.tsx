@@ -1,30 +1,22 @@
 import Ing from "../ingredients/ingredients.module.css";
-import { useSelector } from "react-redux";
 import { IngredientSingle } from "./ingredient-single";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useSelector } from "../../services/hooks/hooks";
+import { TItem } from "./ingredient-single";
 
-type Prop= {
-  type: string
-items:[]
-}
+type Prop = {
+  type: string;
+  items: Array<TItem>;
+};
 
-type TE= {
-  type:string
-}
-type TItem ={ 
-  _id: string
-}
-export const Ingredients = (props:Prop) => {
-  const items = useSelector((state:any) => state.loadIngredients.items);
+export const Ingredients = (props: Prop) => {
+  const items = useSelector((state) => state.loadIngredients.items);
 
   return (
     <div className={Ing.show}>
       {items ? (
         items
-          .filter((e:TE) => e.type === props.type)
-          .map((item:TItem) => (
-            <IngredientSingle item={item} key={item._id} />
-          ))
+          .filter((e) => e.type === props.type)
+          .map((item) => <IngredientSingle item={item} key={item._id} />)
       ) : (
         <div>Нет в наличии</div>
       )}

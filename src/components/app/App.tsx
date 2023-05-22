@@ -1,43 +1,47 @@
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { Modal } from "../modal-ingredient/modal";
+import { Modal } from "../modal/modal";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Register } from "../pages/register";
-import { Reset } from "../pages/reset-password";
-import { Login } from "../pages/login";
-import { Page404 } from "../pages/404";
-import { MainBurgers } from "../pages/main-burgers";
-import { Profile } from "../pages/profile";
-import { Forgot } from "../pages/forgot-password";
+import { Register } from "../../pages/register";
+import { Reset } from "../../pages/reset-password";
+import { Login } from "../../pages/login";
+import { Page404 } from "../../pages/404";
+import { MainBurgers } from "../../pages/main-burgers";
+import { Profile } from "../../pages/profile-menu";
+import { Forgot } from "../../pages/forgot-password";
 import { ProtectedRouteElement } from "../protected-route/protected-route";
-import { useDispatch, useSelector } from "react-redux";
-import { HIDE_ITEM, LOAD_SUCCESS } from "../../services/actions/actions";
+import { HIDE_ITEM, TActionShow } from "../../services/actions/actions";
 import { useEffect } from "react";
 import { getFeed } from "../../services/actions/get-feed";
 import { ProtectedReset } from "../protected-route/protected-reset";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { Feed } from "../../pages/feed";
+import { FeedId } from "../feed/feed-id";
+import { Order } from "../../pages/orders";
+import { ProfileInfo } from "../../pages/profile";
+import { Dispatch } from "redux";
+import { getCookie } from "../../utils/cookie";
+
 
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const background = location.state && location.state.background;
 
-  const {feedRequest, feedFailed } = useAppSelector(
+  const { feedRequest, feedFailed } = useSelector(
     (state) => state.loadIngredients
   );
   useEffect(() => {
     dispatch(getFeed());
-    getFeed();
   }, []);
 
   const handleModalClose = () => {
-    dispatch({
-      type: HIDE_ITEM,
-    });
     navigate(-1);
   };
+  const cookie=getCookie("authToken")
+
   if (feedFailed) {
     return <p>Произошла ошибка при получении данных</p>;
   } else if (feedRequest) {
@@ -57,6 +61,10 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/feed" element={<Feed />} />
+
+          <Route path="/feed/:orderId" element={<FeedId props={`wss://norma.nomoreparties.space/orders/all`}/>} />
+          <Route path="/profile/orders/:orderId" element={<FeedId props={`wss://norma.nomoreparties.space/orders?token=${cookie}`}/>} />
           <Route
             path="/reset-password"
             element={
@@ -72,7 +80,10 @@ const App = () => {
                 <Profile />
               </ProtectedRouteElement>
             }
-          />
+          >
+            <Route path="/profile/orders" element={<Order />} />
+            <Route path="/profile" element={<ProfileInfo />} />
+          </Route>
 
           <Route path="/forgot-password" element={<Forgot />} />
           <Route path="*" element={<Page404 />} />
@@ -85,6 +96,22 @@ const App = () => {
               element={
                 <Modal onClose={handleModalClose}>
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path="/feed/:orderId"
+              element={
+                <Modal onClose={handleModalClose}>
+                  <FeedId props={`wss://norma.nomoreparties.space/orders/all`}/>                  
+                </Modal>
+              }
+            />
+            <Route
+              path="/profile/orders/:orderId"
+              element={
+                <Modal onClose={handleModalClose}>
+                  <FeedId props={`wss://norma.nomoreparties.space/orders?token=${cookie}`}/>
                 </Modal>
               }
             />

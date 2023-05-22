@@ -4,15 +4,14 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { reset } from "../../services/actions/reset";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { reset } from "../services/actions/reset";
+import { useAppDispatch, useSelector } from "../services/hooks/hooks";
 
 
 export function Reset() {
-  const user = useAppSelector((state) => state.login);
-  const response = useAppSelector((state) => state.login.name);
+  const user = useSelector((state) => state.login);
+  const response = useSelector((state) => state.login.name);
 
   const [code, setCode] = React.useState("");
   const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +22,7 @@ export function Reset() {
     setPass(e.target.value);
   };
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   if (response === "Password successfully reset") {
     return <Navigate to="/login" />;
   }

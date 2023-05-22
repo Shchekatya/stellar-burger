@@ -5,11 +5,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useMemo, useCallback } from "react";
 import bConst from "../burger-constructor/burger-constructor.module.css";
-import { Modal } from "../modal-ingredient/modal";
+import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_CONSTRUCTOR,
   ADD_BUN,
@@ -17,98 +16,90 @@ import {
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
 import { BurgerConstructorSinge } from "./burger-constructor-single";
-import { BASE_URL } from "../../utils/api";
-import { getCookie } from "../../utils/cookie";
-import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { useLocation, useNavigate } from "react-router-dom";
 import { sendOrder } from "../../services/actions/send-order";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
-import {TItem} from "../ingredients/ingredient-single";
+import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
+import { TItem } from "../ingredients/ingredient-single";
+import { Dispatch } from "redux";
 
 export const BurgerConstructor = () => {
-  const orders = useSelector((state:any) => state.changeConstructor);
-  const isLogged = useAppSelector((state) => state.login.isLoggedIn);
-  const result = useSelector((state:any) => state.changeConstructor.result);
-  const navigate=useNavigate();
+  const orders = useSelector((state) => state.changeConstructor);
+  const isLogged = useSelector((state) => state.login.isLoggedIn);
+  const result = useSelector((state) => state.changeConstructor.result);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const location=useLocation();
+  const location = useLocation();
 
-  type TOrder ={
-    key: string   
-    _id: string
-    price: number
-    image: string
-    name: string
-    type?: "top" | "bottom" | undefined
-    id: string
-    index: number
-  }
-  
-type TCurr={  
-     price?: number
- }
-  const addConstructor = (item:any) => {
-    if (item.item.type === "bun") {
-      dispatch({
-        type: ADD_BUN,
-        payload: item,
-        order: orderArr,
-      });
-    } else {
-      dispatch({
-        type: ADD_CONSTRUCTOR,
-        payload: item,
-        key: uuidv4(),
-        order: orderArr,
-      });
-    }
-  };
+  // type TOrder = {   
+  //   proteins?: string;
+  //   calories?: string;
+  //   fat?: string;
+  //   carbohydrates?: string;   
+  //   _id: string;
+  //   price: number ;
+  //   image: string;
+  //   name: string;
+  //   // type: "top" | "bottom" | undefined;
+  //   type: string;
+  //   id: string;
+  //   index: number;
+  //   key: string;
+  // };
+
+  // type TCurr = {
+  //   price?: number;
+  // };
 
   const [, dropTarget] = useDrop({
     accept: "items",
-    drop(item) {
-      addConstructor(item);
-    },
   });
 
   const [open, setOpen] = useState(false);
-  const orderArr = orders.main.map((item:TItem) => item._id.toString());
+  const orderArr = orders.main.map((item: TItem) => item._id.toString());
   orders.bun && orderArr.push(orders.bun._id);
-  const sum = useMemo(
-   
-    () =>
-      orders.main.reduce((acc:number, cur:TCurr) => acc + cur.price!, 0) +
-      (orders.bun && orders.bun.price * 2),
-    [orders]
-  );
+  // const sum = useMemo(() =>
+  //     orders.main.reduce((acc: number, cur: TItem) => acc + cur.price, 0)
+  //     + (orders.bun && orders.bun.price * 2),
+  //   [orders]
+  // );
+
+  const sum = useMemo(() =>
+  orders.main.reduce((acc, cur) => acc + cur.price!, 0),
+[orders]
+);
 
   const delCard = useCallback(
-    (dragIndex:number) => {
+    (dragIndex: number) => {
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
+      const orderArr = newCards.map((item: TItem) => item._id.toString());
+      orders.bun && orderArr.push(orders.bun._id);
       dispatch({
         type: DELETE_CONSTRUCTOR,
         payload: newCards,
+        order: orderArr,
       });
     },
     [orders.main, dispatch]
   );
 
   const moveCard = useCallback(
-    (dragIndex:number, hoverIndex:number) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragCard = orders.main[dragIndex];
       const newCards = [...orders.main];
       newCards.splice(dragIndex, 1);
       newCards.splice(hoverIndex, 0, dragCard);
-
+      const orderArr = newCards.map((item: TItem) => item._id.toString());
+      orders.bun && orderArr.push(orders.bun._id);
       dispatch({
         type: UPDATE_CONSTRUCTOR,
         payload: newCards,
+        order: orderArr,
       });
     },
     [orders.main, dispatch]
   );
- 
+
   return (
     <div className={bConst.right} ref={dropTarget}>
       <div className={bConst.list}>
@@ -118,14 +109,13 @@ type TCurr={
               type="top"
               isLocked={true}
               text={`${orders.bun.name} (верх)`}
-              price={orders.bun.price}
-              thumbnail={orders.bun.image}
+              price={orders.bun.price!}
+              thumbnail={orders.bun.image!}
             />
           </div>
         )}
         <div className={bConst.mainlist}>
-          
-          {orders.main.map((order:TOrder, index:number) => {        
+          {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge
                 order={order}
@@ -143,8 +133,8 @@ type TCurr={
               type="bottom"
               isLocked={true}
               text={`${orders.bun.name} (низ)`}
-              price={orders.bun.price}
-              thumbnail={orders.bun.image}
+              price={orders.bun.price!}
+              thumbnail={orders.bun.image!}
             />
           </div>
         )}
@@ -157,12 +147,14 @@ type TCurr={
           type="primary"
           size="medium"
           onClick={() => {
+            console.log(isLogged);
             if (!isLogged) {
-              navigate('/login',{ state: location })         
+              navigate("/login", { state: location });
             } else {
-            setOpen(true);
-            dispatch(sendOrder(orderArr));
-          }}}
+              setOpen(true);
+              dispatch(sendOrder(orderArr));
+            }
+          }}
         >
           Оформить заказ
         </Button>

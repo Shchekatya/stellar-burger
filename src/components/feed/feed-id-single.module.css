@@ -1,0 +1,10 @@
+.singleWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main{
+    display: flex;
+    align-items: center;
+}
