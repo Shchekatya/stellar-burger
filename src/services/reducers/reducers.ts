@@ -89,7 +89,7 @@ export const changeConstructor = (
   action: TActionConstructor
 ):TInitialConstructor => {
   switch (action.type) {
-    case ADD_CONSTRUCTOR:
+    case ADD_CONSTRUCTOR:    
       return {
         ...state,
         main: [...state.main, { ...action.payload.item, key: action.key }],

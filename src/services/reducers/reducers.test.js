@@ -7,9 +7,10 @@ it('should handle ADD_TODO', () => {
         main: [],     
         orders: [],    
       };
+      const item={_id: '12', name:'cucumber'};
       const action={
         type: types.ADD_CONSTRUCTOR,
-        payload: {_id: '12', name:'cucumber'},
+        payload: {item},
         key: 'abc',   
         order: ['12']  
       }
