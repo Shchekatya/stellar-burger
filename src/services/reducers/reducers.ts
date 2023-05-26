@@ -97,6 +97,7 @@ export const changeConstructor = (
       };
 
     case DELETE_CONSTRUCTOR:
+      console.log(action.payload)
       return {
         ...state,
         main: action.payload,

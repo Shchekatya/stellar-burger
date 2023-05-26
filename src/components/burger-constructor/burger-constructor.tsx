@@ -10,8 +10,6 @@ import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
 import {
-  ADD_CONSTRUCTOR,
-  ADD_BUN,
   UPDATE_CONSTRUCTOR,
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
@@ -20,7 +18,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { sendOrder } from "../../services/actions/send-order";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { TItem } from "../ingredients/ingredient-single";
-import { Dispatch } from "redux";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
