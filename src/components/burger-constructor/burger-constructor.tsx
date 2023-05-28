@@ -98,12 +98,12 @@ export const BurgerConstructor = () => {
   );
 
   return (
-    <div className={bConst.right} ref={dropTarget}>
-      <div className={bConst.list}>
+    <div className={bConst.right} ref={dropTarget} data-test="drop-area">
+      <div className={bConst.list} >
         {orders.bun && (
-          <div>
+          <div data-test="bun-top">
             <ConstructorElement
-              type="top"
+              type="top"              
               isLocked={true}
               text={`${orders.bun.name} (верх)`}
               price={orders.bun.price!}
@@ -111,7 +111,7 @@ export const BurgerConstructor = () => {
             />
           </div>
         )}
-        <div className={bConst.mainlist}>
+        <div className={bConst.mainlist} data-test="main">
           {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge
@@ -125,10 +125,10 @@ export const BurgerConstructor = () => {
           })}
         </div>
         {orders.bun && (
-          <div>
+          <div data-test="bun-bottom">
             <ConstructorElement
               type="bottom"
-              isLocked={true}
+              isLocked={true}              
               text={`${orders.bun.name} (низ)`}
               price={orders.bun.price!}
               thumbnail={orders.bun.image!}

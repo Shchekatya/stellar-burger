@@ -38,7 +38,7 @@ export const Modal = (props: TProp) => {
       <ModalOverlay onClick={props.onClose}/>    
       <div className={ModalStyle.background}>
         <div className={ModalStyle.modal}>
-        <div className={ModalStyle.close}>
+        <div className={ModalStyle.close} data-test="close-button">
         <CloseIcon type="primary" onClick={props.onClose} />
         </div>
           <div className={ModalStyle.txt}>{props.children}</div>

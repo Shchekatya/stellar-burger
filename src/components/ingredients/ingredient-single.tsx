@@ -81,7 +81,7 @@ export const IngredientSingle = (prop: TItemProp) => {
         state={{ background: location }}
         className={Ing.link}
       >
-        <div ref={dragRef} className={Ing.card}>
+        <div ref={dragRef} className={Ing.card} >
           {count != 0 && <div className={Ing.count}>{count}</div>}
 
           <img src={item.image} alt={item.name} />
@@ -89,7 +89,7 @@ export const IngredientSingle = (prop: TItemProp) => {
             {item.price}
             <CurrencyIcon type="primary" />
           </p>
-          <p className="text text_type_main-small">{item.name}</p>
+          <p className="text text_type_main-small" data-test="ingredients">{item.name}</p>
         </div>
       </Link>
     </>

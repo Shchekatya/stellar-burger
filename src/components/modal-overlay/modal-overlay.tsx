@@ -7,7 +7,7 @@ type TModalProps={
 
 export const ModalOverlay = (props:TModalProps) => {
   return (
-    <div className={ModalOverStyle.background} onClick={props.onClick}></div>
+    <div className={ModalOverStyle.background} onClick={props.onClick} data-test="modal-overlay"></div>
   );
 };
 
