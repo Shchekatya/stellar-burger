@@ -12,7 +12,7 @@ import {
   Action,
   AnyAction,
 } from "redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { loginUser } from "./services/actions/login";
 import { TUserActions } from "./services/actions/profile-actions";
 import { TActionGetFeed, TActionConstructor } from "./services/actions/actions";
@@ -49,9 +49,9 @@ const Root: React.FC = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     </React.StrictMode>
   );
