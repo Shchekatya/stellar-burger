@@ -1,6 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
+  "homepage": "https://Shchekatya.github.io/stellar-burger",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
@@ -31,7 +32,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -60,6 +62,7 @@
     "cypress": "^12.13.0",
     "eslint-plugin-cypress": "^2.13.3",
     "fetch-mock": "^9.11.0",
+    "gh-pages": "^5.0.0",
     "react-test-renderer": "^18.2.0",
     "redux-mock-store": "^1.5.4"
   }
