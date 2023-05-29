@@ -99,7 +99,10 @@ export const BurgerConstructor = () => {
 
   return (
     <div className={bConst.right} ref={dropTarget} data-test="drop-area">
-      <div className={bConst.list} >
+      {!orders.bun &&<div className={bConst.toDo}>
+      <p className="text text_type_main-small mt-40">Перетащите сюда булку и ингредиенты для вашего космического бургера</p>
+      </div>}
+      <div className={bConst.list} >     
         {orders.bun && (
           <div data-test="bun-top">
             <ConstructorElement

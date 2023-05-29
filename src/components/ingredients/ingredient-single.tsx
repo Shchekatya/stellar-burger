@@ -1,9 +1,6 @@
 import Ing from "../ingredients/ingredients.module.css";
 import { useDrag } from "react-dnd";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { Dispatch } from "redux";
@@ -96,6 +93,3 @@ export const IngredientSingle = (prop: TItemProp) => {
   );
 };
 
-IngredientSingle.propTypes = {
-  item: PropTypes.object.isRequired,
-};

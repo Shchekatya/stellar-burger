@@ -1,7 +1,6 @@
 import { createPortal } from "react-dom";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import ModalStyle from "../modal/modal.module.css";
-import PropTypes from "prop-types";
 import { useEffect } from "react";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../services/actions/ws-actions";
@@ -47,8 +46,4 @@ export const Modal = (props: TProp) => {
     </>,
     modalElement!
   );
-};
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
 };
