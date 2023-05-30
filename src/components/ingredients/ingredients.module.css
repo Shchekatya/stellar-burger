@@ -12,6 +12,8 @@
 
 .card p {
     margin: 4px 0;
+    text-decoration: none;
+    color: white;
 }
 
 .count {
@@ -24,4 +26,8 @@
    position:absolute;
    text-decoration: none;
    right: 0;
+}
+
+.link {
+    text-decoration: none;
 }

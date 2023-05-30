@@ -10,8 +10,6 @@ import { OrderDetails } from "../order-details/order-details";
 import { PostContext } from "../../utils/post-context";
 import { useDrop } from "react-dnd";
 import {
-  ADD_CONSTRUCTOR,
-  ADD_BUN,
   UPDATE_CONSTRUCTOR,
   DELETE_CONSTRUCTOR,
 } from "../../services/actions/actions";
@@ -20,7 +18,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { sendOrder } from "../../services/actions/send-order";
 import { useAppDispatch, useSelector } from "../../services/hooks/hooks";
 import { TItem } from "../ingredients/ingredient-single";
-import { Dispatch } from "redux";
 
 export const BurgerConstructor = () => {
   const orders = useSelector((state) => state.changeConstructor);
@@ -101,12 +98,15 @@ export const BurgerConstructor = () => {
   );
 
   return (
-    <div className={bConst.right} ref={dropTarget}>
-      <div className={bConst.list}>
+    <div className={bConst.right} ref={dropTarget} data-test="drop-area">
+      {!orders.bun &&<div className={bConst.toDo}>
+      <p className="text text_type_main-small mt-40">Перетащите сюда булку и ингредиенты для вашего космического бургера</p>
+      </div>}
+      <div className={bConst.list} >     
         {orders.bun && (
-          <div>
+          <div data-test="bun-top">
             <ConstructorElement
-              type="top"
+              type="top"              
               isLocked={true}
               text={`${orders.bun.name} (верх)`}
               price={orders.bun.price!}
@@ -114,7 +114,7 @@ export const BurgerConstructor = () => {
             />
           </div>
         )}
-        <div className={bConst.mainlist}>
+        <div className={bConst.mainlist} data-test="main">
           {orders.main.map((order, index) => {
             return (
               <BurgerConstructorSinge
@@ -128,10 +128,10 @@ export const BurgerConstructor = () => {
           })}
         </div>
         {orders.bun && (
-          <div>
+          <div data-test="bun-bottom">
             <ConstructorElement
               type="bottom"
-              isLocked={true}
+              isLocked={true}              
               text={`${orders.bun.name} (низ)`}
               price={orders.bun.price!}
               thumbnail={orders.bun.image!}

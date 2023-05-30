@@ -2,7 +2,6 @@ import bConst from "../burger-constructor/burger-constructor.module.css";
 import { useDrag, useDrop, ConnectDropTarget } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
-import PropTypes from "prop-types";
 import { Identifier } from "dnd-core";
 import { TItem } from "../ingredients/ingredient-single";
 
@@ -110,9 +109,4 @@ export const BurgerConstructorSinge = ({
   );
 };
 
-BurgerConstructorSinge.propTypes = {
-  order: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  moveCard: PropTypes.func.isRequired,
-  delCard: PropTypes.func.isRequired,
-};
+

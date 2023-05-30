@@ -22,7 +22,7 @@ type TInitialIngredients = {
   items: Array<TItem>;
 };
 
-const initialIngredients: TInitialIngredients = {
+export const initialIngredients: TInitialIngredients = {
   feedRequest: false,
   feedFailed: false,
   items: [],
@@ -37,7 +37,7 @@ type TInitialConstructor = {
   result: any;
 };
 
-const initialConstructor: TInitialConstructor = {
+export const initialConstructor: TInitialConstructor = {
   main: [],
   bun: null,
   orders: [],
@@ -64,7 +64,7 @@ export const loadIngredients = (state = initialIngredients,action: TActionGetFee
       };
     }
 
-    case GET_FEED_SUCCESS: {
+    case GET_FEED_SUCCESS: {   
       return {
         ...state,
         items: action.items,
@@ -89,14 +89,14 @@ export const changeConstructor = (
   action: TActionConstructor
 ):TInitialConstructor => {
   switch (action.type) {
-    case ADD_CONSTRUCTOR:
+    case ADD_CONSTRUCTOR:    
       return {
         ...state,
         main: [...state.main, { ...action.payload.item, key: action.key }],
         orders: action.order,
       };
 
-    case DELETE_CONSTRUCTOR:
+    case DELETE_CONSTRUCTOR:    
       return {
         ...state,
         main: action.payload,

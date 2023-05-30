@@ -12,7 +12,7 @@ import {
   Action,
   AnyAction,
 } from "redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { loginUser } from "./services/actions/login";
 import { TUserActions } from "./services/actions/profile-actions";
 import { TActionGetFeed, TActionConstructor } from "./services/actions/actions";
@@ -20,6 +20,7 @@ import { TWSActions, WS_CONNECTION_ERROR } from "./services/actions/ws-actions";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import configureStore from "./store.config";
 import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 
 const store = configureStore();
 
@@ -35,31 +36,28 @@ export type TAppActions =
 
 export type RootState = ReturnType<typeof store.getState>;
 export type TypedDispatch<T> = ThunkDispatch<T, any, TAppActions>;
-// export type AppDispatch = typeof store.dispatch;
 export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
-// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, never, TAppActions>>;
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TAppActions>
 >;
-// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TAppActions>>;
-// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TAppActions>>;
-// export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
+
 
 const Root: React.FC = () => {
   return (
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     </React.StrictMode>
   );
 };
 
-render(<Root />, document.getElementById("root"));
+const rootElement = document.getElementById("root")!;
+const root = createRoot(rootElement);
+      root.render(<Root />);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
+
 reportWebVitals();

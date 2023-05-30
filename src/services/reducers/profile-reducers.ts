@@ -20,7 +20,7 @@ type TInitialUser = {
   sendFailed?: boolean;
 };
 
-const initialUser: TInitialUser = {
+export const initialUser: TInitialUser = {
   email: "",
   password: "",
   name: "",
@@ -69,14 +69,14 @@ export const login = (state = initialUser, action: TUserActions) => {
         isLoggedIn: true,
         sendRequest: false,
       };
-    case GET_USER:
+    case GET_USER:   
       return {
         ...state,
         email: action.payload.email,
         name: action.payload.name,
         sendRequest: false,
       };
-    case UPDATE_USER:
+    case UPDATE_USER:      
       return {
         ...state,
         email: action.payload.email,
@@ -95,6 +95,7 @@ export const login = (state = initialUser, action: TUserActions) => {
       };
     case REGISTER:
       return {
+        ...state,
         email: action.payload.email,
         name: action.payload.name,
         password: action.payload.password,
