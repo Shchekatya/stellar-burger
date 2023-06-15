@@ -1,10 +1,18 @@
 With this app you can create and order your own unique space burger. Drag&drop ingredient you would like to add to order area. Before sending order you have to sign in. In your profile you can find your order history. In feed you can see all orders we  have received.
 
+General view of application:
+
 ![General view of application](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_24.jpg)
+
+After adding some ingredients:
 
 ![After adding some ingredients](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_25.jpg)
 
+Order feed:
+
 ![Order feed](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_26.jpg)
+
+User's orders in the personal account:
 
 ![User's orders in the personal account](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_27.jpg)
 
