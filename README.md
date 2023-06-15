@@ -22,4 +22,4 @@ Technologies used: HTML, CSS, CSS Modules, React, React Router, Redux, TypeScrip
 
 How to install:
 1.npm install
-2.npm run serve
+2.npm run start
