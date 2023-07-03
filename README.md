@@ -1,25 +1,27 @@
-With this app you can create and order your own unique space burger. Drag&drop ingredient you would like to add to order area. Before sending order you have to sign in. In your profile you can find your order history. In feed you can see all orders we  have received.
+Приложение Stallar Burger
 
-General view of application:
+Приложение для создания и оригинального бургера из набора ингредиентов. Перетащите ингредиент, который вы хотите добавить в свой бургер, в зону заказа. Чтобы отправить заказ, вам нужно зарегистрироваться. В профиле вы можете посмотреть историю заказов, а также отредактировать свои данные. В ленте заказов можно посмотреть все заказы, которые мы получили, и их стутас готовности.
+
+Общий вид приложения:
 
 ![General view of application](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_24.jpg)
 
-After adding some ingredients:
+После добавления ингредиентов:
 
 ![After adding some ingredients](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_25.jpg)
 
-Order feed:
+Лента заказов:
 
 ![Order feed](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_26.jpg)
 
-User's orders in the personal account:
+Профиль пользователя:
 
 ![User's orders in the personal account](https://github.com/Shchekatya/stellar-burger/blob/main/screenshots/Screenshot_27.jpg)
 
-You can see our app here: https://shchekatya.github.io/stellar-burger/
+Посмотреть приложение можно здесь: https://shchekatya.github.io/stellar-burger/
 
-Technologies used: HTML, CSS, CSS Modules, React, React Router, Redux, TypeScript
+Используемые технологии: HTML, CSS, CSS Modules, React, React Router, Redux, TypeScript
 
-How to install:
+Чтобы установить:
 1.npm install
 2.npm run start
